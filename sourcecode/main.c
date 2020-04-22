@@ -1,7 +1,8 @@
 #include<stdio.h> // kono stDIO da !
 #include<stdlib.h>
+#include"highscore.h"
 
 int main(){
-    printf("Hello World!\n");
+    getHighScore();
     return 0;
 }
