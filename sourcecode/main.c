@@ -6,6 +6,8 @@
 #include"menu.h"
 
 int main(){
-    menu();
+    highscore *HSarray = getHighScore();
+    if (menu() == 2) {printHighScore(HSarray);}
+    writeHighScore(HSarray);
     return 0;
 }

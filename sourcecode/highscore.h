@@ -6,3 +6,4 @@ typedef struct highscore {
 
 highscore* getHighScore();
 void writeHighScore(highscore*);
+void printHighScore(highscore *);
