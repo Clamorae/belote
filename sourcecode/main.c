@@ -23,5 +23,8 @@ int main(){
             printf("%d ",card[i][j]);
         }
     }
+    highscore *HSarray = getHighScore();
+    if (menu() == 2) {printHighScore(HSarray);}
+    writeHighScore(HSarray);
     return 0;
 }

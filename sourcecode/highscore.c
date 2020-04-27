@@ -29,3 +29,11 @@ void writeHighScore(highscore *array){
     free(array);//This free the memory used by the malloc in getHighScore(), wich is why it is mandatory
     fclose(hsSaveFile);
 }
+
+void printHighScore(highscore *array){
+    printf("HIGH SCORES\\__________________________________________\n\n");
+    for(int i = 0; i<5; i++){
+        printf(" %d | %s | %d\n",i+1,array[i].name,array[i].score);
+    }
+    printf("_______________________________________________________\n");
+}
