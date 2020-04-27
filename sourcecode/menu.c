@@ -13,7 +13,7 @@ int menu(){
     printf("%s", "_____________________________________________________________\n");
     printf("Veuilliez choisir une action: \n1-Commencer une partie\n2-Regarder les highscores\n3-Quitter\n");
     do{
-        scanf("%d\n",&input);
+        scanf("%d",&input);
     }while(input<1 || input>3);
     return input;
 }
