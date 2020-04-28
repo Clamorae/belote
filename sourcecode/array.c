@@ -42,6 +42,8 @@ int ** create(int lineNumber, int columnNumber){
 				}
 			}
 		}
+        while (columnNumber) free(matrix[--columnNumber]);
+        free(matrix);
 		return matrix;
 	}else{
 		printf("there is a problem with the size of the matrice, make sure you entered a correct value");
