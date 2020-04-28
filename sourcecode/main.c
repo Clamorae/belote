@@ -23,7 +23,6 @@ int main(){
         }
     }
     highscore *HSarray = getHighScore();
-    menu();
     if (menu() == 2) {printHighScore(HSarray);}
     writeHighScore(HSarray);
     return 0;
