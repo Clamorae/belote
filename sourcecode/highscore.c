@@ -3,7 +3,7 @@
 #include "highscore.h"
 
 highscore* getHighScore(){
-    //This function is used to get the highscores from the file hs.sav to an array of highscores, wich is a structure defined in the .h
+    //This function is used to get the highscores from the file hs.sav to an array of highscores, which is a structure defined in the .h
     //It is called at the launch of the program
     highscore *HSArray = malloc(sizeof(highscore) * 5);//Malloc is used here so we can return a pointer and use the array in the main fucntion
     FILE* hsSaveFile = fopen("hs.sav","r");
@@ -13,12 +13,12 @@ highscore* getHighScore(){
     }
     fclose(hsSaveFile);
     printf("Highscore loaded sucessfully\n");
-    return HSArray;//Returning the pointer to the array of highscores, wich will be used to modify the highscores during runtime
+    return HSArray;//Returning the pointer to the array of highscores, which will be used to modify the highscores during runtime
 }
 
 void writeHighScore(highscore *array){
     //this function is used to write the data from the array to the file hs.sav
-    //The argument is the pointer to the array, wich is returned by the previous function.
+    //The argument is the pointer to the array, which is returned by the previous function.
     //This function is called at the end of the program, and is mandatory if getHighScore was called
     FILE* hsSaveFile = fopen("hs.sav","w");
     for(int i=0; i<5;i++){
@@ -26,7 +26,7 @@ void writeHighScore(highscore *array){
         fprintf(hsSaveFile,"%d\n",array[i].score);// not modified (name \n score \n name \n score...)
     }
     printf("Highscore written sucessfully on hs.sav\n");
-    free(array);//This free the memory used by the malloc in getHighScore(), wich is why it is mandatory
+    free(array);//This free the memory used by the malloc in getHighScore(), which is why it is mandatory
     fclose(hsSaveFile);
 }
 
