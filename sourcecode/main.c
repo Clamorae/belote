@@ -1,13 +1,18 @@
 #include<stdio.h> // kono stDIO da !
 #include<stdlib.h>
 #include<string.h>
+#include <time.h>
 #include"highscore.h"
 #include"array.h"
 #include"menu.h"
 #include"gamelogic.h"
+#include"contract.h"
+
 
 int main(){
-    int **card=create(2,32),a=0;
+    int **card=create(2,32),a=0,giver=0;
+    srand(time(0));
+    giver=rand()%4+1;
     for (size_t i = 0; i < 32; i++){
         if ((i+a)%10==8){
             a+=2;
