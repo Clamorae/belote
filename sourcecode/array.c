@@ -5,8 +5,17 @@
 
 void randomize(int **array){
     srand(time(0));//set the randint function for the rest of the function//
-    int a=0,b=0,c=0,d=0,r;//initialize all the variable for the rest of the function,one for each player and one for the random number//
-    for (size_t i = 0; i < 32; i++){//repeat until the array is complete//
+    int a=0,b=0,c=0,d=0,e=0,g=0,h=0,r;//initialize all the variable for the rest of the function,one for each player and one for the random number//
+
+    for (int i = 0; i < 32; i++){//this loop initialize or reset the array each round before the card distribution// 
+        if ((i+e)%10==8){ //there are only 8 card for each colours so after 8 card it will switch into the next one//
+            e+=2;         //In this program all the card had a code: we will divide the number by ten, the rest will be the card value and the quotient will be the color//    
+        }
+        array[0][i]=i+e;
+        array[1][i]=0;
+    }
+
+    for (int i = 0; i < 32; i++){//repeat until the array is complete//
         do{
             r=rand()%4+1;//assignate a random number between 1 and 4//
         } while ((r==1&&a==8)||(r==2&&b==8)||(r==3&&c==8)||(r==4&&d==8));//repeat it until the card is associate with a player who hasn't already 8 card//
@@ -26,6 +35,20 @@ void randomize(int **array){
             break;
         }
     }
+    for (int i = 0; i < 32; i++){
+        int f=0;
+        while (f<(32-i)){
+            if (array[1][f]>array[1][f+1]){
+                int g=array[1][f+1];
+                array[1][f+1]=array[1][f];
+                array[1][f]=g;
+                int h=array[0][f+1];
+                array[0][f+1]=array[0][f];
+                array[0][f]=h;
+            }
+            f++;    
+        }  
+    }
 }
 
 int ** create(int lineNumber, int columnNumber){
@@ -41,11 +64,14 @@ int ** create(int lineNumber, int columnNumber){
 				}
 			}
 		}
-        while (columnNumber) free(matrix[--columnNumber]);
-        free(matrix);
+        /*while (columnNumber) free(matrix[--columnNumber]);
+        free(matrix);*/
 		return matrix;
 	}else{
 		printf("there is a problem with the size of the matrice, make sure you entered a correct value");
 		return NULL;
 	}
 }
+
+
+//-o main.exe main.c highscore.c array.c menu.c//
