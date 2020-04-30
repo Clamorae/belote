@@ -4,6 +4,7 @@
 #include"highscore.h"
 #include"array.h"
 #include"menu.h"
+#include"gamelogic.h"
 
 int main(){
     int **card=create(2,32),a=0;
