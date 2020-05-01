@@ -6,22 +6,25 @@ int getContract(int *value, int *color, int minValue, int maxValue){//return 1 i
     int intInput;
     char chInput;
     printf("Do you want to announce a contract ? [Y/n]\n");
-    while((chInput = getchar()) != '\n');
-    chInput = getchar();
+    do{
+        chInput = getchar();
+    }while(chInput == '\n');
     if (chInput == 'N'||chInput == 'n'){
         return 0;
     }
     else{
         printf("How much do you want to bet ? (between %d and %d)\n",minValue, maxValue);
         scanf("%d",&intInput);
-        while(intInput < minValue || intInput > maxValue || intInput%10 != 0){
+        while(intInput <= minValue || intInput >= maxValue || intInput%10 != 0){
             printf("Invalid value, please retry.\n");
             scanf("%d",&intInput);
         }
         *value = intInput;
         printf("On Which color do you want to bet ? [H]eart, [S]pike, s[Q]uare or [C]lover ?\n");
         while(1){
-            chInput = getchar();
+            do{
+                chInput = getchar();
+            }while(chInput == '\n');
             if(chInput == 'h' || chInput == 'H'){
                 *color = 0;
                 return 1;
