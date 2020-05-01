@@ -20,13 +20,10 @@ int belote(/*int **cardArray*/){
 
 
 int defineContract(contract* pContract){
-    int player, value, color, passes,contractOwner;
+    int player, value=60, color=0, passes,contractOwner=0;
     int hasContract = 0;
     char chInput;
     int intInput;
-    value = 60;
-    color = 0;
-    contractOwner = 0;
     srand(time(0));
     player = rand()%4+1;
     do{
