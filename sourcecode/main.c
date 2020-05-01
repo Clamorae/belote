@@ -6,7 +6,6 @@
 #include"array.h"
 #include"menu.h"
 #include"gamelogic.h"
-#include"contract.h"
 
 
 int main(){
