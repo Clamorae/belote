@@ -5,11 +5,11 @@
 
 void randomize(int **array){
     srand(time(0));//set the randint function for the rest of the function//
-    int a=0,b=0,c=0,d=0,e=0,g=0,h=0,r;//initialize all the variable for the rest of the function,one for each player and one for the random number//
+    int a=0,b=0,c=0,d=0,e=0,g=0,h=0,r,f;//initialize all the variable for the rest of the function,one for each player and one for the random number//
 
-    for (int i = 0; i < 32; i++){//this loop initialize or reset the array each round before the card distribution// 
+    for (int i = 0; i < 32; i++){//this loop initialize or reset the array each round before the card distribution//
         if ((i+e)%10==8){ //there are only 8 card for each colours so after 8 card it will switch into the next one//
-            e+=2;         //In this program all the card had a code: we will divide the number by ten, the rest will be the card value and the quotient will be the color//    
+            e+=2;         //In this program all the card had a code: we will divide the number by ten, the rest will be the card value and the quotient will be the color//
         }
         array[0][i]=i+e;
         array[1][i]=0;
@@ -35,19 +35,19 @@ void randomize(int **array){
             break;
         }
     }
-    for (int i = 0; i < 32; i++){// In this part the program will sort the array by player//
-        int f=0;
-        while (f<(32-i)){//the programm will pass on the two loop and check if a case is higher than the next one, so after the first passage the last case will have the higher number//
-            if (array[1][f]>array[1][f+1]){//if the next case is lower the programm will swap the two card value and the two player//
-                int g=array[1][f+1];
+    for (int i = 0; i < 31; i++){// In this part the program will sort the array by player//
+        f=0;
+        while (f<(31-i)){//the programm will pass on the two loop and check if a case is higher than the next one, so after the first passage the last case will have the higher number//
+            if (array[1][f]>array[1][f+1]){//if the next case is lower the programm will swapoue two card value and the two player//
+                g=array[1][f+1];
                 array[1][f+1]=array[1][f];
                 array[1][f]=g;
-                int h=array[0][f+1];
+                h=array[0][f+1];
                 array[0][f+1]=array[0][f];
                 array[0][f]=h;
             }
-            f++;    
-        }  
+            f++;
+        }
     }
 }
 

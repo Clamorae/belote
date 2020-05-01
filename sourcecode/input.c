@@ -15,7 +15,7 @@ int getContract(int *value, int *color, int minValue, int maxValue){//return 1 i
     else{
         printf("How much do you want to bet ? (between %d and %d)\n",minValue, maxValue);
         scanf("%d",&intInput);
-        while(intInput <= minValue || intInput >= maxValue || intInput%10 != 0){
+        while(intInput <= minValue || intInput > maxValue || intInput%10 != 0){
             printf("Invalid value, please retry.\n");
             scanf("%d",&intInput);
         }
