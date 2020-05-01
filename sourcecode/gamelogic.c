@@ -1,4 +1,5 @@
 #include"gamelogic.h"
+#include"input.h"
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
@@ -23,30 +24,21 @@ int defineContract(contract* pContract){
     int hasContract = 0;
     char chInput;
     int intInput;
-    value = 0;
+    value = 60;
     color = 0;
     contractOwner = 0;
     srand(time(0));
     player = rand()%4+1;
     do{
-        printf("le contract est pour le joueur %d, d'une valeur de %d et de couleur %d\n",contractOwner,value,color);
-        printf("Au tour du joueur %d\n", player);
-        if(player == 1){
-            printf("Contract ? [Y/n]\n");
-            chInput = getchar();
-            printf("%c\n",chInput);
-            if(chInput == 'y' || chInput == 'Y'){
-                hasContract = 1;
+        printf("The contract is detained by the player %d, and is worth %d on the %d color\n", contractOwner, value, color);
+        if (player == 1){
+            if (getContract(&value, &color, value, 680) == 1){
                 contractOwner = 1;
-                passes = 0;
-                printf("Value of the contract ? [Value/Color]\n");
-                scanf("%d/%d", &value, &color);
-            }else{
-                passes ++;
             }
-        }else{
-            //Choix de l'ia a faire
+        }
+        else{
             passes ++;
+            printf("The player %d pass\n",player );//ia enemi a faire
         }
         player += 1;
         if(player>4){player = 1;}

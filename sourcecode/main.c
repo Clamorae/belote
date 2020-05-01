@@ -6,10 +6,9 @@
 #include"array.h"
 #include"menu.h"
 #include"gamelogic.h"
-<<<<<<< Updated upstream
-#include"contract.h"
-=======
->>>>>>> Stashed changes
+#include"input.c"
+
+
 
 
 int main(){
