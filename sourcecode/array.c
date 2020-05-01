@@ -35,10 +35,10 @@ void randomize(int **array){
             break;
         }
     }
-    for (int i = 0; i < 32; i++){
+    for (int i = 0; i < 32; i++){// In this part the program will sort the array by player//
         int f=0;
-        while (f<(32-i)){
-            if (array[1][f]>array[1][f+1]){
+        while (f<(32-i)){//the programm will pass on the two loop and check if a case is higher than the next one, so after the first passage the last case will have the higher number//
+            if (array[1][f]>array[1][f+1]){//if the next case is lower the programm will swap the two card value and the two player//
                 int g=array[1][f+1];
                 array[1][f+1]=array[1][f];
                 array[1][f]=g;
@@ -64,8 +64,6 @@ int ** create(int lineNumber, int columnNumber){
 				}
 			}
 		}
-        /*while (columnNumber) free(matrix[--columnNumber]);
-        free(matrix);*/
 		return matrix;
 	}else{
 		printf("there is a problem with the size of the matrice, make sure you entered a correct value");
