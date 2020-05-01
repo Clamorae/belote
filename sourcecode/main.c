@@ -33,5 +33,4 @@ int main(){
     writeHighScore(HSarray);
     belote();
     return 0;
-
 }

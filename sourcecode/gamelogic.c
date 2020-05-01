@@ -20,7 +20,7 @@ int belote(/*int **cardArray*/){
 
 
 int defineContract(contract* pContract){
-    int player, value=60, color=0, passes,contractOwner=0;
+    int player, value=60, color=0, passes,contractOwner=0,maxcard=0,card=0;
     int hasContract = 0;
     char chInput;
     int intInput;
