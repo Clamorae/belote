@@ -49,6 +49,12 @@ void randomize(int **array){
             f++;
         }
     }
+    for (int i = 0; i < 2; i++){
+       printf("\n");
+       for (int j = 0; j < 8; j++){
+           printf("%d ",array[i][j]);
+       }
+    }
 }
 
 int ** create(int lineNumber, int columnNumber){
@@ -72,4 +78,4 @@ int ** create(int lineNumber, int columnNumber){
 }
 
 
-//-o main.exe main.c highscore.c array.c menu.c//
+//-o main.exe main.c highscore.c array.c menu.c gamelogic.c//
