@@ -6,7 +6,7 @@
 #include"array.h"
 #include"menu.h"
 #include"gamelogic.h"
-#include"input.c"
+#include"input.h"
 
 
 int main(){

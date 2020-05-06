@@ -37,7 +37,7 @@ int defineContract(contract* pContract,int **card){
             else{
                 passes++;
             }
-            
+
         }
         else{
             int count=0,higher[2]={0,0};
@@ -50,7 +50,7 @@ int defineContract(contract* pContract,int **card){
                 if (count>higher[0]){
                     higher[0]=count;
                     higher[1]=i;
-                } 
+                }
             }
             if (higher[0]<3){
             passes ++;
@@ -62,7 +62,7 @@ int defineContract(contract* pContract,int **card){
                     color=higher[1];
                 }
             }
-            
+
             printf("The player %d pass\n",player );//ia enemi a faire
         }
         player += 1;
@@ -71,6 +71,7 @@ int defineContract(contract* pContract,int **card){
             check=true;
         }
         if (passes==4){
+            passes = 0;
             randomize(card);
         }
     }while(check==false);

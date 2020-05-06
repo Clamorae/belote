@@ -20,4 +20,4 @@ typedef struct contract {
 } contract;
 
 int belote(/*int***/);
-int defineContract(contract*);
+int defineContract(contract*, int**);
