@@ -21,7 +21,7 @@ int belote(int **card){
 
 
 int defineContract(contract* pContract,int **card){
-    int player, value=60, color=0, passes=0,contractOwner=0,maxcard=0,carde=0;//card???????
+    int player, value=60, color=0, passes=0,contractOwner=0,maxcard=0,carde=0;
     bool check=false;
     int hasContract = 0;
     char chInput;
@@ -35,35 +35,12 @@ int defineContract(contract* pContract,int **card){
                 contractOwner = 1;
             }
             else{
-                passes++;
+                BotContract(card,player,&passes,&value,&contractOwner);
             }
 
         }
         else{
-            int count=0,higher[2]={0,0};
-            for (int i = 0; i < 3; i++){
-                for (int j = 0; i < 8; i++){
-                    if ((card[0][(player*8)-1+j])/10==i){
-                        count++;
-                    }
-                }
-                if (count>higher[0]){
-                    higher[0]=count;
-                    higher[1]=i;
-                }
-            }
-            if (higher[0]<3){
-            passes ++;
-            }
-            else{
-                if (value<80+(10*higher[0])){
-                    value+=10;
-                    contractOwner=player;
-                    color=higher[1];
-                }
-            }
-
-            printf("The player %d pass\n",player );//ia enemi a faire
+            passes++;
         }
         player += 1;
         if(player>4){player = 1;}
