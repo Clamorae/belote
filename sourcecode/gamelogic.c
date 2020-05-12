@@ -66,6 +66,16 @@ void defineContract(int player, contract* pContract,int **card){
     }while(check==false);
 }
 
-int round(int** cards,int firstToContract,int* scoreT1, int* scoreT2){}//nice
+int gameRound(int** cards,int firstToContract,int* scoreT1, int* scoreT2){}//nice
 
-int play(int** cards){}
+int play(int** cards,int player){
+        if(player == 1){
+
+
+        }
+        else{
+            //ia des méchant a caller
+        }
+    }
+
+}

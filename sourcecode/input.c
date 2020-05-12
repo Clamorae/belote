@@ -76,9 +76,20 @@ int getContract(int *value, int *color, int minValue, int maxValue, int teamWith
 }
 
 char* getColorString(int color){
-    if(color == 0){return "Hearts";}
-    else if(color == 1){return "Spades";}
-    else if(color == 2){return "Diamonds";}
-    else if(color == 3) {return "Clover";}
-    else{return "None";}
+    switch (color) {
+        case 0:return "Hearts";
+        case 1:return "Spades";
+        case 2:return "Diamonds";
+        case 3:return "Clover";
+        default:return"None";
+    }
+    //if(color == 0){return "Hearts";}
+    //else if(color == 1){return "Spades";}
+    //else if(color == 2){return "Diamonds";}
+    //else if(color == 3) {return "Clover";}
+    //else{return "None";}
 }
+
+//char* getValueString(int value){
+//
+//}
