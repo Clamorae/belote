@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include"input.h"
 
 int menu(){
     //display the menu and return a number corresponding to the hoice of the user
@@ -13,7 +14,7 @@ int menu(){
     printf("%s", "_____________________________________________________________\n");
     printf("Veuilliez choisir une action: \n1-Commencer une partie\n2-Regarder les highscores\n3-Quitter\n");
     do{
-        scanf("%d",&input);
+        input = getInt();
     }while(input<1 || input>3);
     return input;
 }

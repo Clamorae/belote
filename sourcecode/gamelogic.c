@@ -9,28 +9,28 @@
 
 int belote(int **card){
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");//we gotta remove that tho
-    int scoreT1 = 0, scoreT2 = 0;
+    int scoreT1 = 0, scoreT2 = 0, first;
     contract gameContract;//create a contract type variable for the game
+    first = rand()%4+1;
+    printf("The first to submit a contract for this round will be player %d\n",first);
     randomize(card);//shuffle the cards and sort them (Player 1 cards from index 0 to 7, P2 from 8 to 15, ect...)
-    defineContract(&gameContract,card);
+    defineContract(first,&gameContract,card);
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     printf("Contract is:\n-team: %d\n-value: %d\n-color: %s\n",gameContract.team, gameContract.value, getColorString(gameContract.color));
     return 0;
-    for(int i=0; i<7;i++){//run through the code once per card
-    }
+
 }
 
 
-void defineContract(contract* pContract,int **card){
-    int player,passes,temp;
+void defineContract(int player, contract* pContract,int **card){
+    int passes,temp;
     bool check;
     passes = 0;
     (*pContract).team = 0, (*pContract).value = 60, (*pContract).color = 0, (*pContract).isCoinched = 0;
-    player = rand()%4+1;
     do{
         printf("The contract is detained by the player %d, and is worth %d on %s\n", (*pContract).team, (*pContract).value, getColorString((*pContract).color));
         if (player == 1){
-            temp = getContract(&pContract->value, &pContract->color, (*pContract).value, 680);
+            temp = getContract(&pContract->value, &pContract->color, (*pContract).value, 680, (*pContract).team = 0);
             printf("%d\n",temp);
             switch(temp) {
                 case 1:
@@ -65,3 +65,7 @@ void defineContract(contract* pContract,int **card){
         }
     }while(check==false);
 }
+
+int round(int** cards,int firstToContract,int* scoreT1, int* scoreT2){}//nice
+
+int play(int** cards){}

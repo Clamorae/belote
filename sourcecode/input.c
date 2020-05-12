@@ -3,19 +3,45 @@
 #include<stdlib.h>
 #include<string.h>
 
-int getContract(int *value, int *color, int minValue, int maxValue){//return 1 if a contract was estabished, 0 if the player passed, 2 if the player coinched
+char getcharB(){//A fucntion that actually return what you fucking want instead of doing stupid bullshit
+    char out;
+    while((out = getchar())=='\n');
+    while(getchar() != '\n');
+    return out;
+}
+
+int getInt(){
+    int out;
+    while((scanf("%d",&out))==0){
+        printf("Invalid Value, please press enter and retry\n");
+        while(getchar() != '\n');
+    }
+    return out;
+}
+
+
+
+
+int getContract(int *value, int *color, int minValue, int maxValue, int teamWithContract){//return 1 if a contract was estabished, 0 if the player passed, 2 if the player coinched
     int intInput;
-    char chInput;
-    printf("Do you want to announce a contract ? [y/n]\n");
-    do{
-        chInput = getchar();
-    }while(chInput == '\n');
+    char chInput, temp;
+    if(teamWithContract != 0){
+        printf("The following contract was announced:\nteam:%d\nvalue:%d\ncolor:%s\n",teamWithContract,*value,getColorString(*color));
+        printf("do you want to coinche, or surcoinche the current contract if it's yours ? [Y/n]\n");
+        chInput = getcharB();
+        if(chInput == 'y'||chInput == 'Y'){
+            printf("Contract was coinched\n");
+            return 2;
+        }
+    }
+    printf("Do you want to announce a contrat ? [Y/n]\n");
+    chInput = getcharB();//getchar works in a werid way and sometimes returns \n even with no keyboard inputs, this is used to fix it
     if (chInput == 'N'||chInput == 'n'){
         return 0;
     }
     else{
-        printf("How much do you want to bet ? (between %d and %d)\n",minValue, maxValue);
-        scanf("%d",&intInput);
+        printf("How much do you want to bet ? (between %d and %d, multiples of 10 only)\n",minValue, maxValue);
+        intInput = getInt();
         while(intInput <= minValue || intInput > maxValue || intInput%10 != 0){
             printf("Invalid value, please retry.\n");
             scanf("%d",&intInput);
@@ -24,7 +50,7 @@ int getContract(int *value, int *color, int minValue, int maxValue){//return 1 i
         printf("On Which color do you want to bet ? [H]eart, [S]pade, [D]iamond or [C]lover ?\n");
         while(1){
             do{
-                chInput = getchar();
+                chInput = getcharB();
             }while(chInput == '\n');
             if(chInput == 'h' || chInput == 'H'){
                 *color = 0;

@@ -16,5 +16,8 @@ typedef struct contract {//This structure is used to define the contract for the
 } contract;
 
 int belote(int**);//Main function of the game, where everything takes place. The argument is the matrix of cards and player defined in array.c/.h
-void defineContract(contract*, int**);/*This function is run at the begining of every round, and will define the contract for it.
+void defineContract(int,contract*, int**);/*This function is run at the begining of every round, and will define the contract for it.
 It takes a pointeur to a contract variable and the matrix of cards*/
+int round(int** cards,int firstToContract,int* scoreT1, int* scoreT2);//nice
+
+int play(int** cards);
