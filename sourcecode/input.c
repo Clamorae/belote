@@ -1,11 +1,12 @@
 #include"input.h"
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
-int getContract(int *value, int *color, int minValue, int maxValue){//return 1 if a contract was estabished or 0 is the player passed
+int getContract(int *value, int *color, int minValue, int maxValue){//return 1 if a contract was estabished, 0 if the player passed, 2 if the player coinched
     int intInput;
     char chInput;
-    printf("Do you want to announce a contract ? [Y/n]\n");
+    printf("Do you want to announce a contract ? [y/n]\n");
     do{
         chInput = getchar();
     }while(chInput == '\n');
@@ -20,7 +21,7 @@ int getContract(int *value, int *color, int minValue, int maxValue){//return 1 i
             scanf("%d",&intInput);
         }
         *value = intInput;
-        printf("On Which color do you want to bet ? [H]eart, [S]pike, s[Q]uare or [C]lover ?\n");
+        printf("On Which color do you want to bet ? [H]eart, [S]pade, [D]iamond or [C]lover ?\n");
         while(1){
             do{
                 chInput = getchar();
@@ -33,7 +34,7 @@ int getContract(int *value, int *color, int minValue, int maxValue){//return 1 i
                 *color = 1;
                 return 1;
             }
-            else if(chInput == 'q' || chInput == 'Q'){
+            else if(chInput == 'd' || chInput == 'D'){
                 *color = 2;
                 return 1;
             }
@@ -46,4 +47,12 @@ int getContract(int *value, int *color, int minValue, int maxValue){//return 1 i
             }
         }
     }
+}
+
+char* getColorString(int color){
+    if(color == 0){return "Hearts";}
+    else if(color == 1){return "Spades";}
+    else if(color == 2){return "Diamonds";}
+    else if(color == 3) {return "Clover";}
+    else{return "None";}
 }
