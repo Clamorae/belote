@@ -90,6 +90,16 @@ char* getColorString(int color){
     //else{return "None";}
 }
 
-//char* getValueString(int value){
-//
-//}
+char* getValueString(int value){
+    switch (value) {
+        case 0:return "7";
+        case 1:return "8";
+        case 2:return "9";
+        case 3:return "10";
+        case 4:return "Jack";
+        case 5:return "Queen";
+        case 6:return "King";
+        case 7:return "Ace"
+        default: return "None";
+    }
+}

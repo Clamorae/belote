@@ -69,6 +69,7 @@ void defineContract(int player, contract* pContract,int **card){
 int gameRound(int** cards,int firstToContract,int* scoreT1, int* scoreT2){}//nice
 
 int play(int** cards,int player){
+    for(int i = 0;i<4;i++){
         if(player == 1){
 
 
