@@ -23,7 +23,7 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
         printf("The player %d pass\n",player );
     }
     else{
-        if (*value<=(80+(10*higher[0]))){
+        if (*value<(80+(10*higher[0]))){
             *value+=10;
             *contractOwner=player;
             *color=higher[1];
