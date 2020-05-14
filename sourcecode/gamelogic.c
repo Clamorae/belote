@@ -56,9 +56,7 @@ void defineContract(int player, contract* pContract,int **card){
             }
         }
         else{
-            printf("l'ia passe\n");
-            passes ++;
-            //BotContract(card,player,&passes,&pContract->value,&pContract->team,&pContract->color);
+            BotContract(card,player,&passes,&pContract->value,&pContract->team,&pContract->color);
         }
         player ++;
         if(player>5){player = 1;}
