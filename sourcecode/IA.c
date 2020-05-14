@@ -8,7 +8,7 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
     int count=0,higher[2]={0,0};
     for (int i = 0; i < 3; i++){
         for (int j = 0; i < 8; i++){
-            if ((card[0][(player*8)-1+j])/10==i){
+            if ((card[0][((player-1)*8)-1+j])/10==i){
                 count++;
              }
         }
@@ -16,7 +16,7 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
             higher[0]=count;
             higher[1]=i;
             printf("\n");
-            printf("%d",higher[1]);
+            printf("%d",higher[0]);
             printf("\n");
         }
     }
@@ -29,6 +29,9 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
             *value+=10;
             *contractOwner=player;
             *color=higher[1];
+        }
+        else{
+            *passes++;
         }
     }
 }

@@ -53,6 +53,7 @@ void defineContract(int player, contract* pContract,int **card){
                     break;
                     }
                 default:
+                    passes++;
                     break;
             }
         }
