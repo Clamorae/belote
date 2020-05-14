@@ -99,7 +99,7 @@ char* getValueString(int value){
         case 4:return "Jack";
         case 5:return "Queen";
         case 6:return "King";
-        case 7:return "Ace"
+        case 7:return "Ace";
         default: return "None";
     }
 }

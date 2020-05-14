@@ -17,6 +17,9 @@ int belote(int **card){
     defineContract(first,&gameContract,card);
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     printf("Contract is:\n-team: %d\n-value: %d\n-color: %s\n",gameContract.team, gameContract.value, getColorString(gameContract.color));
+    first++;
+    if (first>4){first = 1;}
+    play(card,first);
     return 0;
 
 }
@@ -38,7 +41,7 @@ void defineContract(int player, contract* pContract,int **card){
                     break;
                 case 2:
                     if((*pContract).team == 1){
-                        (*pContract).isCoinched = 3;
+                        (*pContract).isCoinched = 2;
                     }else{
                         (*pContract).isCoinched = 1;
                     }
@@ -49,7 +52,7 @@ void defineContract(int player, contract* pContract,int **card){
             }
         }
         else{
-            printf("The player %d pass\n",player );
+            printf("The player %d pass\n",player);
             passes++;//ia enemi a faire
         }
         player ++;
@@ -71,12 +74,20 @@ int gameRound(int** cards,int firstToContract,int* scoreT1, int* scoreT2){}//nic
 int play(int** cards,int player){
     for(int i = 0;i<4;i++){
         if(player == 1){
+            printf("The cards in your deck are:\n");
+            for(int i=0;i<8;i++){
+                if (cards[1][i] != 0){
+                    printf("%s of %s\n", getValueString(cards[0][i]%10), getColorString(cards[0][i]/10));
+                }
+            }
 
 
         }
         else{
-            //ia des méchant a caller
+            printf("L'ia fait un truc\n");
         }
+        player++;
+        if(player>4){player = 1;}
     }
 
 }
