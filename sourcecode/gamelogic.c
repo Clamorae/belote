@@ -1,6 +1,7 @@
 #include"gamelogic.h"
 #include"input.h"
 #include"array.h"
+#include"IA.h"
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
@@ -35,7 +36,7 @@ int defineContract(contract* pContract,int **card){
                 contractOwner = 1;
             }
             else{
-                BotContract(card,player,&passes,&value,&contractOwner);
+                BotContract(card,player,&passes,&value,&contractOwner,&color);
             }
 
         }

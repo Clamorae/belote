@@ -4,7 +4,7 @@
 #include<stdbool.h>
 #include"input.h"
 
-void BotContract(int** card,int player, int* passes,int* value,int* contractOwner, int* color){
+void BotContract(int** card,int player, int* passes,int* value,int* contractOwner,int* color){
     int count=0,higher[2]={0,0};
     for (int i = 0; i < 3; i++){
         for (int j = 0; i < 8; i++){
@@ -22,7 +22,7 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
         printf("The player %d pass\n",player );
     }
     else{
-        if (value<80+(10*higher[0])){
+        if (*value<80+(10*higher[0])){
             *value+=10;
             *contractOwner=player;
             *color=higher[1];
