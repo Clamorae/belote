@@ -15,7 +15,9 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
          if (count>higher[0]){
             higher[0]=count;
             higher[1]=i;
+            printf("\n");
             printf("%d",higher[1]);
+            printf("\n");
         }
     }
     if (higher[0]<3){
@@ -29,5 +31,4 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
             *color=higher[1];
         }
     }
-    printf("The contract is detained by the player %d, and is worth %d on the %d color\n", contractOwner, value, color);
 }
