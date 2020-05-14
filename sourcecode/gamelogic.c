@@ -1,6 +1,7 @@
 #include"gamelogic.h"
 #include"input.h"
 #include"array.h"
+#include"IA.h"
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
@@ -27,9 +28,15 @@ int belote(int **card){
 
 void defineContract(int player, contract* pContract,int **card){
     int passes,temp;
-    bool check;
     passes = 0;
     (*pContract).team = 0, (*pContract).value = 60, (*pContract).color = 0, (*pContract).isCoinched = 0;
+    int player, value=60, color=0, passes=0,contractOwner=0,maxcard=0,carde=0;
+    bool check=false;
+    int hasContract = 0;
+    char chInput;
+    int intInput;
+    srand(time(0));
+    player = rand()%4+1;
     do{
         printf("The contract is detained by the player %d, and is worth %d on %s\n", (*pContract).team, (*pContract).value, getColorString((*pContract).color));
         if (player == 1){
@@ -47,10 +54,8 @@ void defineContract(int player, contract* pContract,int **card){
                     }
                     break;
                 default:
-                    passes++;
+                    BotContract(card,player,&passes,&value,&contractOwner,&color);
                     break;
-            }
-        }
         else{
             printf("The player %d pass\n",player);
             passes++;//ia enemi a faire
