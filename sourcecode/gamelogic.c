@@ -60,7 +60,7 @@ void defineContract(int player, contract* pContract,int **card){
             BotContract(card,player,&passes,&pContract->value,&pContract->team,&pContract->color);
         }
         player ++;
-        if(player>4){player = 1;}
+        if(player==5){player = 1;}
         if (passes==3 && (*pContract).team!=0){
             check=true;
         }
