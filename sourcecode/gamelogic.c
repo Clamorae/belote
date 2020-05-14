@@ -62,7 +62,7 @@ void defineContract(int player, contract* pContract,int **card){
             passes++;//ia enemi a faire
         }
         player ++;
-        if(player>4){player = 1;}
+        if(player==5){player = 1;}
         if (passes==3 && (*pContract).team!=0){
             check=true;
         }
