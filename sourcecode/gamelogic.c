@@ -31,11 +31,9 @@ void defineContract(int player, contract* pContract,int **card){
     passes = 0;
     (*pContract).team = 0, (*pContract).value = 60, (*pContract).color = 0, (*pContract).isCoinched = 0;
     bool check=false;
-    int hasContract = 0;
     char chInput;
     int intInput;
     srand(time(0));
-    player = rand()%4+1;
     do{
         printf("The contract is detained by the player %d, and is worth %d on %s\n", (*pContract).team, (*pContract).value, getColorString((*pContract).color));
         if (player == 1){
@@ -53,11 +51,14 @@ void defineContract(int player, contract* pContract,int **card){
                     break;
                     }
                 default:
+                    passes++;
                     break;
             }
         }
         else{
-            BotContract(card,player,&passes,&pContract->value,&pContract->team,&pContract->color);
+            printf("l'ia passe\n");
+            passes ++;
+            //BotContract(card,player,&passes,&pContract->value,&pContract->team,&pContract->color);
         }
         player ++;
         if(player==5){player = 1;}
@@ -72,6 +73,10 @@ void defineContract(int player, contract* pContract,int **card){
         }
     }while(check==false);
 }
+
+
+
+
 
 int gameRound(int** cards,int firstToContract,int* scoreT1, int* scoreT2){}//nice
 
