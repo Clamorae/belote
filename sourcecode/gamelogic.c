@@ -53,13 +53,11 @@ void defineContract(int player, contract* pContract,int **card){
                     break;
                     }
                 default:
-                    BotContract(card,player,&passes,&pContract->value,&pContract->team,&pContract->color);
                     break;
             }
         }
         else{
-            printf("The player %d pass\n",player);
-            passes++;//ia enemi a faire
+            BotContract(card,player,&passes,&pContract->value,&pContract->team,&pContract->color);
         }
         player ++;
         if(player==5){player = 1;}
