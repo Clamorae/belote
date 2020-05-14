@@ -102,5 +102,5 @@ int play(int** cards,int player){
         player++;
         if(player>4){player = 1;}
     }
-
+    return 0;
 }
