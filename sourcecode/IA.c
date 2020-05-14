@@ -15,7 +15,7 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
          if (count>higher[0]){
             higher[0]=count;
             higher[1]=i;
-            printf(higher[1]);
+            printf("%d",higher[1]);
         }
     }
     if (higher[0]<3){
