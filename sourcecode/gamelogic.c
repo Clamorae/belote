@@ -61,7 +61,7 @@ void defineContract(int player, contract* pContract,int **card){
             //BotContract(card,player,&passes,&pContract->value,&pContract->team,&pContract->color);
         }
         player ++;
-        if(player==5){player = 1;}
+        if(player>5){player = 1;}
         if (passes==3 && (*pContract).team!=0){
             check=true;
         }
@@ -80,24 +80,12 @@ void defineContract(int player, contract* pContract,int **card){
 
 int gameRound(int** cards,int firstToContract,int* scoreT1, int* scoreT2){}//nice
 
-int play(int** cards,int player){
+int play(int** cards,int player, int atout){
+    int firstcard = -1 ,atoutMode = 0;
+
     for(int i = 0;i<4;i++){
         if(player == 1){
-            printf("The cards in your deck are:\n");
-            for(int i=0;i<8;i++){
-                if (cards[1][i] != 0){
-
-
-
-
-
-
-
-                    printf("%s of %s\n", getValueString(cards[0][i]%10), getColorString(cards[0][i]/10));
-                }
-            }
-
-
+            playCard(int** cards,firstCard, atoutMode);
         }
         else{
             printf("L'ia fait un truc\n");
@@ -106,4 +94,8 @@ int play(int** cards,int player){
         if(player>4){player = 1;}
     }
     return 0;
+}
+
+int playCard(int** cards, int firstCard, int* atoutMode){
+    printP1Cards(cards);
 }

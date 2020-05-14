@@ -44,7 +44,7 @@ int getContract(int *value, int *color, int minValue, int maxValue, int teamWith
         intInput = getInt();
         while(intInput <= minValue || intInput > maxValue || intInput%10 != 0){
             printf("Invalid value, please retry.\n");
-            scanf("%d",&intInput);
+            intInput = getInt();
         }
         *value = intInput;
         printf("On Which color do you want to bet ? [H]eart, [S]pade, [D]iamond or [C]lover ?\n");
@@ -101,5 +101,14 @@ char* getValueString(int value){
         case 6:return "King";
         case 7:return "Ace";
         default: return "None";
+    }
+}
+
+void printP1Cards(int** cards){
+    printf("The cards in your deck are:\n");
+    for(int j=0;i<8;i++){
+        if (cards[1][j] != 0){
+            printf("%s of %s\n", getValueString(cards[0][i]%10), getColorString(cards[0][i]/10));
+        }
     }
 }
