@@ -58,8 +58,9 @@ void defineContract(int player, contract* pContract,int **card){
         else{
             BotContract(card,player,&passes,&pContract->value,&pContract->team,&pContract->color);
         }
+        printf("%d",passes);
         player ++;
-        if(player>5){player = 1;}
+        if(player>=5){player = 1;}
         if (passes==3 && (*pContract).team!=0){
             check=true;
         }
@@ -76,7 +77,8 @@ void defineContract(int player, contract* pContract,int **card){
 
 
 
-int gameRound(int** cards,int firstToContract,int* scoreT1, int* scoreT2){}//nice
+//int gameRound(int** cards,int firstToContract,int* scoreT1, int* scoreT2){}//nice
+
 
 int play(int** cards,int player, int atout){
     int firstCard = -1 ,atoutMode = 0;
@@ -93,6 +95,6 @@ int play(int** cards,int player, int atout){
     return 0;
 }
 
+
 int playCard(int** cards, int* firstCard, int* atoutMode){
-    printP1Cards(cards);
 }

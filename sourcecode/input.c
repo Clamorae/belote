@@ -104,11 +104,11 @@ char* getValueString(int value){
     }
 }
 
-void printP1Cards(int** cards){
+/*void printP1Cards(int** cards){
     printf("The cards in your deck are:\n");
     for(int i=0;i<8;i++){
         if (cards[1][i] != 0){
             printf("%s of %s\n", getValueString(cards[0][i]%10), getColorString(cards[0][i]/10));
         }
     }
-}
+}*/
