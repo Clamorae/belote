@@ -20,7 +20,7 @@ int belote(int **card){
     printf("Contract is:\n-team: %d\n-value: %d\n-color: %s\n",gameContract.team, gameContract.value, getColorString(gameContract.color));
     first++;
     if (first>4){first = 1;}
-    play(card,first);
+    play(card,first,gameContract.color);
     return 0;
 
 }
@@ -79,11 +79,10 @@ void defineContract(int player, contract* pContract,int **card){
 int gameRound(int** cards,int firstToContract,int* scoreT1, int* scoreT2){}//nice
 
 int play(int** cards,int player, int atout){
-    int firstcard = -1 ,atoutMode = 0;
-
+    int firstCard = -1 ,atoutMode = 0;
     for(int i = 0;i<4;i++){
         if(player == 1){
-            playCard(int** cards,firstCard, atoutMode);
+            playCard(cards,&firstCard, &atoutMode);
         }
         else{
             printf("L'ia fait un truc\n");
@@ -94,6 +93,6 @@ int play(int** cards,int player, int atout){
     return 0;
 }
 
-int playCard(int** cards, int firstCard, int* atoutMode){
+int playCard(int** cards, int* firstCard, int* atoutMode){
     printP1Cards(cards);
 }
