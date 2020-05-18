@@ -20,5 +20,5 @@ void defineContract(int,contract*, int**);/*This function is run at the begining
 It takes a pointeur to a contract variable and the matrix of cards*/
 int gameRound(int** cards,int firstToContract,int* scoreT1, int* scoreT2);//nice
 int isCardPlayable(int,int,int);
-
-int play(int** cards, int player);
+int play(int** cards, int first,int atout);
+int playCard(int**,int*,int*);
