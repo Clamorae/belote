@@ -18,18 +18,34 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
             higher[1]=i;
         }
     }
-    if (higher[0]<3){
-        *passes ++;
-        printf("The player %d pass\n",player );
-    }
-    else{
-        if (*value<(80+(10*higher[0]))){
-            *value+=10;
+    switch (higher[0]){
+    case 3:
+        if (*value<80){
+            *value=80;
             *contractOwner=player;
             *color=higher[1];
         }
         else{
-            *passes++;
+            printf("The player %d pass\n",player );
+            *passes=*passes+1;
         }
+        
+        break;
+    case 4 ... 8:
+        if (*value<120){
+            *value=120;
+            *contractOwner=player;
+            *color=higher[1];
+        }
+        else{
+            printf("The player %d pass\n",player );
+            *passes=*passes+1;
+        }
+        break;   
+    default:
+        *passes=*passes+1;
+        printf("The player %d pass\n",player );
+        break;
     }
+    
 }
