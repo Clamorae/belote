@@ -3,3 +3,4 @@ char* getColorString(int); // return a string of the color based of the int inpu
 char* getValueString(int);
 char getcharB();
 int getInt();
+void printP1Cards(int**);

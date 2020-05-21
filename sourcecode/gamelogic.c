@@ -82,10 +82,11 @@ void defineContract(int player, contract* pContract,int **card){
 
 
 int play(int** cards,int player, int atout){
-    int firstCard = -1 ,atoutMode = 0;
+    int atoutMode = 0;
+    int cardsOfRound[4] = {-1,-1,-1,-1};
     for(int i = 0;i<4;i++){
         if(player == 1){
-            playCard(cards,&firstCard, &atoutMode);
+            playCard(cards,cardsOfRound,&atoutMode);
         }
         else{
             printf("L'ia fait un truc\n");
@@ -97,5 +98,22 @@ int play(int** cards,int player, int atout){
 }
 
 
-int playCard(int** cards, int* firstCard, int* atoutMode){
+int playCard(int** cards, int* cardsOfRound, int* atoutMode){
+    int playableCards[8] = {0};
+    int numberOfPCards = 0;
+    printP1Cards(cards);
+    //début algo
+    if (cardsOfRound[0] == -1){
+        for(int i=0; i<8; i++){
+            if (cards[1][i] != 0){
+                playableCards[numberOfPCards] = cards[0][i];
+                numberOfPCards++;
+            }
+        }
+    }
+    //fin algo
+    printf("Your playable cards are:\n");
+    for(int i=0; i<numberOfPCards; i++){
+        printf("%s of %s\n",getValueString(playableCards[i]%10),getColorString(playableCards[i]/10));
+    }
 }
