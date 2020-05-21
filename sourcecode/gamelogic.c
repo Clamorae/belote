@@ -42,6 +42,7 @@ void defineContract(int player, contract* pContract,int **card){
             switch(temp) {
                 case 1:
                     (*pContract).team = 1;
+                    passes = 0;
                     break;
                 case 2:
                     if((*pContract).team == 1){
