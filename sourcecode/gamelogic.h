@@ -21,4 +21,6 @@ It takes a pointeur to a contract variable and the matrix of cards*/
 int gameRound(int** cards,int firstToContract,int* scoreT1, int* scoreT2);//nice
 int isCardPlayable(int,int,int);
 int play(int** cards, int first,int atout);
-int playCard(int**,int*,int*);
+int playCard(int**,int*,int*,int);
+int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atoutMode, int atout);
+void compareAndAdd(int** cards, int* playableCards,int*NofPCards, int colorToCompare);

@@ -25,7 +25,6 @@ int belote(int **card){
 
 }
 
-
 void defineContract(int player, contract* pContract,int **card){
     int passes,temp;
     passes = 0;
@@ -61,7 +60,7 @@ void defineContract(int player, contract* pContract,int **card){
         }
         printf("%d",passes);
         player ++;
-        if(player>=5){player = 1;}
+        if(player>4){player = 1;}
         if (passes==3 && (*pContract).team!=0){
             check=true;
         }
@@ -74,46 +73,101 @@ void defineContract(int player, contract* pContract,int **card){
     }while(check==false);
 }
 
-
-
-
-
-//int gameRound(int** cards,int firstToContract,int* scoreT1, int* scoreT2){}//nice
-
-
 int play(int** cards,int player, int atout){
     int atoutMode = 0;
     int cardsOfRound[4] = {-1,-1,-1,-1};
     for(int i = 0;i<4;i++){
         if(player == 1){
-            playCard(cards,cardsOfRound,&atoutMode);
+            playCard(cards,cardsOfRound,&atoutMode,atout);
         }
         else{
             printf("L'ia fait un truc\n");
+            getchar();
         }
         player++;
         if(player>4){player = 1;}
+        if(cardsOfRound[i]/10 == atout && cardsOfRound[i] != -1){
+            atoutMode = 1;
+        }
     }
     return 0;
 }
 
-
-int playCard(int** cards, int* cardsOfRound, int* atoutMode){
-    int playableCards[8] = {0};
+int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout){
+    int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};
     int numberOfPCards = 0;
+    int canPlay; //0 = everything, 1 = color, 2= atout
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    //ici valeur de test
+    cardsOfRound[0] = 10;
+    //fin de valeur de test
+    printf("Currently, the game is:\n");
+    for(int i=0;i<4;i++){
+        if(cardsOfRound[i] == -1){
+            printf("-Pas de carte\n");
+        }
+        else{
+            printf("-%s of %s\n",getValueString(cardsOfRound[i]%10),getColorString(cardsOfRound[i]/10));
+        }
+    }
+    printf("\n");
     printP1Cards(cards);
-    //début algo
-    if (cardsOfRound[0] == -1){
-        for(int i=0; i<8; i++){
-            if (cards[1][i] != 0){
-                playableCards[numberOfPCards] = cards[0][i];
-                numberOfPCards++;
+    numberOfPCards = getplayablecards(cards,cardsOfRound,playableCards,*atoutMode,atout);
+
+
+    printf("\nYour playable cards are:\n");
+    for(int i=0; i<numberOfPCards; i++){
+        printf("%s of %s\n",getValueString(playableCards[i]%10),getColorString(playableCards[i]/10));
+    }
+}
+
+int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atoutMode, int atout){
+    int NofPCards = 0;
+    int colorToMatch;
+    if(atoutMode == 1){
+        colorToMatch = atout;
+    }
+    else{
+        colorToMatch = cardsOfRound[0]/10;
+    }
+    printf("%d\n",colorToMatch);
+
+
+    if(cardsOfRound[0] == -1){
+        compareAndAdd(cards,playableCards,&NofPCards,-1);
+    }
+    else{
+        compareAndAdd(cards,playableCards,&NofPCards,colorToMatch);
+        if (NofPCards == 0){
+            if(atoutMode != 1){
+                compareAndAdd(cards,playableCards,&NofPCards,atout);
+                if (NofPCards == 0){
+                    compareAndAdd(cards,playableCards,&NofPCards,-1);
+                }
+            }
+            else{
+                compareAndAdd(cards,playableCards,&NofPCards,-1);
             }
         }
     }
-    //fin algo
-    printf("Your playable cards are:\n");
-    for(int i=0; i<numberOfPCards; i++){
-        printf("%s of %s\n",getValueString(playableCards[i]%10),getColorString(playableCards[i]/10));
+    return NofPCards;
+}
+
+void compareAndAdd(int** cards, int* playableCards,int* NofPCards, int colorToCompare){
+    if(colorToCompare == -1){
+        for(int i=0;i<8;i++){
+            if(cards[1][i] != 0){
+                playableCards[*NofPCards] = cards[0][i];
+                (*NofPCards)++;
+            }
+        }
+    }
+    else{
+        for(int i=0;i<8;i++){
+            if(cards[1][i] != 0 && cards[0][i]/10 == colorToCompare){
+                playableCards[*NofPCards] = cards[0][i];
+                (*NofPCards)++;
+            }
+        }
     }
 }
