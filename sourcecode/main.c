@@ -8,6 +8,13 @@
 #include"gamelogic.h"
 #include"input.h"
 
+/*create annonce
+create name demand
+fix main menu
+fix contract
+fix victory save
+create contract verification
+*/
 
 int main(){
     int **card=create(2,32),a=0,giver=0;
