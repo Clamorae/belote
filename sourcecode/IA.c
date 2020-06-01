@@ -68,12 +68,12 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                         if (cards[0][k] == playableCards[j]){
                         cards[1][k] = 0;
                         }
-                    } 
+                    }
                 }
-            } 
+            }
         }
     }
-    
+
     else if(atoutMode==0 && atout==playableCards[0]/10){
         int value[8]={0,1,2,4,5,6,3,7};
         for (int i = 0; i < 8; i++){
@@ -84,15 +84,15 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                         if (cards[0][k] == playableCards[j]){
                         cards[1][k] = 0;
                         }
-                    } 
+                    }
                 }
-            } 
-        }   
+            }
+        }
     }
 
 
     else if (atoutMode==0){
-        int value[8]={0,1,2,4,5,6,3,7};        
+        int value[8]={0,1,2,4,5,6,3,7};
         for (int i = 0; i < turn; i++){
             if (cardsOfRound[turn]/10==cardsOfRound[0]/10){
                 for (int j = 0; j < 8; j++){
@@ -101,9 +101,9 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                             higher=j;
                         }
                         j=8;
-                    }    
-                }    
-            }   
+                    }
+                }
+            }
         }
         for (int i = higher; i < 8; i++){
             for (int j = 0; j < j; j++){
@@ -114,9 +114,9 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                         if (cards[0][k] == playableCards[j]){
                         cards[1][k] = 0;
                         }
-                    } 
+                    }
                 }
-            } 
+            }
         }
         if (winnable==false){
             for (int i = higher; i > -1; i--){
@@ -127,17 +127,17 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                             if (cards[0][k] == playableCards[j]){
                             cards[1][k] = 0;
                             }
-                        } 
+                        }
                     }
-                } 
+                }
             }
         }
     }
-    
-    
+
+
     else{
         if(playableCards[0]/10==atout){
-            int value[8]={0,1,5,6,3,7,2,4};        
+            int value[8]={0,1,5,6,3,7,2,4};
             for (int i = 0; i < turn; i++){
                 if (cardsOfRound[turn]/10==atout){
                     for (int j = 0; j < 8; j++){
@@ -192,7 +192,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                     }
                 }
             }
-        }       
+        }
     }
 }
 

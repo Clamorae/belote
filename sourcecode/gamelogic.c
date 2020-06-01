@@ -11,7 +11,7 @@
 
 int belote(int **card){
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");//we gotta remove that tho
-    int scoreT1 = 0, scoreT2 = 0, first;
+    int scoreT1 = 0, scoreT2 = 0,roundT1 =0, roundT2 =0, first;
     contract gameContract;//create a contract type variable for the game
     first = rand()%4+1;
     printf("The first to submit a contract for this round will be player %d\n",first);
@@ -21,7 +21,15 @@ int belote(int **card){
     printf("Contract is:\n-team: %d\n-value: %d\n-color: %s\n",gameContract.team, gameContract.value, getColorString(gameContract.color));
     first++;
     if (first>4){first = 1;}
-    play(card,first,gameContract.color);
+    roundT1 = 0;
+    roundT2 = 0;
+    for(int i =0;i<8;i++){
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        printf("Contract is:\n-team: %d\n-value: %d\n-color: %s\n\n",gameContract.team, gameContract.value, getColorString(gameContract.color));
+        printf("%d turn\n\n",i+1);
+        printf("Team 1 have %d points\nTeam 2 have %d points\n\n",roundT1,roundT2);
+        play(card,first,gameContract.color, &roundT1, &roundT2);
+    }
     return 0;
 
 }
@@ -74,7 +82,7 @@ void defineContract(int player, contract* pContract,int **card){
     }while(check==false);
 }
 
-int play(int** cards,int player, int atout){
+int play(int** cards,int player, int atout, int* roundT1, int* roundT2){
     int atoutMode = 0;
     int cardsOfRound[4] = {-1,-1,-1,-1};
     for(int i = 0;i<4;i++){
@@ -115,6 +123,15 @@ int play(int** cards,int player, int atout){
     }
     int winTeam, score;
     CalculateScore(&winTeam, &score, cardsOfRound, player,atout, atoutMode);
+    printf("C'est l'équipe %d qui l'emporte avec %d points\n",winTeam,score);
+    while(getchar()!='\n');
+    getchar();
+    if (winTeam == 1){
+        (*roundT1) += score;
+    }else{
+        (*roundT2) += score;
+    }
+
     return 0;
 }
 
@@ -167,6 +184,7 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
 
 
     if(cardsOfRound[0] == -1){
+        printf("no first cards\n");
         compareAndAdd(cards,playableCards,&NofPCards,-1);
     }
     else{
@@ -175,10 +193,12 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
             if(atoutMode != 1){
                 compareAndAdd(cards,playableCards,&NofPCards,atout);
                 if (NofPCards == 0){
+                    printf("pas de carte jouable, atout mode off\n");
                     compareAndAdd(cards,playableCards,&NofPCards,-1);
                 }
             }
             else{
+                printf("pas de carte jouable, atout mode on\n");
                 compareAndAdd(cards,playableCards,&NofPCards,-1);
             }
         }
@@ -210,6 +230,7 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
     int atoutArray[8] = {4,2,7,3,6,5,1,0};
     int notAtoutArray[8] = {7,3,6,5,4,2,1,0};
     int comparaisonArray[8];
+    *score = 0;
 
     if(atoutMode == 1){
         colorToMatch = atout;
@@ -232,6 +253,41 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
             }
         }
     }
-    printf("La carte la plus forte est la %d\n",strongestCard);
+
+    for(int i = 0; i<strongestCard; i++){
+        player++;
+        if(player>4){player = 1;}
+    }
+    if (player%2 != 0){
+        *winTeam = 1;
+    }else{
+        *winTeam = 2;
+    }
+
+    for(int i = 0; i<4;i++){
+        if(cardsOfRound[i]/10 == atout){
+            switch (cardsOfRound[i]%10) {
+                case 0: *score+=0;break;
+                case 1: *score+=0;break;
+                case 2: *score+=14;break;
+                case 3: *score+=10;break;
+                case 4: *score+=20;break;
+                case 5: *score+=3;break;
+                case 6: *score+=4;break;
+                case 7: *score+=11;break;
+            }
+        }else{
+            switch (cardsOfRound[i]%10) {
+                case 0: *score+=0;break;
+                case 1: *score+=0;break;
+                case 2: *score+=0;break;
+                case 3: *score+=10;break;
+                case 4: *score+=2;break;
+                case 5: *score+=3;break;
+                case 6: *score+=4;break;
+                case 7: *score+=11;break;
+            }
+        }
+    }
     return 0;
 }
