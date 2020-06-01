@@ -6,6 +6,7 @@
 #include<stdlib.h>
 #include<time.h>
 #include<stdbool.h>
+//Faudrait vraiment que je pense a commenter ce truc la
 
 
 int belote(int **card){
@@ -76,12 +77,23 @@ void defineContract(int player, contract* pContract,int **card){
 int play(int** cards,int player, int atout){
     int atoutMode = 0;
     int cardsOfRound[4] = {-1,-1,-1,-1};
+    cardsOfRound[0] = 20;
     for(int i = 0;i<4;i++){
+        printf("Currently, the game is:\n");
+        for(int j=0;j<4;j++){
+            if(cardsOfRound[j] == -1){
+                printf("-Pas de carte\n");
+            }
+            else{
+                printf("-%s of %s\n",getValueString(cardsOfRound[j]%10),getColorString(cardsOfRound[j]/10));
+            }
+        }
         if(player == 1){
-            playCard(cards,cardsOfRound,&atoutMode,atout);
+            playCard(cards,cardsOfRound,&atoutMode,atout,i);
         }
         else{
-            printf("L'ia fait un truc\n");
+            printf("Le joeur %d joue\n",player);
+            getchar();
             getchar();
         }
         player++;
@@ -89,27 +101,14 @@ int play(int** cards,int player, int atout){
         if(cardsOfRound[i]/10 == atout && cardsOfRound[i] != -1){
             atoutMode = 1;
         }
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
     return 0;
 }
 
-int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout){
+int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn){
     int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};
     int numberOfPCards = 0;
-    int canPlay; //0 = everything, 1 = color, 2= atout
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    //ici valeur de test
-    cardsOfRound[0] = 10;
-    //fin de valeur de test
-    printf("Currently, the game is:\n");
-    for(int i=0;i<4;i++){
-        if(cardsOfRound[i] == -1){
-            printf("-Pas de carte\n");
-        }
-        else{
-            printf("-%s of %s\n",getValueString(cardsOfRound[i]%10),getColorString(cardsOfRound[i]/10));
-        }
-    }
     printf("\n");
     printP1Cards(cards);
     numberOfPCards = getplayablecards(cards,cardsOfRound,playableCards,*atoutMode,atout);
@@ -117,8 +116,20 @@ int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout){
 
     printf("\nYour playable cards are:\n");
     for(int i=0; i<numberOfPCards; i++){
-        printf("%s of %s\n",getValueString(playableCards[i]%10),getColorString(playableCards[i]/10));
+        printf("%d - %s of %s\n",i+1,getValueString(playableCards[i]%10),getColorString(playableCards[i]/10));
     }
+    printf("Please select a card to play\n");//Putain mais c'est mal opti bordeeeeeeeel
+    int UserInput;
+    do{
+        UserInput = getInt();
+    }while(UserInput < 1 || UserInput > numberOfPCards);
+    cardsOfRound[turn] = playableCards[UserInput - 1];
+    for(int i=0; i<8; i++){
+        if (cards[0][i] == playableCards[UserInput - 1]){
+            cards[1][i] = 0;
+        }
+    }
+
 }
 
 int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atoutMode, int atout){
@@ -130,7 +141,6 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
     else{
         colorToMatch = cardsOfRound[0]/10;
     }
-    printf("%d\n",colorToMatch);
 
 
     if(cardsOfRound[0] == -1){
