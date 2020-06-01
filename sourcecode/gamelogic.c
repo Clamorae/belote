@@ -96,7 +96,6 @@ int play(int** cards,int player, int atout){
 int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout){
     int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};
     int numberOfPCards = 0;
-    int canPlay; //0 = everything, 1 = color, 2= atout
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     //ici valeur de test
     cardsOfRound[0] = 10;
