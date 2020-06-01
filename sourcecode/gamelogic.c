@@ -93,6 +93,7 @@ int play(int** cards,int player, int atout){
         }
         else{
             printf("Le joeur %d joue\n",player);
+            cardsOfRound[i]=IAplay(cards,player);
             getchar();
             getchar();
         }

@@ -27,7 +27,7 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
         }
         else{
             printf("The player %d pass\n",player );
-            *passes=*passes+1;
+            (*passes)++;
         }
         
         break;
@@ -39,13 +39,21 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
         }
         else{
             printf("The player %d pass\n",player );
-            *passes=*passes+1;
+            (*passes)++;
         }
         break;   
     default:
-        *passes=*passes+1;
+        (*passes)++;
         printf("The player %d pass\n",player );
         break;
     }
     
 }
+
+int IAplay(int** cards,int player){
+    srand(time(0));
+    int a=rand()%8;
+    return (cards[0][((player)*8)+a]);
+}
+    
+ 
