@@ -104,6 +104,17 @@ int play(int** cards,int player, int atout){
         }
         printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
+    printf("Currently, the game is:\n");
+    for(int j=0;j<4;j++){
+        if(cardsOfRound[j] == -1){
+            printf("-Pas de carte\n");
+        }
+        else{
+            printf("-%s of %s\n",getValueString(cardsOfRound[j]%10),getColorString(cardsOfRound[j]/10));
+        }
+    }
+    int winTeam, score;
+    CalculateScore(&winTeam, &score, cardsOfRound, player,atout, atoutMode);
     return 0;
 }
 
@@ -140,6 +151,7 @@ int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn)
             cards[1][i] = 0;
         }
     }
+    return 0;
 
 }
 
@@ -191,4 +203,35 @@ void compareAndAdd(int** cards, int* playableCards,int* NofPCards, int colorToCo
             }
         }
     }
+}
+
+int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int atout, int atoutMode){
+    int strongestCard, colorToMatch;
+    int atoutArray[8] = {4,2,7,3,6,5,1,0};
+    int notAtoutArray[8] = {7,3,6,5,4,2,1,0};
+    int comparaisonArray[8];
+
+    if(atoutMode == 1){
+        colorToMatch = atout;
+        for(int i = 0; i<8; i++){
+            comparaisonArray[i] = atoutArray[i];
+        }
+    }else{
+        colorToMatch = cardsOfRound[0]/10;
+        for(int i = 0; i<8; i++){
+            comparaisonArray[i] = notAtoutArray[i];
+        }
+    }
+
+    for(int i=0;i<8;i++){
+        for(int j=0;j<4;j++){
+            if(cardsOfRound[j]/10 == colorToMatch && cardsOfRound[j]%10 == comparaisonArray[i]){
+                strongestCard = j;
+                j = 4;
+                i = 8;
+            }
+        }
+    }
+    printf("La carte la plus forte est la %d\n",strongestCard);
+    return 0;
 }

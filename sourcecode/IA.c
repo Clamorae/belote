@@ -146,9 +146,9 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                                 higher=j;
                             }
                             j=8;
-                        }    
-                    }    
-                }   
+                        }
+                    }
+                }
             }
             for (int i = higher; i < 8; i++){
                 for (int j = 0; j < j; j++){
@@ -159,9 +159,9 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                             if (cards[0][k] == playableCards[j]){
                             cards[1][k] = 0;
                             }
-                        } 
+                        }
                     }
-                } 
+                }
             }
             if (winnable==false){
                 for (int i = higher; i > -1; i--){
@@ -172,9 +172,9 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                                 if (cards[0][k] == playableCards[j]){
                                 cards[1][k] = 0;
                                 }
-                            } 
+                            }
                         }
-                    } 
+                    }
                 }
             }
         }
@@ -188,13 +188,13 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                             if (cards[0][k] == playableCards[j]){
                             cards[1][k] = 0;
                             }
-                        } 
+                        }
                     }
-                } 
+                }
             }
         }       
     }
-} 
+}
 
 int IAgetplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atoutMode, int atout,int player){
     int NofPCards = 0;
@@ -243,4 +243,4 @@ void IAcompareAndAdd(int** cards, int* playableCards,int* NofPCards, int colorTo
             }
         }
     }
-}//
+}
