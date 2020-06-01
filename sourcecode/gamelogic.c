@@ -77,7 +77,6 @@ void defineContract(int player, contract* pContract,int **card){
 int play(int** cards,int player, int atout){
     int atoutMode = 0;
     int cardsOfRound[4] = {-1,-1,-1,-1};
-    cardsOfRound[0] = 20;
     for(int i = 0;i<4;i++){
         printf("Currently, the game is:\n");
         for(int j=0;j<4;j++){
