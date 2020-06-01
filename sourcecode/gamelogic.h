@@ -24,3 +24,4 @@ int play(int** cards, int first,int atout);
 int playCard(int**,int*,int*,int, int turn);
 int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atoutMode, int atout);
 void compareAndAdd(int** cards, int* playableCards,int*NofPCards, int colorToCompare);
+int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int atout, int atoutMode);
