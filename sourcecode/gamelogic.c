@@ -81,7 +81,7 @@ int play(int** cards,int player, int atout){
             playCard(cards,cardsOfRound,&atoutMode,atout);
         }
         else{
-            printf("L'ia fait un truc\n");
+            cardsOfRound[i]=IAplay(cards,player);
             getchar();
         }
         player++;
