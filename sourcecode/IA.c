@@ -61,13 +61,11 @@ int IAplayCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int pla
     int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};
     int numberOfPCards = 0;
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    //ici valeur de test
-    cardsOfRound[0] = 10;
-    //fin de valeur de test
     numberOfPCards = IAgetplayablecards(cards,cardsOfRound,playableCards,*atoutMode,atout,player);
     for(int i=0; i<numberOfPCards; i++){
         printf("%s of %s\n",getValueString(playableCards[i]%10),getColorString(playableCards[i]/10));
     }
+
 }
 
 int IAgetplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atoutMode, int atout,int player){
@@ -81,19 +79,19 @@ int IAgetplayablecards(int** cards, int* cardsOfRound,int* playableCards, int at
     }
 
     if(cardsOfRound[0] == -1){
-        IAcompareAndAdd(cards,playableCards,&NofPCards,-1);
+        IAcompareAndAdd(cards,playableCards,&NofPCards,-1,player);
     }
     else{
-        IAcompareAndAdd(cards,playableCards,&NofPCards,colorToMatch);
+        IAcompareAndAdd(cards,playableCards,&NofPCards,colorToMatch,player);
         if (NofPCards == 0){
             if(atoutMode != 1){
-                IAcompareAndAdd(cards,playableCards,&NofPCards,atout);
+                IAcompareAndAdd(cards,playableCards,&NofPCards,atout,player);
                 if (NofPCards == 0){
-                    IAcompareAndAdd(cards,playableCards,&NofPCards,-1);
+                    IAcompareAndAdd(cards,playableCards,&NofPCards,-1,player);
                 }
             }
             else{
-                IAcompareAndAdd(cards,playableCards,&NofPCards,-1);
+                IAcompareAndAdd(cards,playableCards,&NofPCards,-1,player);
             }
         }
     }

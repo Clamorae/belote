@@ -110,9 +110,6 @@ int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn)
     int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};
     int numberOfPCards = 0;
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    //ici valeur de test
-    cardsOfRound[0] = 10;
-    //fin de valeur de test
     printf("Currently, the game is:\n");
     for(int i=0;i<4;i++){
         if(cardsOfRound[i] == -1){
