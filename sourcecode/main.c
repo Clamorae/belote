@@ -8,7 +8,9 @@
 #include"gamelogic.h"
 #include"input.h"
 
-/*create annonce
+/*
+use atout
+create annonce
 create name demand
 fix main menu
 fix contract
