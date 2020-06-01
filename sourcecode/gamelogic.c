@@ -109,6 +109,19 @@ int play(int** cards,int player, int atout){
 int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn){
     int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};
     int numberOfPCards = 0;
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    //ici valeur de test
+    cardsOfRound[0] = 10;
+    //fin de valeur de test
+    printf("Currently, the game is:\n");
+    for(int i=0;i<4;i++){
+        if(cardsOfRound[i] == -1){
+            printf("-Pas de carte\n");
+        }
+        else{
+            printf("-%s of %s\n",getValueString(cardsOfRound[i]%10),getColorString(cardsOfRound[i]/10));
+        }
+    }
     printf("\n");
     printP1Cards(cards);
     numberOfPCards = getplayablecards(cards,cardsOfRound,playableCards,*atoutMode,atout);
