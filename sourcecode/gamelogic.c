@@ -100,7 +100,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2){
         }
         else{
             printf("Le joeur %d joue\n",player);
-            cardsOfRound[i]=IAplay(cards,player);
+            IAplayCard(cards,cardsOfRound,atoutMode,atout,player,i);
             while(getchar()!='\n');
             getchar();
 
