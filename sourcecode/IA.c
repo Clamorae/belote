@@ -9,7 +9,7 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
     for (int i = 0; i <= 3; i++){
         count=0;
         for (int j = 0; j < 8; j++){
-            if ((card[0][((player)*8)+j])/10==i){
+            if ((card[0][((player-1)*8)+j])/10==i){
                 count++;
              }
         }  
@@ -22,11 +22,11 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
     case 3:
         if (*value<80){
             *value=80;
-            *contractOwner=player;
+            *contractOwner=player-1;
             *color=higher[1];
         }
         else{
-            printf("The player %d pass\n",player );
+            printf("The player %d pass\n",player-1 );
             (*passes)++;
         }
         
@@ -34,17 +34,17 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
     case 4 ... 8:
         if (*value<120){
             *value=120;
-            *contractOwner=player;
+            *contractOwner=player-1;
             *color=higher[1];
         }
         else{
-            printf("The player %d pass\n",player );
+            printf("The player %d pass\n",player-1 );
             (*passes)++;
         }
         break;   
     default:
         (*passes)++;
-        printf("The player %d pass\n",player );
+        printf("The player %d pass\n",player-1 );
         break;
     }
     
@@ -53,24 +53,24 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
 int IAplay(int** cards,int player){
     srand(time(0));
     int a=rand()%8;
-    return (cards[0][((player)*8)+a]);
+    return (cards[0][((player-1)*8)+a]);
 }
     
  
-int IAplayCard(int** cards, int* cardsOfRound, int* atoutMode, int atout){
+int IAplayCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int player){
     int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};
     int numberOfPCards = 0;
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     //ici valeur de test
     cardsOfRound[0] = 10;
     //fin de valeur de test
-    numberOfPCards = IAgetplayablecards(cards,cardsOfRound,playableCards,*atoutMode,atout);
+    numberOfPCards = IAgetplayablecards(cards,cardsOfRound,playableCards,*atoutMode,atout,player);
     for(int i=0; i<numberOfPCards; i++){
         printf("%s of %s\n",getValueString(playableCards[i]%10),getColorString(playableCards[i]/10));
     }
 }
 
-int IAgetplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atoutMode, int atout){
+int IAgetplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atoutMode, int atout,int player){
     int NofPCards = 0;
     int colorToMatch;
     if(atoutMode == 1){
@@ -100,9 +100,9 @@ int IAgetplayablecards(int** cards, int* cardsOfRound,int* playableCards, int at
     return NofPCards;
 }
 
-void IAcompareAndAdd(int** cards, int* playableCards,int* NofPCards, int colorToCompare){
+void IAcompareAndAdd(int** cards, int* playableCards,int* NofPCards, int colorToCompare,int player){
     if(colorToCompare == -1){
-        for(int i=(player*8);i<((player+1)*8);i++){
+        for(int i=((player-1)*8);i<(player*8);i++){
             if(cards[1][i] != 0){
                 playableCards[*NofPCards] = cards[0][i];
                 (*NofPCards)++;
@@ -110,7 +110,7 @@ void IAcompareAndAdd(int** cards, int* playableCards,int* NofPCards, int colorTo
         }
     }
     else{
-        for(int i=(player*8);i<((player+1)*8);i++){
+        for(int i=((player-1)*8);i<(player*8);i++){
             if(cards[1][i] != 0 && cards[0][i]/10 == colorToCompare){
                 playableCards[*NofPCards] = cards[0][i];
                 (*NofPCards)++;
