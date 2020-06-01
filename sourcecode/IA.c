@@ -12,7 +12,7 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
             if ((card[0][((player)*8)+j])/10==i){
                 count++;
              }
-        }  
+        }
         if (count>higher[0]){
             higher[0]=count;
             higher[1]=i;
@@ -29,7 +29,7 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
             printf("The player %d pass\n",player );
             (*passes)++;
         }
-        
+
         break;
     case 4 ... 8:
         if (*value<120){
@@ -41,13 +41,13 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
             printf("The player %d pass\n",player );
             (*passes)++;
         }
-        break;   
+        break;
     default:
         (*passes)++;
         printf("The player %d pass\n",player );
         break;
     }
-    
+
 }
 
 int IAplay(int** cards,int player){
@@ -55,8 +55,8 @@ int IAplay(int** cards,int player){
     int a=rand()%8;
     return (cards[0][((player)*8)+a]);
 }
-    
- 
+
+
 int IAplayCard(int** cards, int* cardsOfRound, int* atoutMode, int atout){
     int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};
     int numberOfPCards = 0;
@@ -117,4 +117,4 @@ void IAcompareAndAdd(int** cards, int* playableCards,int* NofPCards, int colorTo
             }
         }
     }
-}
+}//
