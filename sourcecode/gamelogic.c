@@ -131,7 +131,7 @@ int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn)
     for(int i=0; i<numberOfPCards; i++){
         printf("%d - %s of %s\n",i+1,getValueString(playableCards[i]%10),getColorString(playableCards[i]/10));
     }
-    printf("Please select a card to play\n");//Putain mais c'est mal opti bordeeeeeeeel
+    printf("Please select a card to play\n");
     int UserInput;
     do{
         UserInput = getInt();
