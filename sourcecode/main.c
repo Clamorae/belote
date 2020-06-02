@@ -9,7 +9,6 @@
 #include"input.h"
 
 /*
-use atout
 create annonce
 create name demand
 fix main menu
