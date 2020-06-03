@@ -113,3 +113,7 @@ void printP1Cards(int** cards){
     }
     printf("\n");
 }
+
+void clear(){
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+}
