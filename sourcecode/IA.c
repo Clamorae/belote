@@ -6,7 +6,15 @@
 #include "IA.h"
 
 void BotContract(int** card,int player, int* passes,int* value,int* contractOwner,int* color){
-    int count=0,higher[2]={0,0};
+    int count=0,higher[2]={0,0},team=0;
+    if (player==1||player==3){
+        team=1;
+    }
+    else{
+        team=2;
+    }
+    
+    
     for (int i = 0; i <= 3; i++){
         count=0;
         for (int j = 0; j < 8; j++){
@@ -23,7 +31,7 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
     case 3:
         if (*value<80){
             *value=80;
-            *contractOwner=player-1;
+            *contractOwner=team;
             *color=higher[1];
         }
         else{
@@ -35,7 +43,7 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
     case 4 ... 8:
         if (*value<120){
             *value=120;
-            *contractOwner=player-1;
+            *contractOwner=team;
             *color=higher[1];
         }
         else{
@@ -58,6 +66,11 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
     int numberOfPCards = 0;
     bool winnable=false;
     numberOfPCards = IAgetplayablecards(cards,cardsOfRound,playableCards,atoutMode,atout,player);
+    for (int i = 0; i < 8; i++){
+        printf("%d",playableCards[i]);
+    }
+    printf("\n");
+    
     if (turn==0){
         for (int j = 0; j < 8; j++){
             if (playableCards[j]/10!=atout){
