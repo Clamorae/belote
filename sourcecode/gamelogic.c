@@ -13,9 +13,6 @@ int belote(int **card){
     clear();
     int scoreT1 = 0, scoreT2 = 0,roundT1 =0, roundT2 =0, first;
     contract gameContract;//create a contract type variable for the game
-
-
-
     first = rand()%4+1;
     printf("The first to submit a contract for this round will be player %d\n",first);
     randomize(card);//shuffle the cards and sort them (Player 1 cards from index 0 to 7, P2 from 8 to 15, ect...)
@@ -31,7 +28,7 @@ int belote(int **card){
         printf("Contract is:\n-team: %d\n-value: %d\n-color: %s\n-coinched: %d\n\n",gameContract.team, gameContract.value, getColorString(gameContract.color), gameContract.isCoinched);
         printf("Turn n%d\n\n",i+1);
         printf("Team 1 have %d points\nTeam 2 have %d points\n\n",roundT1,roundT2);
-        play(card,first,gameContract.color, &roundT1, &roundT2);
+        play(card,first,gameContract.color, &roundT1, &roundT2,&belote);
     }
     clear();
     printf("Round Results:\n\n");
@@ -64,12 +61,8 @@ void defineContract(int player, contract* pContract,int **card){
                     passes = 0;
                     break;
                 case 2:
-                    if((*pContract).team == 1){
-                        (*pContract).isCoinched = 2;
-                    }else{
-                        (*pContract).isCoinched = 1;
+                    (*pContract).isCoinched = 1;
                     break;
-                    }
                 default:
                     passes++;
                     break;
@@ -93,7 +86,7 @@ void defineContract(int player, contract* pContract,int **card){
     }while(check==false);
 }
 
-int play(int** cards,int player, int atout, int* roundT1, int* roundT2){
+int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote){
     int atoutMode = 0;
     int cardsOfRound[4] = {-1,-1,-1,-1};
     for(int i = 0;i<4;i++){
@@ -107,11 +100,11 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2){
             }
         }
         if(player == 1){
-            playCard(cards,cardsOfRound,&atoutMode,atout,i);
+            playCard(cards,cardsOfRound,&atoutMode,atout,i,belote);
         }
         else{
             printf("Le joeur %d joue\n",player);
-            IAplayCard(cards,cardsOfRound,atoutMode,atout,player,i);
+            IAplayCard(cards,cardsOfRound,atoutMode,atout,player,i,belote);
             while(getchar()!='\n');
             getchar();
 
@@ -146,7 +139,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2){
     return 0;
 }
 
-int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn){
+int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn,int* belote){
     int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};
     int numberOfPCards = 0;
     clear();
@@ -174,6 +167,22 @@ int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn)
         UserInput = getInt();
     }while(UserInput < 1 || UserInput > numberOfPCards);
     cardsOfRound[turn] = playableCards[UserInput - 1];
+    if ((playableCards[UserInput - 1]/10==atout)&&((playableCards[UserInput - 1]%10==5)||(playableCards[UserInput - 1]%10==6))){
+        for (int i = 0; i < 8; i++){
+            if ((cards[0][i]/10==atout)&&((cards[0][i]%10==5)||(cards[0][i]%10==6))){
+                count++;
+            }
+        }
+        if (count==2){
+            *belote=1;
+            if (playableCards[UserInput - 1]%10==5){
+                printf("Belote\n");
+            }
+            else{
+                printf("Rebelote\n");
+            }
+        }
+    }
     for(int i=0; i<8; i++){
         if (cards[0][i] == playableCards[UserInput - 1]){
             cards[1][i] = 0;

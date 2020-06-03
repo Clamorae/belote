@@ -52,9 +52,9 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
 }
 
 
-void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int player,int turn){
+void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int player,int turn,int* belote){
     int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};
-    int higher=0;
+    int higher=0,count=0;
     int numberOfPCards = 0;
     bool winnable=false;
     numberOfPCards = IAgetplayablecards(cards,cardsOfRound,playableCards,atoutMode,atout,player);
@@ -196,6 +196,27 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                     }
                 }
             }
+        }
+    }
+    if ((cardsOfRound[turn]/10==atout)&&((cardsOfRound[turn]%10==5)||(cardsOfRound[turn]%10==6))){
+        for (int i = 0; i < 8; i++){
+            if ((cards[0][i]/10==atout)&&((cards[0][i]%10==5)||(cards[0][i]%10==6))){
+                count++;
+            }
+        }
+        if (count==2){
+            if (player==3){
+                *belote=1;
+                }
+            else{
+                *belote=2;
+            }
+            if (cardsOfRound[turn]%10==5){
+                printf("Belote\n");
+            }
+            else{
+                printf("Rebelote\n");
+            } 
         }
     }
 }

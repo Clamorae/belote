@@ -12,21 +12,15 @@
 create annonce
 create name demand
 fix main menu
-fix contract
 fix victory save
-create contract verification
+fix ordre d'affichage
+add clear
 */
 
 int main(){
     int **card=create(2,32),a=0,giver=0;
     srand(time(0));
     randomize(card);
-    for (int i = 0; i < 2; i++){
-       printf("\n");
-       for (int j = 0; j < 32; j++){
-           printf("%d ",card[i][j]);
-       }
-    }
     highscore *HSarray = getHighScore();
     if (menu() == 2) {printHighScore(HSarray);}
     writeHighScore(HSarray);

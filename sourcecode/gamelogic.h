@@ -12,7 +12,7 @@ typedef struct contract {//This structure is used to define the contract for the
     int team;
     int value;//the worth of the contract
     int color;//0=Heart, 1=Spade, 2=Diamond, 3=Clover
-    int isCoinched;//0= none, 1=coinche, 2=surcoinche
+    int isCoinched;//0= none, 1=coinche
 } contract;
 
 int belote(int**);//Main function of the game, where everything takes place. The argument is the matrix of cards and player defined in array.c/.h
@@ -20,8 +20,8 @@ void defineContract(int,contract*, int**);/*This function is run at the begining
 It takes a pointeur to a contract variable and the matrix of cards*/
 int gameRound(int** cards,int firstToContract,int* scoreT1, int* scoreT2);//nice
 int isCardPlayable(int,int,int);
-int play(int** cards, int first,int atout, int* roundT1, int* roundT2);
-int playCard(int**,int*,int*,int, int turn);
+int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote);
+int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn,int* belote);
 int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atoutMode, int atout);
 void compareAndAdd(int** cards, int* playableCards,int*NofPCards, int colorToCompare);
 int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int atout, int atoutMode);
