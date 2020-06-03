@@ -93,7 +93,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                     cardsOfRound[turn] = playableCards[j];
                     for(int k=((player-1)*8);k<(player*8);k++){
                         if (cards[0][k] == playableCards[j]){
-                        cards[1][k] = 0;
+                            cards[1][k] = 0;
                         }
                     }
                     j=8;
@@ -124,7 +124,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                     cardsOfRound[turn] = playableCards[j];
                     for(int k=((player-1)*8);k<(player*8);k++){
                         if (cards[0][k] == playableCards[j]){
-                        cards[1][k] = 0;
+                            cards[1][k] = 0;
                         }
                     }
                     j=8;
@@ -138,7 +138,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                         cardsOfRound[turn] = playableCards[j];
                         for(int k=((player-1)*8);k<(player*8);k++){
                             if (cards[0][k] == playableCards[j]){
-                            cards[1][k] = 0;
+                                cards[1][k] = 0;
                             }
                         }
                         j=8;
@@ -171,7 +171,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                         cardsOfRound[turn] = playableCards[j];
                         for(int k=((player-1)*8);k<(player*8);k++){
                             if (cards[0][k] == playableCards[j]){
-                            cards[1][k] = 0;
+                                cards[1][k] = 0;
                             }
                         }
                         j=8;
@@ -185,7 +185,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                             cardsOfRound[turn] = playableCards[j];
                             for(int k=((player-1)*8);k<(player*8);k++){
                                 if (cards[0][k] == playableCards[j]){
-                                cards[1][k] = 0;
+                                    cards[1][k] = 0;
                                 }
                             }
                             j=8;
@@ -202,7 +202,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                         cardsOfRound[turn] = playableCards[j];
                         for(int k=((player-1)*8);k<(player*8);k++){
                             if (cards[0][k] == playableCards[j]){
-                            cards[1][k] = 0;
+                                cards[1][k] = 0;
                             }
                         }
                         j=8;
