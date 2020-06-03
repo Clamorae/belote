@@ -12,7 +12,7 @@ typedef struct contract {//This structure is used to define the contract for the
     int team;
     int value;//the worth of the contract
     int color;//0=Heart, 1=Spade, 2=Diamond, 3=Clover
-    int isCoinched;//0= none, 1=coinche, 2=surcoinche
+    int isCoinched;//0= none, 1=coinche
 } contract;
 
 int belote(int**);//Main function of the game, where everything takes place. The argument is the matrix of cards and player defined in array.c/.h

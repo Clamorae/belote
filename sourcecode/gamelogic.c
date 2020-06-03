@@ -53,12 +53,8 @@ void defineContract(int player, contract* pContract,int **card){
                     passes = 0;
                     break;
                 case 2:
-                    if((*pContract).team == 1){
-                        (*pContract).isCoinched = 2;
-                    }else{
-                        (*pContract).isCoinched = 1;
+                    (*pContract).isCoinched = 1;
                     break;
-                    }
                 default:
                     passes++;
                     break;
