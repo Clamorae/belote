@@ -23,6 +23,7 @@ int belote(int **card){
     if (first>4){first = 1;}
     roundT1 = 0;
     roundT2 = 0;
+    //annonce(type1/type2/type3/type4)
     for(int i =0;i<8;i++){
         printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         printf("Contract is:\n-team: %d\n-value: %d\n-color: %s\n\n",gameContract.team, gameContract.value, getColorString(gameContract.color));
@@ -303,4 +304,9 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
     }
     return 0;
 }
+
+/*void annonce(){
+    check annonce 1 pour chaque joueur
+    return type1
+}*/
 
