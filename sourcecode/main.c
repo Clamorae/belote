@@ -13,7 +13,6 @@ create annonce
 create name demand
 fix main menu
 fix victory save
-create contract verification
 fix ordre d'affichage
 add clear
 */
