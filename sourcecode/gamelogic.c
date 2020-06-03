@@ -10,28 +10,39 @@
 
 
 int belote(int **card){
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");//we gotta remove that tho
+    clear();
     int scoreT1 = 0, scoreT2 = 0,roundT1 =0, roundT2 =0, first;
     contract gameContract;//create a contract type variable for the game
+
+
+
     first = rand()%4+1;
     printf("The first to submit a contract for this round will be player %d\n",first);
     randomize(card);//shuffle the cards and sort them (Player 1 cards from index 0 to 7, P2 from 8 to 15, ect...)
     defineContract(first,&gameContract,card);
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    printf("Contract is:\n-team: %d\n-value: %d\n-color: %s\n",gameContract.team, gameContract.value, getColorString(gameContract.color));
+    clear();
+    printf("Contract is:\n-team: %d\n-value: %d\n-color: %s\n-coinched: %d\n\n",gameContract.team, gameContract.value, getColorString(gameContract.color), gameContract.isCoinched);
     first++;
     if (first>4){first = 1;}
     roundT1 = 0;
     roundT2 = 0;
     for(int i =0;i<8;i++){
-        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        printf("Contract is:\n-team: %d\n-value: %d\n-color: %s\n\n",gameContract.team, gameContract.value, getColorString(gameContract.color));
-        printf("%d turn\n\n",i+1);
+        clear();
+        printf("Contract is:\n-team: %d\n-value: %d\n-color: %s\n-coinched: %d\n\n",gameContract.team, gameContract.value, getColorString(gameContract.color), gameContract.isCoinched);
+        printf("Turn n%d\n\n",i+1);
         printf("Team 1 have %d points\nTeam 2 have %d points\n\n",roundT1,roundT2);
         play(card,first,gameContract.color, &roundT1, &roundT2);
     }
+    clear();
+    printf("Round Results:\n\n");
+    if(computeTotalScore(gameContract,roundT1,roundT2,&scoreT1,&scoreT2)){
+        printf("Contract was succesfull !\n");
+    }else{
+        printf("Contract was not succesfull !\n");
+    }
+    printf("The score is:\n-%d for team 1\n-%d for team 2\n",scoreT1, scoreT2);
+    printf("Press ENTER to start a new round\n");
     return 0;
-
 }
 
 void defineContract(int player, contract* pContract,int **card){
@@ -75,7 +86,7 @@ void defineContract(int player, contract* pContract,int **card){
         }
         else if (passes==4){
             passes = 0;
-            printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            clear();
             printf("No contract was established, the cards has been reshuffled\n");
             randomize(card);
         }
@@ -110,7 +121,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2){
         if(cardsOfRound[i]/10 == atout && cardsOfRound[i] != -1){
             atoutMode = 1;
         }
-        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        clear();
     }
     printf("Currently, the game is:\n");
     for(int j=0;j<4;j++){
@@ -138,7 +149,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2){
 int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn){
     int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};
     int numberOfPCards = 0;
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    clear();
     printf("Currently, the game is:\n");
     for(int i=0;i<4;i++){
         if(cardsOfRound[i] == -1){
@@ -290,4 +301,46 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
         }
     }
     return 0;
+}
+
+int computeTotalScore(contract contract, int roundT1, int roundT2, int* scoreT1, int* scoreT2){
+    int AttackingTeam, ATeamScore, DTeamScore, ATeamFinalScore, DTeamFinalScore,isSucessFull;
+
+    if(contract.team == 1){
+        AttackingTeam = 1;
+        ATeamScore = roundT1;
+        DTeamScore = roundT2;
+    }else{
+        AttackingTeam = 2;
+        ATeamScore = roundT2;
+        DTeamScore = roundT1;
+    }
+
+    if(ATeamScore >= contract.value){
+        isSucessFull = 1;
+        if(contract.isCoinched){
+            ATeamFinalScore = (ATeamScore + contract.value)*2;
+            DTeamFinalScore = 0;
+        }else{
+            ATeamFinalScore = ATeamScore + contract.value;
+            DTeamFinalScore = DTeamScore;
+        }
+    }else{
+        isSucessFull = 0;
+        if(contract.isCoinched){
+            ATeamFinalScore = 0;
+            DTeamFinalScore = (162 + contract.value)*2;
+        }else{
+            ATeamFinalScore = 0;
+            DTeamFinalScore = DTeamScore;
+        }
+    }
+    if(AttackingTeam == 1){
+        (*scoreT1) += ATeamFinalScore;
+        (*scoreT2) += DTeamFinalScore;
+    }else{
+        (*scoreT2) += ATeamFinalScore;
+        (*scoreT1) += DTeamFinalScore;
+    }
+    return isSucessFull;
 }
