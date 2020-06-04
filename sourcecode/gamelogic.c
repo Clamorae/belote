@@ -355,3 +355,8 @@ int computeTotalScore(contract contract, int roundT1, int roundT2, int* scoreT1,
     }
     return isSucessFull;
 }
+
+/*void annonce(){
+    check annonce 1 pour chaque joueur
+    return type1
+}*/

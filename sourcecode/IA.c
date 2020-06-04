@@ -6,7 +6,15 @@
 #include "IA.h"
 
 void BotContract(int** card,int player, int* passes,int* value,int* contractOwner,int* color){
-    int count=0,higher[2]={0,0};
+    int count=0,higher[2]={0,0},team=0;
+    if (player==1||player==3){
+        team=1;
+    }
+    else{
+        team=2;
+    }
+    
+    
     for (int i = 0; i <= 3; i++){
         count=0;
         for (int j = 0; j < 8; j++){
@@ -23,7 +31,7 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
     case 3:
         if (*value<80){
             *value=80;
-            *contractOwner=player-1;
+            *contractOwner=team;
             *color=higher[1];
         }
         else{
@@ -35,7 +43,7 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
     case 4 ... 8:
         if (*value<120){
             *value=120;
-            *contractOwner=player-1;
+            *contractOwner=team;
             *color=higher[1];
         }
         else{
@@ -52,12 +60,17 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
 }
 
 
-void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int player,int turn,int* belote){
+void IAplayCard(int** cards, int* cardsOfRound, int *atoutMode, int atout,int player,int turn,int* belote){
     int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};
     int higher=0,count=0;
     int numberOfPCards = 0;
     bool winnable=false;
-    numberOfPCards = IAgetplayablecards(cards,cardsOfRound,playableCards,atoutMode,atout,player);
+    numberOfPCards = IAgetplayablecards(cards,cardsOfRound,playableCards,*atoutMode,atout,player);
+    for (int i = 0; i < 8; i++){
+        printf("%d",playableCards[i]);
+    }
+    printf("\n");
+    
     if (turn==0){
         for (int j = 0; j < 8; j++){
             if (playableCards[j]/10!=atout){
@@ -80,7 +93,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                     cardsOfRound[turn] = playableCards[j];
                     for(int k=((player-1)*8);k<(player*8);k++){
                         if (cards[0][k] == playableCards[j]){
-                        cards[1][k] = 0;
+                            cards[1][k] = 0;
                         }
                     }
                     j=8;
@@ -111,7 +124,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                     cardsOfRound[turn] = playableCards[j];
                     for(int k=((player-1)*8);k<(player*8);k++){
                         if (cards[0][k] == playableCards[j]){
-                        cards[1][k] = 0;
+                            cards[1][k] = 0;
                         }
                     }
                     j=8;
@@ -125,7 +138,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                         cardsOfRound[turn] = playableCards[j];
                         for(int k=((player-1)*8);k<(player*8);k++){
                             if (cards[0][k] == playableCards[j]){
-                            cards[1][k] = 0;
+                                cards[1][k] = 0;
                             }
                         }
                         j=8;
@@ -158,7 +171,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                         cardsOfRound[turn] = playableCards[j];
                         for(int k=((player-1)*8);k<(player*8);k++){
                             if (cards[0][k] == playableCards[j]){
-                            cards[1][k] = 0;
+                                cards[1][k] = 0;
                             }
                         }
                         j=8;
@@ -172,7 +185,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                             cardsOfRound[turn] = playableCards[j];
                             for(int k=((player-1)*8);k<(player*8);k++){
                                 if (cards[0][k] == playableCards[j]){
-                                cards[1][k] = 0;
+                                    cards[1][k] = 0;
                                 }
                             }
                             j=8;
@@ -189,7 +202,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                         cardsOfRound[turn] = playableCards[j];
                         for(int k=((player-1)*8);k<(player*8);k++){
                             if (cards[0][k] == playableCards[j]){
-                            cards[1][k] = 0;
+                                cards[1][k] = 0;
                             }
                         }
                         j=8;
@@ -237,6 +250,7 @@ int IAgetplayablecards(int** cards, int* cardsOfRound,int* playableCards, int at
     else{
         IAcompareAndAdd(cards,playableCards,&NofPCards,colorToMatch,player);
         if (NofPCards == 0){
+            IAcompareAndAdd(cards,playableCards,&NofPCards,-1,player);
             if(atoutMode != 1){
                 IAcompareAndAdd(cards,playableCards,&NofPCards,atout,player);
                 if (NofPCards == 0){
