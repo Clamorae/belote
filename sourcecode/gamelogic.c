@@ -105,7 +105,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
         printf("Currently, the game is:\n");
         for(int j=0;j<4;j++){
             if(cardsOfRound[j] == -1){
-                printf("-Pas de carte\n");
+                printf("-No Card\n");
             }
             else{
                 printf("-%s of %s\n",getValueString(cardsOfRound[j]%10),getColorString(cardsOfRound[j]/10));
@@ -115,7 +115,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
             playCard(cards,cardsOfRound,&atoutMode,atout,i,belote);
         }
         else{
-            printf("Le joeur %d joue\n",player);
+            printf("Player %d is currently playing\n",player);
             IAplayCard(cards,cardsOfRound,atoutMode,atout,player,i,belote);
             waitForEnter();
 
@@ -129,7 +129,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
     }
     int winTeam, score;
     CalculateScore(&winTeam, &score, cardsOfRound, player,atout, atoutMode);
-    printf("C'est l'équipe %d qui l'emporte avec %d points\n",winTeam,score);
+    printf("Team %d win this play with %d points\n",winTeam,score);
     while(getchar()!='\n');
     getchar();
     if (winTeam == 1){
@@ -148,7 +148,7 @@ int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn,
     printf("Currently, the game is:\n");
     for(int i=0;i<4;i++){
         if(cardsOfRound[i] == -1){
-            printf("-Pas de carte\n");
+            printf("-No cards\n");
         }
         else{
             printf("-%s of %s\n",getValueString(cardsOfRound[i]%10),getColorString(cardsOfRound[i]/10));
@@ -215,12 +215,12 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
             if(atoutMode != 1){
                 compareAndAdd(cards,playableCards,&NofPCards,atout);
                 if (NofPCards == 0){
-                    printf("pas de carte jouable, atout mode off\n");
+                    printf("No playable card, atout mode off\n");
                     compareAndAdd(cards,playableCards,&NofPCards,-1);
                 }
             }
             else{
-                printf("pas de carte jouable, atout mode on\n");
+                printf("No playable card, atout mode on\n");
                 compareAndAdd(cards,playableCards,&NofPCards,-1);
             }
         }
