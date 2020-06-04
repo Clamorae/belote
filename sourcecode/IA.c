@@ -60,12 +60,12 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
 }
 
 
-void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int player,int turn,int* belote){
+void IAplayCard(int** cards, int* cardsOfRound, int *atoutMode, int atout,int player,int turn,int* belote){
     int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};
     int higher=0,count=0;
     int numberOfPCards = 0;
     bool winnable=false;
-    numberOfPCards = IAgetplayablecards(cards,cardsOfRound,playableCards,atoutMode,atout,player);
+    numberOfPCards = IAgetplayablecards(cards,cardsOfRound,playableCards,*atoutMode,atout,player);
     for (int i = 0; i < 8; i++){
         printf("%d",playableCards[i]);
     }
@@ -250,6 +250,7 @@ int IAgetplayablecards(int** cards, int* cardsOfRound,int* playableCards, int at
     else{
         IAcompareAndAdd(cards,playableCards,&NofPCards,colorToMatch,player);
         if (NofPCards == 0){
+            IAcompareAndAdd(cards,playableCards,&NofPCards,-1,player);
             if(atoutMode != 1){
                 IAcompareAndAdd(cards,playableCards,&NofPCards,atout,player);
                 if (NofPCards == 0){
