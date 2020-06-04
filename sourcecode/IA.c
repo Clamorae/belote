@@ -61,17 +61,18 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
 
 
 void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int player,int turn,int* belote){
-    int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};
-    int higher=0,count=0;
+    int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};//initialize the playable car array and reset it before each bot turn
+    int higher=0,count=0;//initialize the variable which will check if there a is a belote and who will chekc the best card to play
     int numberOfPCards = 0;
-    bool winnable=false;
-    numberOfPCards = IAgetplayablecards(cards,cardsOfRound,playableCards,atoutMode,atout,player);
+    bool winnable=false;// initialize the boolean which will test if the play is winnable or if its play the lowest card
+    numberOfPCards = IAgetplayablecards(cards,cardsOfRound,playableCards,atoutMode,atout,player);//call the fonction which will define whiwh card the IA can play
+    //I'm gonna destroy it later(I hope)
     for (int i = 0; i < 8; i++){
         printf("%d",playableCards[i]);
     }
     printf("\n");
     
-    if (turn==0){
+    if (turn==0){//this part of the fonction will only be active if the IA is the first to play
         for (int j = 0; j < 8; j++){
             if (playableCards[j]/10!=atout){
                 cardsOfRound[turn] = playableCards[j];
@@ -85,7 +86,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
         }
     }
 
-    else if(atoutMode==0 && atout==playableCards[0]/10){
+    else if(atoutMode==0 && atout==playableCards[0]/10){//In this case the IA doest have the color which is played by the leader sp Ia will play an atout
         int value[8]={0,1,2,4,5,6,3,7};
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
@@ -103,7 +104,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
     }
 
 
-    else if (atoutMode==0){
+    else if (atoutMode==0 && cardsOfRound[0]/10==playableCards[0]/10){
         int value[8]={0,1,2,4,5,6,3,7};
         for (int i = 0; i < turn; i++){
             if (cardsOfRound[turn]/10==cardsOfRound[0]/10){
