@@ -19,7 +19,9 @@ int getInt(){
     return out;
 }
 
-
+void waitForEnter(){
+    while(getchar() != '\n');
+}
 
 
 int getContract(int *value, int *color, int minValue, int maxValue, int teamWithContract){//return 1 if a contract was estabished, 0 if the player passed, 2 if the player coinched

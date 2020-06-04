@@ -5,3 +5,4 @@ char getcharB();
 int getInt();
 void printP1Cards(int**);
 void clear();
+void waitForEnter();

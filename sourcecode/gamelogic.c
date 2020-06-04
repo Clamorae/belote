@@ -11,35 +11,46 @@
 
 int belote(int **card){
     clear();
-    int scoreT1 = 0, scoreT2 = 0,roundT1 =0, roundT2 =0, first;
+    int scoreT1 = 0, scoreT2 = 0,roundT1 =0, roundT2 =0, first, belote = 0;
     contract gameContract;//create a contract type variable for the game
-    first = rand()%4+1;
-    printf("The first to submit a contract for this round will be player %d\n",first);
-    randomize(card);//shuffle the cards and sort them (Player 1 cards from index 0 to 7, P2 from 8 to 15, ect...)
-    defineContract(first,&gameContract,card);
-    clear();
-    printf("Contract is:\n-team: %d\n-value: %d\n-color: %s\n-coinched: %d\n\n",gameContract.team, gameContract.value, getColorString(gameContract.color), gameContract.isCoinched);
-    first++;
-    if (first>4){first = 1;}
-    roundT1 = 0;
-    roundT2 = 0;
-    for(int i =0;i<8;i++){
+    printf("OPEN THE GAME\n");
+    waitForEnter();
+    do{
+        roundT1 = 0;roundT2=0;
+        first = rand()%4+1;
+        printf("The first to submit a contract for this round will be player %d\n",first);
+        randomize(card);//shuffle the cards and sort them (Player 1 cards from index 0 to 7, P2 from 8 to 15, ect...)
+        defineContract(first,&gameContract,card);
+        first++;
+        if (first>4){first = 1;}
+        roundT1 = 0;
+        roundT2 = 0;
+        for(int i =0;i<8;i++){
+            clear();
+            printf("Contract is:\n-team: %d\n-value: %d\n-color: %s\n-coinched: %d\n\n",gameContract.team, gameContract.value, getColorString(gameContract.color), gameContract.isCoinched);
+            printf("Turn n%d\n\n",i+1);
+            printf("Team 1 have %d points\nTeam 2 have %d points\n\n",roundT1,roundT2);
+            play(card,first,gameContract.color, &roundT1, &roundT2,&belote);
+            first++;
+            if (first>4){first = 1;}
+        }
         clear();
-        printf("Contract is:\n-team: %d\n-value: %d\n-color: %s\n-coinched: %d\n\n",gameContract.team, gameContract.value, getColorString(gameContract.color), gameContract.isCoinched);
-        printf("Turn n%d\n\n",i+1);
-        printf("Team 1 have %d points\nTeam 2 have %d points\n\n",roundT1,roundT2);
-        play(card,first,gameContract.color, &roundT1, &roundT2,&belote);
-    }
+        printf("Round Results:\n\n");
+        if(computeTotalScore(gameContract,roundT1,roundT2,&scoreT1,&scoreT2)){
+            printf("Contract was succesfull !\n");
+        }else{
+            printf("Contract was not succesfull !\n");
+        }
+        printf("The score is:\n-%d for team 1\n-%d for team 2\n",scoreT1, scoreT2);
+        printf("Press ENTER to start a new round\n");
+        waitForEnter();
+    }while(scoreT1 <= 701 || scoreT2 <= 701);
     clear();
-    printf("Round Results:\n\n");
-    if(computeTotalScore(gameContract,roundT1,roundT2,&scoreT1,&scoreT2)){
-        printf("Contract was succesfull !\n");
+    if(scoreT1  > scoreT2){
+        printf("TEAM 1 WINS YOUHOU\n");
     }else{
-        printf("Contract was not succesfull !\n");
+        printf("TEAM 2 WINS YOUHOU\n");
     }
-    printf("The score is:\n-%d for team 1\n-%d for team 2\n",scoreT1, scoreT2);
-    printf("Press ENTER to start a new round\n");
-    return 0;
 }
 
 void defineContract(int player, contract* pContract,int **card){
@@ -47,14 +58,15 @@ void defineContract(int player, contract* pContract,int **card){
     passes = 0;
     (*pContract).team = 0, (*pContract).value = 60, (*pContract).color = 0, (*pContract).isCoinched = 0;
     bool check=false;
-    char chInput;
-    int intInput;
     srand(time(0));
     do{
-        printf("The contract is detained by the player %d, and is worth %d on %s\n", (*pContract).team, (*pContract).value, getColorString((*pContract).color));
+        if((*pContract).team == 0){
+            printf("There is currently no contract\n");
+        }else{
+            printf("The contract is detained by the player %d, and is worth %d on %s\n", (*pContract).team, (*pContract).value, getColorString((*pContract).color));
+        }
         if (player == 1){
             temp = getContract(&pContract->value, &pContract->color, (*pContract).value, 680, (*pContract).team);
-            printf("%d\n",temp);
             switch(temp) {
                 case 1:
                     (*pContract).team = 1;
@@ -71,7 +83,6 @@ void defineContract(int player, contract* pContract,int **card){
         else{
             BotContract(card,player,&passes,&pContract->value,&pContract->team,&pContract->color);
         }
-        printf("%d",passes);
         player ++;
         if(player>4){player = 1;}
         if (passes==3 && (*pContract).team!=0){
@@ -83,6 +94,7 @@ void defineContract(int player, contract* pContract,int **card){
             printf("No contract was established, the cards has been reshuffled\n");
             randomize(card);
         }
+        waitForEnter();
     }while(check==false);
 }
 
@@ -105,8 +117,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
         else{
             printf("Le joeur %d joue\n",player);
             IAplayCard(cards,cardsOfRound,atoutMode,atout,player,i,belote);
-            while(getchar()!='\n');
-            getchar();
+            waitForEnter();
 
         }
         player++;
@@ -115,15 +126,6 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
             atoutMode = 1;
         }
         clear();
-    }
-    printf("Currently, the game is:\n");
-    for(int j=0;j<4;j++){
-        if(cardsOfRound[j] == -1){
-            printf("-Pas de carte\n");
-        }
-        else{
-            printf("-%s of %s\n",getValueString(cardsOfRound[j]%10),getColorString(cardsOfRound[j]/10));
-        }
     }
     int winTeam, score;
     CalculateScore(&winTeam, &score, cardsOfRound, player,atout, atoutMode);
@@ -141,7 +143,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
 
 int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn,int* belote){
     int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};
-    int numberOfPCards = 0;
+    int numberOfPCards = 0, count=0;
     clear();
     printf("Currently, the game is:\n");
     for(int i=0;i<4;i++){

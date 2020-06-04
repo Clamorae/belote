@@ -18,6 +18,7 @@ add clear
 */
 
 int main(){
+    clear();
     int **card=create(2,32),a=0,giver=0;
     srand(time(0));
     randomize(card);
