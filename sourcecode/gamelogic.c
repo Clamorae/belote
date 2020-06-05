@@ -103,15 +103,6 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
     int atoutMode = 0;
     int cardsOfRound[4] = {-1,-1,-1,-1};
     for(int i = 0;i<4;i++){
-        printf("Currently, the game is:\n");
-        for(int j=0;j<4;j++){
-            if(cardsOfRound[j] == -1){
-                printf("-No Card\n");
-            }
-            else{
-                printf("-%s of %s\n",getValueString(cardsOfRound[j]%10),getColorString(cardsOfRound[j]/10));
-            }
-        }
         if(player == 1){
             playCard(cards,cardsOfRound,&atoutMode,atout,i,belote);
         }
@@ -127,6 +118,15 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
             atoutMode = 1;
         }
         clear();
+        printf("Currently, the game is:\n");
+        for(int j=0;j<4;j++){
+            if(cardsOfRound[j] == -1){
+                printf("-No Card\n");
+            }
+            else{
+                printf("-%s of %s\n",getValueString(cardsOfRound[j]%10),getColorString(cardsOfRound[j]/10));
+            }
+        }
     }
     int winTeam, score;
     CalculateScore(&winTeam, &score, cardsOfRound, player,atout, atoutMode);
