@@ -65,7 +65,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
     int higher=0,count=0;//initialize the variable which will check if there a is a belote and who will chekc the best card to play
     int numberOfPCards = 0;
     bool winnable=false;// initialize the boolean which will test if the play is winnable or if its play the lowest card
-    numberOfPCards = IAgetplayablecards(cards,cardsOfRound,playableCards,atoutMode,atout,player);//call the fonction which will define whiwh card the IA can play
+    IAgetplayablecards(cards,cardsOfRound,playableCards,atoutMode,atout,player);//call the fonction which will define whiwh card the IA can play
     //I'm gonna destroy it later(I hope)
     for (int i = 0; i < 8; i++){
         printf("%d",playableCards[i]);
@@ -235,7 +235,59 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
     }
 }
 
-int IAgetplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atoutMode, int atout,int player){
+void IAgetplayablecards(int** cards,int* cardsOfRound, int* playableCards, int atoutMode, int atout,int player){
+    int NofPCards=0;
+    if (cardsOfRound[0]==-1){
+        for(int i=((player-1)*8);i<(player*8);i++){
+            if (cards[1][i]!=0){
+                playableCards[NofPCards]=cards[0][i];
+                NofPCards++;
+            }
+        }
+    } 
+    else if (atoutMode==1){
+        for(int i=((player-1)*8);i<(player*8);i++){
+            if (cards[0][i]/10==atout && cards[1][i]!=0){
+                playableCards[NofPCards]=cards[0][i];
+                NofPCards++;
+            }
+        }
+        if (NofPCards==0){
+            for(int i=((player-1)*8);i<(player*8);i++){
+                if (cards[1][i]!=0){
+                    playableCards[NofPCards]=cards[0][i];
+                    NofPCards++;
+                }
+            }
+        }
+    }
+    else{
+        for(int i=((player-1)*8);i<(player*8);i++){
+            if(cardsOfRound[0]/10==cards[0][i]/10 && cards[1][i]!=0){
+                playableCards[NofPCards]=cards[0][i];
+                NofPCards++;
+            }
+        }
+        if (NofPCards==0){
+            for(int i=((player-1)*8);i<(player*8);i++){
+                if(atout==cards[0][i]/10 && cards[1][i]!=0){
+                    playableCards[NofPCards]=cards[0][i];
+                    NofPCards++;
+                }
+            }
+        }
+        if (NofPCards==0){
+            for(int i=((player-1)*8);i<(player*8);i++){
+                if (cards[1][i]!=0){
+                    playableCards[NofPCards]=cards[0][i];
+                    NofPCards++;
+                }
+            }
+        }
+    }
+}
+
+/*int IAgetplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atoutMode, int atout,int player){
     int NofPCards = 0;
     int colorToMatch;
     if(atoutMode == 1){
@@ -283,4 +335,4 @@ void IAcompareAndAdd(int** cards, int* playableCards,int* NofPCards, int colorTo
             }
         }
     }
-}
+}*/
