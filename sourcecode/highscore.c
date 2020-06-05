@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "highscore.h"
+#include "input.h"
 
 highscore* getHighScore(){
     //This function is used to get the highscores from the file hs.sav to an array of highscores, which is a structure defined in the .h
@@ -31,9 +32,11 @@ void writeHighScore(highscore *array){
 }
 
 void printHighScore(highscore *array){
+    clear();
     printf("HIGH SCORES\\__________________________________________\n\n");
     for(int i = 0; i<10; i++){
         printf(" %d | %s | %d\n",i+1,array[i].name,array[i].score);
     }
     printf("_______________________________________________________\n");
+    waitForEnter();
 }

@@ -11,26 +11,28 @@
 
 int belote(int **card){
     clear();
-    int scoreT1 = 0, scoreT2 = 0,roundT1 =0, roundT2 =0, first, belote = 0;
+    int scoreT1 = 0, scoreT2 = 0,roundT1, roundT2, first, belote;
     contract gameContract;//create a contract type variable for the game
     char nom[255];
     printf("OPEN THE GAME\n");
-    waitForEnter();
     do{
         roundT1 = 0;roundT2=0;
         first = rand()%4+1;
         printf("The first to submit a contract for this round will be player %d\n",first);
+        waitForEnter();
         randomize(card);//shuffle the cards and sort them (Player 1 cards from index 0 to 7, P2 from 8 to 15, ect...)
         defineContract(first,&gameContract,card);
         first++;
         if (first>4){first = 1;}
         roundT1 = 0;
         roundT2 = 0;
+        belote = getBeloteRebelotte(card, gameContract.color);
         for(int i =0;i<8;i++){
             clear();
             printf("Contract is:\n-team: %d\n-value: %d\n-color: %s\n-coinched: %d\n\n",gameContract.team, gameContract.value, getColorString(gameContract.color), gameContract.isCoinched);
             printf("Turn n%d\n\n",i+1);
-            printf("Team 1 have %d points\nTeam 2 have %d points\n\n",roundT1,roundT2);
+            printf("Team 1 have %d points\nTeam 2 have %d points\nPress Enter to begin the round\n\n",roundT1,roundT2);
+            waitForEnter();
             play(card,first,gameContract.color, &roundT1, &roundT2,&belote);
             first++;
             if (first>4){first = 1;}
@@ -61,11 +63,13 @@ void defineContract(int player, contract* pContract,int **card){
     bool check=false;
     srand(time(0));
     do{
+        clear();
         if((*pContract).team == 0){
             printf("There is currently no contract\n");
         }else{
-            printf("The contract is detained by the player %d, and is worth %d on %s\n", (*pContract).team, (*pContract).value, getColorString((*pContract).color));
+            printf("The following contract was announced:\nteam:%d\nvalue:%d\ncolor:%s\ncoinche:%d\n\n", (*pContract).team, (*pContract).value, getColorString((*pContract).color),(*pContract).isCoinched);
         }
+        printf("It's player %d turn\n",player);
         if (player == 1){
             temp = getContract(&pContract->value, &pContract->color, (*pContract).value, 680, (*pContract).team);
             switch(temp) {
@@ -75,6 +79,7 @@ void defineContract(int player, contract* pContract,int **card){
                     break;
                 case 2:
                     (*pContract).isCoinched = 1;
+                    passes = 0;
                     break;
                 default:
                     passes++;
@@ -91,7 +96,6 @@ void defineContract(int player, contract* pContract,int **card){
         }
         else if (passes==4){
             passes = 0;
-            clear();
             printf("No contract was established, the cards has been reshuffled\n");
             randomize(card);
         }
@@ -100,6 +104,8 @@ void defineContract(int player, contract* pContract,int **card){
 }
 
 int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote){
+
+
     int atoutMode = 0;
     int cardsOfRound[4] = {-1,-1,-1,-1};
     for(int i = 0;i<4;i++){
@@ -357,7 +363,18 @@ int computeTotalScore(contract contract, int roundT1, int roundT2, int* scoreT1,
     return isSucessFull;
 }
 
-/*void annonce(){
-    check annonce 1 pour chaque joueur
-    return type1
-}*/
+int getBeloteRebelotte(int** cards, int atout){//return 0 if no belote rebelote, or return the player with the belote
+    int count;
+    for(int i=0; i<4; i++){
+        for (int j = 0; j < 8; j++){
+            count = 0;
+            if ((cards[0][(i*8)+j]/10==atout)&&((cards[0][(i*8)+j]%10==5)||(cards[0][(i*8)+j]%10==6))){
+                count++;
+            }
+            if(count == 2){
+                return i+1;
+            }
+        }
+    }
+    return 0;
+}

@@ -3,6 +3,7 @@
 #include"input.h"
 
 int menu(){
+    clear();
     //display the menu and return a number corresponding to the hoice of the user
     int input = 0;
     printf("%s", ".______    _______  __        ______   .___________. _______ \n");

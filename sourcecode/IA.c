@@ -13,8 +13,8 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
     else{
         team=2;
     }
-    
-    
+
+
     for (int i = 0; i <= 3; i++){
         count=0;
         for (int j = 0; j < 8; j++){
@@ -33,9 +33,11 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
             *value=80;
             *contractOwner=team;
             *color=higher[1];
+            *passes=0;
+            printf("The player %d bet: %d %s\n",player,*value, getColorString(*color));
         }
         else{
-            printf("The player %d pass\n",player-1 );
+            printf("The player %d pass\n",player);
             (*passes)++;
         }
 
@@ -45,15 +47,17 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
             *value=120;
             *contractOwner=team;
             *color=higher[1];
+            *passes=0;
+            printf("The player %d bet: %d %s\n",player,*value, getColorString(*color));
         }
         else{
-            printf("The player %d pass\n",player-1 );
+            printf("The player %d pass\n",player);
             (*passes)++;
         }
         break;
     default:
         (*passes)++;
-        printf("The player %d pass\n",player-1 );
+        printf("The player %d pass\n",player);
         break;
     }
 
@@ -71,7 +75,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
         printf("%d",playableCards[i]);
     }
     printf("\n");
-    
+
     if (turn==0){//this part of the fonction will only be active if the IA is the first to play
         for (int j = 0; j < 8; j++){
             if (playableCards[j]/10!=atout){
@@ -230,7 +234,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
             }
             else{
                 printf("Rebelote\n");
-            } 
+            }
         }
     }
 }
@@ -244,7 +248,7 @@ void IAgetplayablecards(int** cards,int* cardsOfRound, int* playableCards, int a
                 NofPCards++;
             }
         }
-    } 
+    }
     else if (atoutMode==1){
         for(int i=((player-1)*8);i<(player*8);i++){
             if (cards[0][i]/10==atout && cards[1][i]!=0){

@@ -16,6 +16,7 @@ int getInt(){
         printf("Invalid Value, please press enter and retry\n");
         while(getchar() != '\n');
     }
+    while(getchar() != '\n');
     return out;
 }
 
@@ -27,9 +28,8 @@ void waitForEnter(){
 int getContract(int *value, int *color, int minValue, int maxValue, int teamWithContract){//return 1 if a contract was estabished, 0 if the player passed, 2 if the player coinched
     int intInput;
     char chInput, temp;
-    if(teamWithContract != 0){
-        printf("The following contract was announced:\nteam:%d\nvalue:%d\ncolor:%s\n",teamWithContract,*value,getColorString(*color));
-        printf("do you want to coinche, or surcoinche the current contract if it's yours ? [Y/n]\n");
+    if(teamWithContract == 2){
+        printf("Do you want to coinche the opposing team contract ? [Y/n]\n");
         chInput = getcharB();
         if(chInput == 'y'||chInput == 'Y'){
             printf("Contract was coinched\n");
@@ -39,6 +39,7 @@ int getContract(int *value, int *color, int minValue, int maxValue, int teamWith
     printf("Do you want to announce a contrat ? [Y/n]\n");
     chInput = getcharB();//getchar works in a werid way and sometimes returns \n even with no keyboard inputs, this is used to fix it
     if (chInput == 'N'||chInput == 'n'){
+        printf("You pass\n");
         return 0;
     }
     else{

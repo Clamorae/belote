@@ -9,22 +9,36 @@
 #include"input.h"
 
 /*
-create annonce :
-create name demand :
-fix main menu :
-fix victory save :
-fix ordre d'affichage :
-add clear : Done
+-fix contracts : Done
+-create name demand : A Faire après les autres fix, nouveau systeme a coder
+-fix main menu : Done
+-fix victory save : ???
+-fix ordre d'affichage : ???
+-add clear : Done
+-fix the IAs (end up in an infite loop, dont know if its caused by that)
 */
 
 int main(){
-    clear();
-    int **card=create(2,32),a=0,giver=0;
+    int **card=create(2,32);
+    int exit = 0;
     srand(time(0));
     randomize(card);
     highscore *HSarray = getHighScore();
-    if (menu() == 2) {printHighScore(HSarray);waitForEnter();}
+    int input;
+    do{
+        input = menu();
+        switch (input) {
+            case 1:
+                belote(card);
+                break;
+            case 2:
+                printHighScore(HSarray);
+                break;
+            case 3:
+                exit = 1;
+                break;
+        }
+    }while(exit!=1);
     writeHighScore(HSarray);
-    belote(card);
     return 0;
 }
