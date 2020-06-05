@@ -5,9 +5,9 @@
 highscore* getHighScore(){
     //This function is used to get the highscores from the file hs.sav to an array of highscores, which is a structure defined in the .h
     //It is called at the launch of the program
-    highscore *HSArray = malloc(sizeof(highscore) * 5);//Malloc is used here so we can return a pointer and use the array in the main fucntion
+    highscore *HSArray = malloc(sizeof(highscore) * 10);//Malloc is used here so we can return a pointer and use the array in the main fucntion
     FILE* hsSaveFile = fopen("hs.sav","r");
-    for(int i = 0; i<5;i++){
+    for(int i = 0; i<10;i++){
         fscanf(hsSaveFile,"%s",HSArray[i].name);//Here, fscanf is used to get the data from the file to the array, so we can directly get the good data types (string and long)
         fscanf(hsSaveFile,"%d",&HSArray[i].score);//It is read line by line, alternating between a name and a score (The score is corresponding to the name above itself)
     }
@@ -21,7 +21,7 @@ void writeHighScore(highscore *array){
     //The argument is the pointer to the array, which is returned by the previous function.
     //This function is called at the end of the program, and is mandatory if getHighScore was called
     FILE* hsSaveFile = fopen("hs.sav","w");
-    for(int i=0; i<5;i++){
+    for(int i=0; i<10;i++){
         fprintf(hsSaveFile,"%s\n",array[i].name);//The data from the array is printed line by line, so the structure of the save file is
         fprintf(hsSaveFile,"%d\n",array[i].score);// not modified (name \n score \n name \n score...)
     }
@@ -32,7 +32,7 @@ void writeHighScore(highscore *array){
 
 void printHighScore(highscore *array){
     printf("HIGH SCORES\\__________________________________________\n\n");
-    for(int i = 0; i<5; i++){
+    for(int i = 0; i<10; i++){
         printf(" %d | %s | %d\n",i+1,array[i].name,array[i].score);
     }
     printf("_______________________________________________________\n");

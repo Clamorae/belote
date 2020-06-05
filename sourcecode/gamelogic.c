@@ -13,6 +13,7 @@ int belote(int **card){
     clear();
     int scoreT1 = 0, scoreT2 = 0,roundT1 =0, roundT2 =0, first, belote = 0;
     contract gameContract;//create a contract type variable for the game
+    char nom[255];
     printf("OPEN THE GAME\n");
     waitForEnter();
     do{

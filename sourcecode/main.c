@@ -9,12 +9,12 @@
 #include"input.h"
 
 /*
-create annonce
-create name demand
-fix main menu
-fix victory save
-fix ordre d'affichage
-add clear
+create annonce :
+create name demand :
+fix main menu :
+fix victory save :
+fix ordre d'affichage :
+add clear : Done
 */
 
 int main(){
@@ -23,7 +23,7 @@ int main(){
     srand(time(0));
     randomize(card);
     highscore *HSarray = getHighScore();
-    if (menu() == 2) {printHighScore(HSarray);}
+    if (menu() == 2) {printHighScore(HSarray);waitForEnter();}
     writeHighScore(HSarray);
     belote(card);
     return 0;
