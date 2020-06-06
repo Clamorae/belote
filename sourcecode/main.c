@@ -9,7 +9,6 @@
 #include"input.h"
 
 /*
--delete infinite game
 -create name demand : A Faire après les autres fix, nouveau systeme a coder
 -fix victory save : ???
 */
@@ -19,7 +18,10 @@ int main(){
     int exit = 0;
     srand(time(0));
     randomize(card);
-    highscore *HSarray = getHighScore();
+    //highscore *HSarray = getHighScore();
+    int NumberOfProfiles;
+    profile* profileArray = getProfiles(&NumberOfProfiles);
+    profileArray = addNewProfile(profileArray,&NumberOfProfiles);
     int input;
     do{
         input = menu();
@@ -28,13 +30,15 @@ int main(){
                 belote(card);
                 break;
             case 2:
-                printHighScore(HSarray);
+                clear();
+                printProfiles(profileArray,NumberOfProfiles);
+                waitForEnter();
                 break;
             case 3:
                 exit = 1;
                 break;
         }
     }while(exit!=1);
-    writeHighScore(HSarray);
+    //writeHighScore(HSarray);
     return 0;
 }
