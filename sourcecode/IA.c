@@ -71,23 +71,6 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
     bool winnable=false;// initialize the boolean which will test if the play is winnable or if its play the lowest card
     IAgetplayablecards(cards,cardsOfRound,playableCards,atoutMode,atout,player);//call the fonction which will define whiwh card the IA can play
     
-    
-    //I'm gonna destroy it later(I hope)
-    for (int i = 0; i < 8; i++){
-        printf("%d",playableCards[i]);
-    }
-    printf("\n");
-    for (int i = 0; i < 32; i++){
-        printf("%d ",cards[0][i]);
-    }
-    printf("\n");
-    for (int i = 0; i < 32; i++){
-        printf("%d ",cards[1][i]);
-    }
-    printf("\n");
-    
-
-
     if (turn==0){//this part of the fonction will only be active if the IA is the first to play
         cardsOfRound[turn] = playableCards[0];
         for(int k=((player-1)*8);k<(player*8);k++){
