@@ -18,7 +18,7 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
     for (int i = 0; i <= 3; i++){
         count=0;
         for (int j = 0; j < 8; j++){
-            if ((card[0][((player-1)*8)+j])/10==i){
+            if ((card[0][((player-1)*8)+j])/10==i &&((card[0][((player-1)*8)+j]/10==7)||(card[0][((player-1)*8)+j]/10==2)||(card[0][((player-1)*8)+j]/10==4)){
                 count++;
              }
         }
@@ -82,7 +82,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
     
 
     else if(atoutMode==0 && atout==playableCards[0]/10){//In this case the IA doest have the color which is played by the leader so IA will play an atout
-        int value[8]={0,1,2,4,5,6,3,7};
+        int value[8]={0,1,5,6,3,7,2,4};
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
                 if (playableCards[j]%10==value[i]){
