@@ -26,3 +26,4 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
 void compareAndAdd(int** cards, int* playableCards,int*NofPCards, int colorToCompare);
 int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int atout, int atoutMode);
 int computeTotalScore(contract contract, int roundT1, int roundT2, int* scoreT1, int* scoreT2);
+int getBeloteRebelotte(int** cards, int atout);
