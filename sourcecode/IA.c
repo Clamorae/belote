@@ -18,9 +18,9 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
     for (int i = 0; i <= 3; i++){
         count=0;
         for (int j = 0; j < 8; j++){
-            if ((card[0][((player-1)*8)+j])/10==i &&((card[0][((player-1)*8)+j]/10==7)||(card[0][((player-1)*8)+j]/10==2)||(card[0][((player-1)*8)+j]/10==4)){
+            if ((card[0][((player-1)*8)+j])/10==i &&((card[0][((player-1)*8)+j]/10==7)||(card[0][((player-1)*8)+j]/10==2)||(card[0][((player-1)*8)+j]/10==4))){
                 count++;
-             }
+            }
         }
         if (count>higher[0]){
             higher[0]=count;

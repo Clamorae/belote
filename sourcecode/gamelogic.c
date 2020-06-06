@@ -47,7 +47,7 @@ int belote(int **card){
         printf("The score is:\n-%d for team 1\n-%d for team 2\n",scoreT1, scoreT2);
         printf("Press ENTER to start a new round\n");
         waitForEnter();
-    }while(scoreT1 <= 701 || scoreT2 <= 701);
+    }while(scoreT1 < 701 && scoreT2 < 701);
     clear();
     if(scoreT1  > scoreT2){
         printf("TEAM 1 WINS YOUHOU\n");

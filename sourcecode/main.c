@@ -9,13 +9,9 @@
 #include"input.h"
 
 /*
--fix contracts : Done
+-delete infinite game
 -create name demand : A Faire après les autres fix, nouveau systeme a coder
--fix main menu : Done
 -fix victory save : ???
--fix ordre d'affichage : ???
--add clear : Done
--fix the IAs (end up in an infite loop, dont know if its caused by that)
 */
 
 int main(){
