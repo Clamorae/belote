@@ -19,7 +19,6 @@ int belote(int**);//Main function of the game, where everything takes place. The
 void defineContract(int,contract*, int**);/*This function is run at the begining of every round, and will define the contract for it.
 It takes a pointeur to a contract variable and the matrix of cards*/
 int gameRound(int** cards,int firstToContract,int* scoreT1, int* scoreT2);//nice
-int isCardPlayable(int,int,int);
 int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote);
 int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn,int* belote);
 int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atoutMode, int atout);

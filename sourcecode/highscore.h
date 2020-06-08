@@ -10,6 +10,7 @@ profile* getProfiles(int*NumberOfProfiles);
 void emergencyExit();
 int printProfiles(profile* profileArray, int NumberOfProfiles);
 profile* addNewProfile(profile* profileArray, int* NumberOfProfiles);
+void saveProfiles(profile* profileArray, int NumberOfProfiles);
 //highscore* getHighScore();
 //void writeHighScore(highscore*);
 //void printHighScore(highscore *);
