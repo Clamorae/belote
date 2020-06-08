@@ -21,7 +21,7 @@ int main(){
     //highscore *HSarray = getHighScore();
     int NumberOfProfiles;
     profile* profileArray = getProfiles(&NumberOfProfiles);
-    profileArray = addNewProfile(profileArray,&NumberOfProfiles);
+    //profileArray = addNewProfile(profileArray,&NumberOfProfiles);
     int input;
     do{
         input = menu();
@@ -39,6 +39,6 @@ int main(){
                 break;
         }
     }while(exit!=1);
-    //writeHighScore(HSarray);
+    saveProfiles(profileArray,NumberOfProfiles);
     return 0;
 }

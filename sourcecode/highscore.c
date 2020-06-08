@@ -8,7 +8,7 @@
 profile* getProfiles(int*NumberOfProfiles){
     FILE* profilFile = fopen("profiles.sav","r");
     if(profilFile == NULL){
-        printf("The profiles.sav file could not be open. It might have been moved, deleted or renamed.\nA new file wille be created and the game will quit(Your previous data wont be available until you restore your previous save file).\n");
+        printf("The profiles.sav file could not be open. It might have been moved, deleted or renamedgdb.\nA new file wille be created and the game will quit(Your previous data wont be available until you restore your previous save file).\n");
         waitForEnter();
         FILE* temp = fopen("profiles.sav","w");
         fprintf(temp,"0\n");
@@ -43,11 +43,19 @@ int printProfiles(profile* profileArray, int NumberOfProfiles){
         printf("No saved profiles :(\n");
         return 0;
     }
+    float pourcentage;
     printf("PROFILES\\_______________________________________________________\n");
-    printf("NOM - NOMBRE DE PARTIE - RATIO VICTOIRE/DEFAITE - SCORE MAXIMUM\n");
+    printf("NOM | NOMBRE DE PARTIE | RATIO VICTOIRE/DEFAITE | SCORE MAXIMUM\n");
     printf("_________________________________________________________________\n");
     for(int i=0; i<NumberOfProfiles;i++){
-        printf("%s - %d - %d/%d - %d\n",profileArray[i].name,profileArray[i].numberOfGames,profileArray[i].numberOfWins,(profileArray[i].numberOfGames - profileArray[i].numberOfWins),profileArray[i].maxScore);
+        printf("\n");
+        if(profileArray[i].numberOfGames == 0){
+            pourcentage = 0;
+        }
+        else{
+            pourcentage = ((float)profileArray[i].numberOfWins/(float)profileArray[i].numberOfGames)*100;
+        }
+        printf("%s | %d | %d/%d (%.1f%) | %d\n",profileArray[i].name,profileArray[i].numberOfGames,profileArray[i].numberOfWins,(profileArray[i].numberOfGames - profileArray[i].numberOfWins),pourcentage,profileArray[i].maxScore);
         printf("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n");
     }
     return 0;
@@ -55,7 +63,7 @@ int printProfiles(profile* profileArray, int NumberOfProfiles){
 
 
 profile* addNewProfile(profile* profileArray, int* NumberOfProfiles){
-    char name[11];
+    char name[255];
     printf("Please enter your name :");
     scanf("%s", name);
     (*NumberOfProfiles)++;
@@ -81,57 +89,3 @@ void saveProfiles(profile* profileArray, int NumberOfProfiles){
     fclose(profilFile);
     free(profileArray);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-//profile* getHighScore(){
-//    //This function is used to get the highscores from the file hs.sav to an array of highscores, which is a structure defined in the .h
-//    //It is called at the launch of the program
-//    FILE* hsSaveFile = fopen("hs.sav","r");
-//
-//
-//
-//    profile *HSArray = malloc(sizeof(profile) * 10);//Malloc is used here so we can return a pointer and use the array in the main fucntion
-//
-//    for(int i = 0; i<10;i++){
-//        fscanf(hsSaveFile,"%s",HSArray[i].name);//Here, fscanf is used to get the data from the file to the array, so we can directly get the good data types (string and long)
-//        fscanf(hsSaveFile,"%d",&HSArray[i].score);//It is read line by line, alternating between a name and a score (The score is corresponding to the name above itself)
-//    }
-//    fclose(hsSaveFile);
-//    return HSArray;//Returning the pointer to the array of highscores, which will be used to modify the highscores during runtime
-//}
-//
-//void writeHighScore(highscore *array){
-//    //this function is used to write the data from the array to the file hs.sav
-//    //The argument is the pointer to the array, which is returned by the previous function.
-//    //This function is called at the end of the program, and is mandatory if getHighScore was called
-//    FILE* hsSaveFile = fopen("hs.sav","w");
-//    for(int i=0; i<10;i++){
-//        fprintf(hsSaveFile,"%s\n",array[i].name);//The data from the array is printed line by line, so the structure of the save file is
-//        fprintf(hsSaveFile,"%d\n",array[i].score);// not modified (name \n score \n name \n score...)
-//    }
-//    printf("Highscore written sucessfully on hs.sav\n");
-//    free(array);//This free the memory used by the malloc in getHighScore(), which is why it is mandatory
-//    fclose(hsSaveFile);
-//}
-//
-//void printHighScore(highscore *array){
-//    clear();
-//    printf("HIGH SCORES\\__________________________________________\n\n");
-//    for(int i = 0; i<10; i++){
-//        printf(" %d | %s | %d\n",i+1,array[i].name,array[i].score);
-//    }
-//    printf("_______________________________________________________\n");
-//    waitForEnter();
-//}
-//

@@ -13,7 +13,7 @@ int menu(){
     printf("%s", "|  |_)  | |  |____ |  `----.|  `--'  |     |  |     |  |____ \n");
     printf("%s", "|______/  |_______||_______| \\______/      |__|     |_______|\n");
     printf("%s", "_____________________________________________________________\n");
-    printf("Veuilliez choisir une action: \n1-Commencer une partie\n2-Regarder les highscores\n3-Quitter\n");
+    printf("Please choose: \n1-Start a new game\n2-Check profiles statistics\n3-Quit\n");
     do{
         input = getInt();
     }while(input<1 || input>3);
