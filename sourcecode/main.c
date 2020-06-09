@@ -9,9 +9,8 @@
 #include"input.h"
 
 /*
--delete infinite game
--create name demand : A Faire après les autres fix, nouveau systeme a coder
--fix victory save : ???
+-fix victory save 
+-annonce
 */
 
 int main(){

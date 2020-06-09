@@ -378,3 +378,61 @@ int getBeloteRebelotte(int** cards, int atout){//return 0 if no belote rebelote,
     }
     return 0;
 }
+
+/*void announcement(int** cards,int player,bool* 3sequence,bool* 4sequence,bool* 5sequence,bool* asquare,bool* 9square,bool* jsquare){
+    int count=0;
+    for (int i = 8*(player-1); i < 8*player; i++){
+        if (cards[0][i]%10==4){
+            count++;
+        }
+    }
+    if (count==4){
+        *jsquare=true;
+    }
+    count=0
+    for (int i = 8*(player-1); i < 8*player; i++){
+        if (cards[0][i]%10==2){
+            count++;
+        }
+    }
+    if (count==4){
+        *9square=true;
+    }
+    count=0;
+    for (int i = 8*(player-1); i < 8*player; i++){
+        if (cards[0][i]%10==7){
+            count++;
+        }
+    }
+    if (count==4){
+        *asquare=true;
+    }
+    count=0;
+    for (int i = 8*(player-1); i < 8*player; i++){
+        if (cards[0][i]%10==6){
+            count++;
+        }
+    }
+    if (count==4){
+        *asquare=true;
+    }
+    count=0;
+    for (int i = 8*(player-1); i < 8*player; i++){
+        if (cards[0][i]%10==5){
+            count++;
+        }
+    }
+    if (count==4){
+        *asquare=true;
+    }
+    count=0;
+    for (int i = 8*(player-1); i < 8*player; i++){
+        if (cards[0][i]%10==3){
+            count++;
+        }
+    }
+    if (count==4){
+        *asquare=true;
+    }
+    count=0;
+}*/
