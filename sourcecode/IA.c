@@ -80,7 +80,51 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
         }
     }
     
-
+    else if (atoutMode==2){
+        
+        int value[8]={0,1,5,6,3,7,2,4};
+        for (int i = 0; i < turn; i++){
+            for (int j = 0; j < 8; j++){
+                if (value[j]==cardsOfRound[turn]%10){
+                    if (j>higher){
+                        higher=j;
+                    }
+                    j=8;
+                }
+            }
+        }
+        for (int i = higher; i < 8; i++){
+            for (int j = 0; j < 8; j++){
+                if (playableCards[j]%10==value[i]){
+                    winnable=true;
+                    cardsOfRound[turn] = playableCards[j];
+                    for(int k=((player-1)*8);k<(player*8);k++){
+                        if (cards[0][k] == playableCards[j]){
+                            cards[1][k] = 0;
+                        }
+                    }
+                    j=8;
+                    i=8;
+                }
+            }
+        }
+        if (winnable==false){
+            for (int i = 0; i < higher; i++){
+                for (int j = 0; j < 8; j++){
+                    if (playableCards[j]%10==value[i]){
+                        cardsOfRound[turn] = playableCards[j];
+                        for(int k=((player-1)*8);k<(player*8);k++){
+                            if (cards[0][k] == playableCards[j]){
+                                cards[1][k] = 0;
+                            }
+                        }
+                        j=8;
+                        i=8;
+                    }
+                }
+            }
+        }
+    }
     else if(atoutMode==0 && atout==playableCards[0]/10){//In this case the IA doest have the color which is played by the leader so IA will play an atout
         int value[8]={0,1,5,6,3,7,2,4};
         for (int i = 0; i < 8; i++){
@@ -241,6 +285,20 @@ void IAgetplayablecards(int** cards,int* cardsOfRound, int* playableCards, int a
     if (cardsOfRound[0]==-1){
         for(int i=((player-1)*8);i<(player*8);i++){
             if (cards[1][i]!=0){
+                playableCards[NofPCards]=cards[0][i];
+                NofPCards++;
+            }
+        }
+    }
+    else if (atoutMode==2){
+        for(int i=((player-1)*8);i<(player*8);i++){
+            playableCards[NofPCards]=cards[0][i];
+            NofPCards++;
+        }
+    }
+    else if (atoutMode==3){
+        for(int i=((player-1)*8);i<(player*8);i++){
+            if (cards[0][i]/10==cardsOfRound[0]/10 && cards[1][i]!=0){
                 playableCards[NofPCards]=cards[0][i];
                 NofPCards++;
             }
