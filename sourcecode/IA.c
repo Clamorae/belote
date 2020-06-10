@@ -80,7 +80,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
         }
     }
     
-    else if (atoutMode==2){
+    else if (atout==5){
         int value[8]={0,1,5,6,3,7,2,4};
         for (int i = 0; i < turn; i++){
             for (int j = 0; j < 8; j++){
@@ -124,7 +124,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
             }
         }
     }
-    else if (atoutMode==3){
+    else if (atout==4){
         int value[8]={0,1,2,4,5,6,3,7};
         if (cardsOfRound[0]==playableCards[0]){
            for (int i = 0; i < turn; i++){
@@ -352,7 +352,7 @@ void IAgetplayablecards(int** cards,int* cardsOfRound, int* playableCards, int a
             }
         }
     }
-    else if (atoutMode==2){
+    else if (atout==5){
         for(int i=((player-1)*8);i<(player*8);i++){
             if (cards[1][i]!=0){
                 playableCards[NofPCards]=cards[0][i];
@@ -360,7 +360,7 @@ void IAgetplayablecards(int** cards,int* cardsOfRound, int* playableCards, int a
             }        
         }
     }
-    else if (atoutMode==3){
+    else if (atout==4){
         for(int i=((player-1)*8);i<(player*8);i++){
             if (cards[0][i]/10==cardsOfRound[0]/10 && cards[1][i]!=0){
                 playableCards[NofPCards]=cards[0][i];

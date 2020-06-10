@@ -9,7 +9,7 @@
 #include"input.h"
 
 /*
-    trump in contract: x
+    trump in contract: V
     trump in count: x
     winner start: x
     comment: x

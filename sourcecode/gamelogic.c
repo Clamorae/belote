@@ -111,7 +111,10 @@ void defineContract(int player, contract* pContract,int **card){
 
 int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote,int turn,int* T1,int* T2){
 
-
+    if (turn!=0){
+        /* code */
+    }
+    
     int atoutMode = 0;
     int cardsOfRound[4] = {-1,-1,-1,-1};
     int tsequence=0, fosequence=0, fisequence=0,asquare=0,nsquare=0,jsquare=0;
@@ -369,14 +372,8 @@ int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn,
 int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atoutMode, int atout){
     int NofPCards = 0;
     int colorToMatch;
-    if(atoutMode == 1){
-        colorToMatch = atout;
-    }
-    else{
-        colorToMatch = cardsOfRound[0]/10;
-    }
-
-    /*if ( Full-Trump ){
+    
+    if ( atout==5){
         for (int i = 0; i < 8; i++){
             if (cards[1][i]!=0){
                 playableCards[NofPCards]==cards[0][i];
@@ -385,8 +382,9 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
             
         }
         
-    }*/
-    /*else if (No Trump){
+    }
+    
+    else if (atout==4){
         for(int i=0;i<8;i++){
             if (cards[0][i]/10==cardsOfRound[0]/10 && cards[1][i]!=0){
                 playableCards[NofPCards]=cards[0][i];
@@ -401,8 +399,14 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
                 }    
             }
         }
-    }*/
-    
+    }
+
+    else if(atoutMode == 1){
+        colorToMatch = atout;
+    }
+    else{
+        colorToMatch = cardsOfRound[0]/10;
+    }
     
 
     if(cardsOfRound[0] == -1){
