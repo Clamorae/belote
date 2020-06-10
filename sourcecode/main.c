@@ -9,10 +9,17 @@
 #include"input.h"
 
 /*
-    trump in contract
-    trump in count
-    winner start
-    comment
+    trump in contract: x
+    trump in count: x
+    winner start: x
+    comment: x
+    see card before anoucing contracts: x
+    dé-coinche when a new contracts is anounced:x
+    display results screen at the end of the game: x
+    remove debug prints: x
+    make a good clear function (NOT print \n\n\n\n\n\n\n...): x
+    add some waitForEnter(); where it needs to: x
+    prevent people from creating profiles with the same names: x
 */
 
 int main(){
