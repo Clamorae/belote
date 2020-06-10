@@ -76,6 +76,7 @@ void defineContract(int player, contract* pContract,int **card){
         }
         printf("It's player %d turn\n",player);
         if (player == 1){
+            printP1Cards(card);
             temp = getContract(&pContract->value, &pContract->color, (*pContract).value, 680, (*pContract).team);
             switch(temp) {
                 case 1:

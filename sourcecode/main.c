@@ -13,7 +13,7 @@
     trump in count: x
     winner start: x
     comment: x
-    see card before anoucing contracts: x
+    see card before anoucing contracts: V
     dé-coinche when a new contracts is anounced:x
     display results screen at the end of the game: x
     remove debug prints: x
