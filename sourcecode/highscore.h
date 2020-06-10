@@ -11,6 +11,8 @@ void emergencyExit();
 int printProfiles(profile* profileArray, int NumberOfProfiles);
 profile* addNewProfile(profile* profileArray, int* NumberOfProfiles);
 void saveProfiles(profile* profileArray, int NumberOfProfiles);
+profile* selectProfile(profile* profileArray, int* numberOfProfiles, int* profileNumber);
+void updateProfile(profile* profileArray, int profileNumber, int win, int score);
 //highscore* getHighScore();
 //void writeHighScore(highscore*);
 //void printHighScore(highscore *);

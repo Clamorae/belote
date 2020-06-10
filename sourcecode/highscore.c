@@ -77,6 +77,44 @@ profile* addNewProfile(profile* profileArray, int* NumberOfProfiles){
 
 }
 
+profile* selectProfile(profile* profileArray, int* numberOfProfiles, int* profileNumber){
+    int intInput;
+    clear();
+    printf("Please select a profile\n\n");
+    printf("1 - Create a new profile\n");
+    for(int i = 0; i< *numberOfProfiles;i++){
+        printf("%d - %s\n",i+2,profileArray[i].name);
+    }
+    intInput = getInt();
+    while(intInput<1 || intInput > *numberOfProfiles+2){
+        printf("Invalid Input, please retry\n");
+        intInput = getInt();
+    }
+    if(intInput == 1){
+        profileArray = addNewProfile(profileArray,numberOfProfiles);
+        *profileNumber = *numberOfProfiles-1;
+    }else{
+        *profileNumber = intInput - 2;
+    }
+    printf("profile %s sélectionner\n",profileArray[*profileNumber].name);
+    waitForEnter();
+    waitForEnter();
+    return profileArray;
+}
+
+void updateProfile(profile* profileArray, int profileNumber, int win, int score){
+    (profileArray[profileNumber].numberOfGames)++;
+    if(win == 1){
+        (profileArray[profileNumber].numberOfWins)++;
+    }
+    if(score > profileArray[profileNumber].maxScore){
+        printf("New high score! Congrats!\n");
+        profileArray[profileNumber].maxScore = score;
+    }
+    printf("Your profile has been updated:\nname:%s\nWin/Lose:%d-%d\nhigh score:%d\n",profileArray[profileNumber].name,\
+    profileArray[profileNumber].numberOfWins,profileArray[profileNumber].numberOfGames - profileArray[profileNumber].numberOfWins,profileArray[profileNumber].maxScore);
+}
+
 void saveProfiles(profile* profileArray, int NumberOfProfiles){
     FILE* profilFile = fopen("profiles.sav","w");
     fprintf(profilFile,"%d\n",NumberOfProfiles);

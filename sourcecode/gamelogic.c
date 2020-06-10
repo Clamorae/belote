@@ -1,3 +1,4 @@
+#include"highscore.h"
 #include"gamelogic.h"
 #include"input.h"
 #include"array.h"
@@ -9,7 +10,7 @@
 //Faudrait vraiment que je pense a commenter ce truc la
 
 
-int belote(int **card){
+int belote(int **card, profile* profileArray, int profileNumber){
     clear();
     int scoreT1 = 0, scoreT2 = 0,roundT1, roundT2, first, belote;
     contract gameContract;//create a contract type variable for the game
@@ -51,9 +52,13 @@ int belote(int **card){
     clear();
     if(scoreT1  > scoreT2){
         printf("TEAM 1 WINS YOUHOU\n");
+        updateProfile(profileArray, profileNumber, 1, scoreT1);
     }else{
-        printf("TEAM 2 WINS YOUHOU\n");
+        printf("TEAM 2 WINS SO SAD\n");
+        updateProfile(profileArray, profileNumber, 0, scoreT1);
     }
+
+
 }
 
 void defineContract(int player, contract* pContract,int **card){
@@ -523,6 +528,6 @@ void announcement(int** cards,int player ,int* tsequence,int* fosequence,int* fi
     else if (higher[0]>4){
         *fisequence=1;
     }
-    
-    
+
+
 }

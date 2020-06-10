@@ -18,19 +18,20 @@ int main(){
     srand(time(0));
     randomize(card);
     //highscore *HSarray = getHighScore();
-    int NumberOfProfiles;
-    profile* profileArray = getProfiles(&NumberOfProfiles);
+    int numberOfProfiles, profileNumber;
+    profile* profileArray = getProfiles(&numberOfProfiles);
     //profileArray = addNewProfile(profileArray,&NumberOfProfiles);
     int input;
     do{
         input = menu();
         switch (input) {
             case 1:
-                belote(card);
+                profileArray = selectProfile(profileArray, &numberOfProfiles, &profileNumber);
+                belote(card, profileArray, profileNumber);
                 break;
             case 2:
                 clear();
-                printProfiles(profileArray,NumberOfProfiles);
+                printProfiles(profileArray,numberOfProfiles);
                 waitForEnter();
                 break;
             case 3:
@@ -38,6 +39,6 @@ int main(){
                 break;
         }
     }while(exit!=1);
-    saveProfiles(profileArray,NumberOfProfiles);
+    saveProfiles(profileArray,numberOfProfiles);
     return 0;
 }
