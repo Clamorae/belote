@@ -9,10 +9,7 @@
 #include"input.h"
 
 /*
--fix victory save 
--annonce
--create name demand : A Faire après les autres fix, nouveau systeme a coder
--fix victory save : ???
+full trump
 */
 
 int main(){

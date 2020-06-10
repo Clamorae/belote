@@ -33,7 +33,7 @@ int belote(int **card){
             printf("Turn n%d\n\n",i+1);
             printf("Team 1 have %d points\nTeam 2 have %d points\nPress Enter to begin the round\n\n",roundT1,roundT2);
             waitForEnter();
-            play(card,first,gameContract.color, &roundT1, &roundT2,&belote);
+            play(card,first,gameContract.color, &roundT1, &roundT2,&belote,i);
             first++;
             if (first>4){first = 1;}
         }
@@ -103,16 +103,85 @@ void defineContract(int player, contract* pContract,int **card){
     }while(check==false);
 }
 
-int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote){
+int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote,int turn){
 
 
     int atoutMode = 0;
     int cardsOfRound[4] = {-1,-1,-1,-1};
+    int tsequence=0, fosequence=0, fisequence=0,asquare=0,nsquare=0,jsquare=0;
     for(int i = 0;i<4;i++){
         if(player == 1){
+            if (turn==1) {
+                    announcement(cards ,player ,&tsequence ,&fosequence ,&fisequence ,&asquare ,&nsquare ,&jsquare );
+                if (jsquare==1){
+                    printf("You're announcing a square of Jack, for a 200 points value");
+                }
+                else if (nsquare==1){
+                    printf("You're announcing a square of 9, for a 150 points value");
+                }
+                else if (tsequence==1){
+                    printf("You're announcing a sequence of 3, for a 20 points value");
+                }
+                else if (fosequence==1){
+                    printf("You're announcing a sequence of 4, for a 50 points value");
+                }
+                else if (nsquare==1){
+                    printf("You're announcing a sequence of 5, for a 100 points value");
+                }
+                switch (asquare){
+                case 3:
+                    printf("You're announcing a square of 10, for a 100 points value");
+                    break;
+                case 5:
+                    printf("You're announcing a square of Queen, for a 100 points value");
+                    break;
+                case 6:
+                    printf("You're announcing a square of King, for a 100 points value");
+                    break;
+                case 7:
+                    printf("You're announcing a square of Ace, for a 100 points value");
+                    break;
+                default:
+                    break;
+                }
+            }
             playCard(cards,cardsOfRound,&atoutMode,atout,i,belote);
         }
         else{
+            if (turn==1) {
+                    announcement(cards ,player ,&tsequence ,&fosequence ,&fisequence ,&asquare ,&nsquare ,&jsquare );
+                if (jsquare==1){
+                    printf("The %d player is announcing a square of Jack, for a 200 points value",player);
+                }
+                else if (nsquare==1){
+                    printf("The %d player is announcing a square of 9, for a 150 points value",player);
+                }
+                else if (tsequence==1){
+                    printf("The %d player is announcing a sequence of 3, for a 20 points value",player);
+                }
+                else if (fosequence==1){
+                    printf("The %d player is announcing a sequence of 4, for a 50 points value",player);
+                }
+                else if (nsquare==1){
+                    printf("The %d player is announcing a sequence of 5, for a 100 points value",player);
+                }
+                switch (asquare){
+                case 3:
+                    printf("The %d player is announcing a square of 10, for a 100 points value",player);
+                    break;
+                case 5:
+                    printf("The %d player is announcing a square of Queen, for a 100 points value",player);
+                    break;
+                case 6:
+                    printf("The %d player is announcing a square of King, for a 100 points value",player);
+                    break;
+                case 7:
+                    printf("The %d player is announcing a square of Ace, for a 100 points value",player);
+                    break;
+                default:
+                    break;
+                }
+            }
             printf("Player %d is currently playing\n",player);
             IAplayCard(cards,cardsOfRound,atoutMode,atout,player,i,belote);
             waitForEnter();
@@ -379,24 +448,24 @@ int getBeloteRebelotte(int** cards, int atout){//return 0 if no belote rebelote,
     return 0;
 }
 
-/*void announcement(int** cards,int player,bool* 3sequence,bool* 4sequence,bool* 5sequence,bool* asquare,bool* 9square,bool* jsquare){
-    int count=0;
+void announcement(int** cards,int player ,int* tsequence,int* fosequence,int* fisequence,int* asquare,int* nsquare,int* jsquare){
+    int count=0,higher[2]={0,0};
     for (int i = 8*(player-1); i < 8*player; i++){
         if (cards[0][i]%10==4){
             count++;
         }
     }
     if (count==4){
-        *jsquare=true;
+        *jsquare=1;
     }
-    count=0
+    count=0;
     for (int i = 8*(player-1); i < 8*player; i++){
         if (cards[0][i]%10==2){
             count++;
         }
     }
     if (count==4){
-        *9square=true;
+        *nsquare=1;
     }
     count=0;
     for (int i = 8*(player-1); i < 8*player; i++){
@@ -405,7 +474,7 @@ int getBeloteRebelotte(int** cards, int atout){//return 0 if no belote rebelote,
         }
     }
     if (count==4){
-        *asquare=true;
+        *asquare=7;
     }
     count=0;
     for (int i = 8*(player-1); i < 8*player; i++){
@@ -414,7 +483,7 @@ int getBeloteRebelotte(int** cards, int atout){//return 0 if no belote rebelote,
         }
     }
     if (count==4){
-        *asquare=true;
+        *asquare=6;
     }
     count=0;
     for (int i = 8*(player-1); i < 8*player; i++){
@@ -423,7 +492,7 @@ int getBeloteRebelotte(int** cards, int atout){//return 0 if no belote rebelote,
         }
     }
     if (count==4){
-        *asquare=true;
+        *asquare=5;
     }
     count=0;
     for (int i = 8*(player-1); i < 8*player; i++){
@@ -432,7 +501,28 @@ int getBeloteRebelotte(int** cards, int atout){//return 0 if no belote rebelote,
         }
     }
     if (count==4){
-        *asquare=true;
+        *asquare=3;
     }
     count=0;
-}*/
+    for (int i = 8*(player-1); i < 8*player; i++){
+        if ((cards[0][i]%10==(cards[0][i-1]%10)+1)&&(cards[0][i]/10==(cards[0][i-1]/10))){
+            count++;
+        }
+        else{
+            higher[0]=count;
+            higher[1]=cards[0][i]/10;
+            count=0;
+        }
+    }
+    if (higher[0]==3){
+        *tsequence=1;
+    }
+    else if (higher[0]==4){
+        *fosequence=1;
+    }
+    else if (higher[0]>4){
+        *fisequence=1;
+    }
+    
+    
+}
