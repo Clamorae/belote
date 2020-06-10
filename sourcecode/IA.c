@@ -124,26 +124,6 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     else if (atoutMode==3){
         int value[8]={0,1,2,4,5,6,3,7};
         if (cardsOfRound[0]==playableCards[0]){
@@ -208,38 +188,6 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
             }
         }      
     }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     else if(atoutMode==0 && atout==playableCards[0]/10){//In this case the IA doest have the color which is played by the leader so IA will play an atout
         int value[8]={0,1,5,6,3,7,2,4};
         for (int i = 0; i < 8; i++){
@@ -257,7 +205,6 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
             }
         }
     }
-
 
     else if (atoutMode==0 && cardsOfRound[0]/10==playableCards[0]/10){
         int value[8]={0,1,2,4,5,6,3,7};
