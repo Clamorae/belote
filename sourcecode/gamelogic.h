@@ -10,7 +10,7 @@ int belote(int **card, profile* profileArray, int profileNumber);//Main function
 void defineContract(int,contract*, int**);/*This function is run at the begining of every round, and will define the contract for it.
 It takes a pointeur to a contract variable and the matrix of cards*/
 int gameRound(int** cards,int firstToContract,int* scoreT1, int* scoreT2);//nice
-int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote,int turn);
+int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote,int turn,int* T1,int* T2);
 int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn,int* belote);
 int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atoutMode, int atout);
 void compareAndAdd(int** cards, int* playableCards,int*NofPCards, int colorToCompare);

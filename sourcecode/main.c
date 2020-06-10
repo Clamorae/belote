@@ -9,7 +9,10 @@
 #include"input.h"
 
 /*
-full trump
+    trump in contract
+    trump in count
+    winner start
+    comment
 */
 
 int main(){
