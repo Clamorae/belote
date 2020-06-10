@@ -33,7 +33,7 @@ int belote(int **card){
             printf("Turn n%d\n\n",i+1);
             printf("Team 1 have %d points\nTeam 2 have %d points\nPress Enter to begin the round\n\n",roundT1,roundT2);
             waitForEnter();
-            play(card,first,gameContract.color, &roundT1, &roundT2,&belote,i);
+            play(card,first,gameContract.color, &roundT1, &roundT2,&belote,i,&scoreT1,&scoreT2);
             first++;
             if (first>4){first = 1;}
         }
@@ -103,7 +103,7 @@ void defineContract(int player, contract* pContract,int **card){
     }while(check==false);
 }
 
-int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote,int turn){
+int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote,int turn,int* T1,int* T2){
 
 
     int atoutMode = 0;
@@ -115,31 +115,40 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     announcement(cards ,player ,&tsequence ,&fosequence ,&fisequence ,&asquare ,&nsquare ,&jsquare );
                 if (jsquare==1){
                     printf("You're announcing a square of Jack, for a 200 points value");
+                    T1+=200;
                 }
                 else if (nsquare==1){
                     printf("You're announcing a square of 9, for a 150 points value");
+                    T1+=150;
                 }
                 else if (tsequence==1){
                     printf("You're announcing a sequence of 3, for a 20 points value");
+                    T1+=20;
                 }
                 else if (fosequence==1){
                     printf("You're announcing a sequence of 4, for a 50 points value");
+                    T1+=50;
                 }
                 else if (nsquare==1){
                     printf("You're announcing a sequence of 5, for a 100 points value");
+                    T1+=100;
                 }
                 switch (asquare){
                 case 3:
                     printf("You're announcing a square of 10, for a 100 points value");
+                    T1+=100;
                     break;
                 case 5:
                     printf("You're announcing a square of Queen, for a 100 points value");
+                    T1+=100;
                     break;
                 case 6:
                     printf("You're announcing a square of King, for a 100 points value");
+                    T1+=100;
                     break;
                 case 7:
                     printf("You're announcing a square of Ace, for a 100 points value");
+                    T1+=100;
                     break;
                 default:
                     break;
@@ -152,31 +161,112 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     announcement(cards ,player ,&tsequence ,&fosequence ,&fisequence ,&asquare ,&nsquare ,&jsquare );
                 if (jsquare==1){
                     printf("The %d player is announcing a square of Jack, for a 200 points value",player);
+                    switch (player){
+                    case 2||4:
+                        T2+=200;
+                        break;
+                    
+                    default:
+                        T1+=200;
+                        break;
+                    }
                 }
                 else if (nsquare==1){
                     printf("The %d player is announcing a square of 9, for a 150 points value",player);
+                    switch (player){
+                    case 2||4:
+                        T2+=150;
+                        break;
+                    
+                    default:
+                        T1+=150;
+                        break;
+                    }
                 }
                 else if (tsequence==1){
                     printf("The %d player is announcing a sequence of 3, for a 20 points value",player);
+                    switch (player){
+                    case 2||4:
+                        T2+=20;
+                        break;
+                    
+                    default:
+                        T1+=20;
+                        break;
+                    }
                 }
                 else if (fosequence==1){
                     printf("The %d player is announcing a sequence of 4, for a 50 points value",player);
+                    switch (player){
+                    case 2||4:
+                        T2+=500;
+                        break;
+                    
+                    default:
+                        T1+=500;
+                        break;
+                    }
                 }
                 else if (nsquare==1){
                     printf("The %d player is announcing a sequence of 5, for a 100 points value",player);
+                    switch (player){
+                    case 2||4:
+                        T2+=100;
+                        break;
+                    
+                    default:
+                        T1+=100;
+                        break;
+                    }
                 }
                 switch (asquare){
                 case 3:
                     printf("The %d player is announcing a square of 10, for a 100 points value",player);
+                    switch (player){
+                    case 2||4:
+                        T2+=100;
+                        break;
+                    
+                    default:
+                        T1+=100;
+                        break;
+                    }
                     break;
                 case 5:
                     printf("The %d player is announcing a square of Queen, for a 100 points value",player);
+                    switch (player){
+                    case 2||4:
+                        T2+=100;
+                        break;
+                    
+                    default:
+                        T1+=100;
+                        break;
+                    }
                     break;
                 case 6:
                     printf("The %d player is announcing a square of King, for a 100 points value",player);
+                    switch (player){
+                    case 2||4:
+                        T2+=100;
+                        break;
+                    
+                    default:
+                        T1+=100;
+                        break;
+                    }
                     break;
                 case 7:
                     printf("The %d player is announcing a square of Ace, for a 100 points value",player);
+                    switch (player){
+                    case 2||4:
+                        T2+=100;
+                        break;
+                    
+                    default:
+                        T1+=100;
+                        break;
+                    }
                     break;
                 default:
                     break;
@@ -280,6 +370,34 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
         colorToMatch = cardsOfRound[0]/10;
     }
 
+    /*if ( Full-Trump ){
+        for (int i = 0; i < 8; i++){
+            if (cards[1][i]!=0){
+                playableCards[NofPCards]==cards[0][i];
+                NofPCards++;
+            }
+            
+        }
+        
+    }*/
+    /*else if (No Trump){
+        for(int i=0;i<8;i++){
+            if (cards[0][i]/10==cardsOfRound[0]/10 && cards[1][i]!=0){
+                playableCards[NofPCards]=cards[0][i];
+                NofPCards++;
+            }
+        }
+        if (NofPCards==0){
+            for(int i=0;i<8;i++){
+                if (cards[1][i]!=0){
+                    playableCards[NofPCards]=cards[0][i];
+                    NofPCards++;
+                }    
+            }
+        }
+    }*/
+    
+    
 
     if(cardsOfRound[0] == -1){
         printf("no first cards\n");
