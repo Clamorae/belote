@@ -66,6 +66,7 @@ profile* addNewProfile(profile* profileArray, int* NumberOfProfiles){
     char name[255];
     printf("Please enter your name :");
     scanf("%s", name);
+    waitForEnter();
     (*NumberOfProfiles)++;
     printf("%d\n",*NumberOfProfiles);
     profileArray = realloc(profileArray, sizeof(profile) * *NumberOfProfiles);
@@ -97,7 +98,6 @@ profile* selectProfile(profile* profileArray, int* numberOfProfiles, int* profil
         *profileNumber = intInput - 2;
     }
     printf("profile %s sélectionner\n",profileArray[*profileNumber].name);
-    waitForEnter();
     waitForEnter();
     return profileArray;
 }
