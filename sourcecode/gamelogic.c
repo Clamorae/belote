@@ -379,10 +379,6 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
 
         }
     }
-    /*else if (No Trump){
-
-
-    }
 
     else if (atout==4){
         for(int i=0;i<8;i++){
@@ -399,8 +395,8 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
                 }
             }
         }
-    }*/
     }
+    
     else if(atoutMode == 1){
         colorToMatch = atout;
     }

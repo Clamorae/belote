@@ -133,8 +133,8 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
     }
     else if (atout==4){// In this case the IA know she will play in a No-trump round
         int value[8]={0,1,2,4,5,6,3,7}; //all the "value" array in IA.c is a classification of the card by card value for the current contract
-        if (cardsOfRound[0]==playableCards[0]){
-           for (int i = 0; i < turn; i++){
+        if (cardsOfRound[0]==playableCards[0]){ //In this case the Ia's knows it's allowed to played card of the same color as the first card
+           for (int i = 0; i < turn; i++){//The code below is pretty similar to the one upwars
                 if (cardsOfRound[turn]/10==cardsOfRound[0]/10){
                     for (int j = 0; j < 8; j++){
                         if (value[j]==cardsOfRound[turn]%10){
@@ -178,10 +178,10 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                 }
             }
         }
-        else{
+        else{//in this part the IA know it's in a no-Trump round and it has'nt any card which one it can win the round 
             for (int i = 0; i < 8; i++){
                 for (int j = 0; j < 8; j++){
-                    if (playableCards[j]%10==value[i]){
+                    if (playableCards[j]%10==value[i]){//this double loop will check which one is the lowest in the playablecard array and play it
                         cardsOfRound[turn] = playableCards[j];
                         for(int k=((player-1)*8);k<(player*8);k++){
                             if (cards[0][k] == playableCards[j]){
@@ -213,7 +213,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
         }
     }
 
-    else if (atoutMode==0 && cardsOfRound[0]/10==playableCards[0]/10){
+    else if (atoutMode==0 && cardsOfRound[0]/10==playableCards[0]/10){// In this case the IA
         int value[8]={0,1,2,4,5,6,3,7};
         for (int i = 0; i < turn; i++){
             if (cardsOfRound[i]/10==cardsOfRound[0]/10){
