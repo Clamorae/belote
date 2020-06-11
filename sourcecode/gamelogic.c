@@ -107,10 +107,9 @@ void defineContract(int player, contract* pContract,int **card){
     }while(check==false);
 }
 
-
 int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote,int turn,int* T1,int* T2){
-
     int cardsOfRound[4] = {-1,-1,-1,-1};
+    int atoutMode = 0;
     int tsequence=0, fosequence=0, fisequence=0,asquare=0,nsquare=0,jsquare=0;
     for(int i = 0;i<4;i++){
         if(player == 1){
@@ -259,6 +258,7 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                         break;
                     }
                     break;
+        atoutMode = 1;
                 case 7:
                     printf("The %d player is announcing a square of Ace, for a 100 points value",player);
                     switch (player){
@@ -282,7 +282,7 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
         }
         player++;
         if(player>4){player = 1;}
-        if(cardsOfRound[i]/10 == atout && cardsOfRound[i] != -1){
+        if((cardsOfRound[i]/10 == atout && cardsOfRound[i] != -1 && atout != 4)|| atout == 5){
             atoutMode = 1;
         }
         clear();
@@ -298,7 +298,7 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
     }
     int winTeam, score;
     player = CalculateScore(&winTeam, &score, cardsOfRound, player,atout, atoutMode);
-    printf("Player %d from team %d win this play with %d points\n",player,winTeam,score);
+    printf("Player %d from team %d win this turn with %d points\n",player,winTeam,score);
     while(getchar()!='\n');
     getchar();
     if (winTeam == 1){
@@ -365,39 +365,37 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
     int NofPCards = 0;
     int colorToMatch;
 
-    if ( atout==5){
-        for (int i = 0; i < 8; i++){
-            if (cards[1][i]!=0){
-                playableCards[NofPCards]==cards[0][i];
-                NofPCards++;
-            }
+    //if ( atout==5){
+    //    compareAndAdd(cards,playableCards,&NofPCards,-1);
+    //}
+    //else if (atout==4){
+    //    for(int i=0;i<8;i++){
+    //        if (cards[0][i]/10==cardsOfRound[0]/10 && cards[1][i]!=0){
+    //            playableCards[NofPCards]=cards[0][i];
+    //            NofPCards++;
+    //        }
+    //    }
+    //    if (NofPCards==0){
+    //        for(int i=0;i<8;i++){
+    //            if (cards[1][i]!=0){
+    //                playableCards[NofPCards]=cards[0][i];
+    //                NofPCards++;
+    //            }
+    //        }
+    //    }
 
-        }
-    }
-    /*
-
-    else if (atout==4){
-        for(int i=0;i<8;i++){
-            if (cards[0][i]/10==cardsOfRound[0]/10 && cards[1][i]!=0){
-                playableCards[NofPCards]=cards[0][i];
-                NofPCards++;
-            }
-        }
-        if (NofPCards==0){
-            for(int i=0;i<8;i++){
-                if (cards[1][i]!=0){
-                    playableCards[NofPCards]=cards[0][i];
-                    NofPCards++;
-                }
-            }
-        }
-
-    }*/
-    if(atoutMode == 1){
-        colorToMatch = atout;
-    }
-    else{
+    //}
+    if(atout == 4 || atout == 5){
+        printf("MODE NO TRUMP FULL TRUM ACTIVE\n");
+        atoutMode = 1;//Override the atout value to follow a simple continue if you can, play whatever if you cant
         colorToMatch = cardsOfRound[0]/10;
+    }else{
+        if(atoutMode == 1){
+            colorToMatch = atout;
+        }
+        else{
+            colorToMatch = cardsOfRound[0]/10;
+        }
     }
     if(cardsOfRound[0] == -1){
         compareAndAdd(cards,playableCards,&NofPCards,-1);
