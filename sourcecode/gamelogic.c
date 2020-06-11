@@ -7,34 +7,33 @@
 #include<stdlib.h>
 #include<time.h>
 #include<stdbool.h>
-//Faudrait vraiment que je pense a commenter ce truc la
 
 
-int belote(int **card, profile* profileArray, int profileNumber){
+
+void belote(int **cards, profile* profileArray, int profileNumber){
     clear();
     int scoreT1 = 0, scoreT2 = 0,roundT1, roundT2, first, belote;
     contract gameContract;//create a contract type variable for the game
-    char nom[255];
     printf("OPEN THE GAME\n");
     do{
         roundT1 = 0;roundT2=0;
         first = rand()%4+1;
         printf("The first to submit a contract for this round will be player %d\n",first);
         waitForEnter();
-        randomize(card);//shuffle the cards and sort them (Player 1 cards from index 0 to 7, P2 from 8 to 15, ect...)
-        defineContract(first,&gameContract,card);
+        randomize(cards);//shuffle the cards and sort them (Player 1 cards from index 0 to 7, P2 from 8 to 15, ect...)
+        defineContract(first,&gameContract,cards);
         first++;
         if (first>4){first = 1;}
         roundT1 = 0;
         roundT2 = 0;
-        belote = getBeloteRebelotte(card, gameContract.color);
+        belote = getBeloteRebelotte(cards, gameContract.color);//get wich player has the belote rebelote
         for(int i =0;i<8;i++){
             clear();
             printf("Contract is:\n-team: %d\n-value: %d\n-color: %s\n-coinched: %d\n\n",gameContract.team, gameContract.value, getColorString(gameContract.color), gameContract.isCoinched);
             printf("Turn n%d\n\n",i+1);
-            printf("Team 1 have %d points\nTeam 2 have %d points\nPress Enter to begin the round\n\n",roundT1,roundT2);
+            printf("Team 1 have %d points\nTeam 2 have %d points\nPress Enter to begin the turn...\n\n",roundT1,roundT2);
             waitForEnter();
-            first = play(card,first,gameContract.color, &roundT1, &roundT2,&belote,i,&scoreT1,&scoreT2);
+            first = turn(cards,first,gameContract.color, &roundT1, &roundT2,&belote,i,&scoreT1,&scoreT2);
         }
         clear();
         printf("Round Results:\n\n");
@@ -58,8 +57,6 @@ int belote(int **card, profile* profileArray, int profileNumber){
         updateProfile(profileArray, profileNumber, 0, scoreT1);
     }
     waitForEnter();
-
-
 }
 
 void defineContract(int player, contract* pContract,int **card){
@@ -110,9 +107,9 @@ void defineContract(int player, contract* pContract,int **card){
     }while(check==false);
 }
 
-int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote,int turn,int* T1,int* T2){
-    
-    int atoutMode = 0;
+
+int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote,int turn,int* T1,int* T2){
+
     int cardsOfRound[4] = {-1,-1,-1,-1};
     int tsequence=0, fosequence=0, fisequence=0,asquare=0,nsquare=0,jsquare=0;
     for(int i = 0;i<4;i++){
@@ -121,40 +118,40 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     announcement(cards ,player ,&tsequence ,&fosequence ,&fisequence ,&asquare ,&nsquare ,&jsquare );
                 if (jsquare==1){
                     printf("You're announcing a square of Jack, for a 200 points value");
-                    T1+=200;
+                    *T1+=200;
                 }
                 else if (nsquare==1){
                     printf("You're announcing a square of 9, for a 150 points value");
-                    T1+=150;
+                    *T1+=150;
                 }
                 else if (tsequence==1){
                     printf("You're announcing a sequence of 3, for a 20 points value");
-                    T1+=20;
+                    *T1+=20;
                 }
                 else if (fosequence==1){
                     printf("You're announcing a sequence of 4, for a 50 points value");
-                    T1+=50;
+                    *T1+=50;
                 }
                 else if (nsquare==1){
                     printf("You're announcing a sequence of 5, for a 100 points value");
-                    T1+=100;
+                    *T1+=100;
                 }
                 switch (asquare){
                 case 3:
                     printf("You're announcing a square of 10, for a 100 points value");
-                    T1+=100;
+                    *T1+=100;
                     break;
                 case 5:
                     printf("You're announcing a square of Queen, for a 100 points value");
-                    T1+=100;
+                    *T1+=100;
                     break;
                 case 6:
                     printf("You're announcing a square of King, for a 100 points value");
-                    T1+=100;
+                    *T1+=100;
                     break;
                 case 7:
                     printf("You're announcing a square of Ace, for a 100 points value");
-                    T1+=100;
+                    *T1+=100;
                     break;
                 default:
                     break;
@@ -169,11 +166,11 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     printf("The %d player is announcing a square of Jack, for a 200 points value",player);
                     switch (player){
                     case 2||4:
-                        T2+=200;
+                        *T2+=200;
                         break;
 
                     default:
-                        T1+=200;
+                        *T1+=200;
                         break;
                     }
                 }
@@ -181,11 +178,11 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     printf("The %d player is announcing a square of 9, for a 150 points value",player);
                     switch (player){
                     case 2||4:
-                        T2+=150;
+                        *T2+=150;
                         break;
 
                     default:
-                        T1+=150;
+                        *T1+=150;
                         break;
                     }
                 }
@@ -193,11 +190,11 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     printf("The %d player is announcing a sequence of 3, for a 20 points value",player);
                     switch (player){
                     case 2||4:
-                        T2+=20;
+                        *T2+=20;
                         break;
 
                     default:
-                        T1+=20;
+                        *T1+=20;
                         break;
                     }
                 }
@@ -205,11 +202,11 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     printf("The %d player is announcing a sequence of 4, for a 50 points value",player);
                     switch (player){
                     case 2||4:
-                        T2+=500;
+                        *T2+=500;
                         break;
 
                     default:
-                        T1+=500;
+                        *T1+=500;
                         break;
                     }
                 }
@@ -217,11 +214,11 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     printf("The %d player is announcing a sequence of 5, for a 100 points value",player);
                     switch (player){
                     case 2||4:
-                        T2+=100;
+                        *T2+=100;
                         break;
 
                     default:
-                        T1+=100;
+                        *T1+=100;
                         break;
                     }
                 }
@@ -230,11 +227,11 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     printf("The %d player is announcing a square of 10, for a 100 points value",player);
                     switch (player){
                     case 2||4:
-                        T2+=100;
+                        *T2+=100;
                         break;
 
                     default:
-                        T1+=100;
+                        *T1+=100;
                         break;
                     }
                     break;
@@ -242,11 +239,11 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     printf("The %d player is announcing a square of Queen, for a 100 points value",player);
                     switch (player){
                     case 2||4:
-                        T2+=100;
+                        *T2+=100;
                         break;
 
                     default:
-                        T1+=100;
+                        *T1+=100;
                         break;
                     }
                     break;
@@ -254,11 +251,11 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     printf("The %d player is announcing a square of King, for a 100 points value",player);
                     switch (player){
                     case 2||4:
-                        T2+=100;
+                        *T2+=100;
                         break;
 
                     default:
-                        T1+=100;
+                        *T1+=100;
                         break;
                     }
                     break;
@@ -266,11 +263,11 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     printf("The %d player is announcing a square of Ace, for a 100 points value",player);
                     switch (player){
                     case 2||4:
-                        T2+=100;
+                        *T2+=100;
                         break;
 
                     default:
-                        T1+=100;
+                        *T1+=100;
                         break;
                     }
                     break;
@@ -313,7 +310,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
     return player;
 }
 
-int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn,int* belote){
+void playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn,int* belote){
     int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};
     int numberOfPCards = 0, count=0;
     clear();
@@ -362,8 +359,6 @@ int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn,
             cards[1][i] = 0;
         }
     }
-    return 0;
-
 }
 
 int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atoutMode, int atout){
@@ -379,6 +374,7 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
 
         }
     }
+    /*
 
     else if (atout==4){
         for(int i=0;i<8;i++){
@@ -395,16 +391,15 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
                 }
             }
         }
-    }
-    
-    else if(atoutMode == 1){
+
+    }*/
+    if(atoutMode == 1){
         colorToMatch = atout;
     }
     else{
         colorToMatch = cardsOfRound[0]/10;
     }
     if(cardsOfRound[0] == -1){
-        printf("no first cards\n");
         compareAndAdd(cards,playableCards,&NofPCards,-1);
     }
     else{
@@ -413,12 +408,10 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
             if(atoutMode != 1){
                 compareAndAdd(cards,playableCards,&NofPCards,atout);
                 if (NofPCards == 0){
-                    printf("No playable card, atout mode off\n");
                     compareAndAdd(cards,playableCards,&NofPCards,-1);
                 }
             }
             else{
-                printf("No playable card, atout mode on\n");
                 compareAndAdd(cards,playableCards,&NofPCards,-1);
             }
         }
