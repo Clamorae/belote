@@ -110,10 +110,6 @@ void defineContract(int player, contract* pContract,int **card){
 }
 
 int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote,int turn,int* T1,int* T2){
-
-    if (turn!=0){
-        /* code */
-    }
     
     int atoutMode = 0;
     int cardsOfRound[4] = {-1,-1,-1,-1};

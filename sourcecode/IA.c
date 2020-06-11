@@ -65,14 +65,14 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
 
 
 void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int player,int turn,int* belote){
-    int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};//initialize the playable car array and reset it before each bot turn
+    int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};//initialize the playable car array and reset it before each IA turn
     int higher=0,count=0;//initialize the variable which will check if there a is a belote and who will chekc the best card to play
     int numberOfPCards = 0;
-    bool winnable=false;// initialize the boolean which will test if the play is winnable or if its play the lowest card
+    bool winnable=false;// initialize the boolean which will test if the play is winnable or if the IA need to plays it's lowest card
     IAgetplayablecards(cards,cardsOfRound,playableCards,atoutMode,atout,player);//call the fonction which will define whiwh card the IA can play
     
     if (turn==0){//this part of the fonction will only be active if the IA is the first to play
-        cardsOfRound[turn] = playableCards[0];//The IA will play the first card she can use
+        cardsOfRound[turn] = playableCards[0];//The IA will play the first card it can use
         for(int k=((player-1)*8);k<(player*8);k++){//In this for loop it will search in the card array wich card has been played and remove it from the plyers hand
                                                    //The research will only be effective in the IA's hand
             if (cards[0][k] == cardsOfRound[turn]){
@@ -84,31 +84,31 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
     else if (atout==5){// In this case the IA know she will play in a Full trump round
         int value[8]={0,1,5,6,3,7,2,4}; //all the "value" array in IA.c is a classification of the card by card value for the current contract
         for (int i = 0; i < turn; i++){
-            for (int j = 0; j < 8; j++){//the double for loop will check if the IA's hand has the 
+            for (int j = 0; j < 8; j++){//the double for loop will check which card in play is actually winning the round
                 if (value[j]==cardsOfRound[turn]%10){
                     if (j>higher){
-                        higher=j;
+                        higher=j; // the rank of the winning card in the value array will be stocked in the higher value
                     }
-                    j=8;
+                    j=8;//when the value of the in-game card is finded the loop will break
                 }
             }
         }
-        for (int i = higher; i < 8; i++){
+        for (int i = higher; i < 8; i++){ //in this double loop the IA will check if it had a winning card in hand
             for (int j = 0; j < 8; j++){
                 if (playableCards[j]%10==value[i]){
-                    winnable=true;
-                    cardsOfRound[turn] = playableCards[j];
+                    winnable=true;//this boolean indicate the played carte is able to win the round
+                    cardsOfRound[turn] = playableCards[j];//the IA will play the lowest card with which it can win
                     for(int k=((player-1)*8);k<(player*8);k++){
                         if (cards[0][k] == playableCards[j]){
                             cards[1][k] = 0;
                         }
                     }
                     j=8;
-                    i=8;
+                    i=8; //when the card is played the loop will break for preventing the IA to play multiple cards
                 }
             }
         }
-        if (winnable==false){
+        if (winnable==false){ //in this case the round is not winnable 
             for (int i = 0; i < higher; i++){
                 for (int j = 0; j < 8; j++){
                     if (playableCards[j]%10==value[i]){
@@ -125,8 +125,8 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
             }
         }
     }
-    else if (atout==4){
-        int value[8]={0,1,2,4,5,6,3,7};
+    else if (atout==4){// In this case the IA know she will play in a No-trump round
+        int value[8]={0,1,2,4,5,6,3,7}; //all the "value" array in IA.c is a classification of the card by card value for the current contract
         if (cardsOfRound[0]==playableCards[0]){
            for (int i = 0; i < turn; i++){
                 if (cardsOfRound[turn]/10==cardsOfRound[0]/10){
@@ -189,7 +189,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
             }
         }      
     }
-    else if(atoutMode==0 && atout==playableCards[0]/10){//In this case the IA doest have the color which is played by the leader so IA will play an atout
+    else if(atoutMode==0 && atout==playableCards[0]/10){//In this case the IA doest have the color which is played by the leader so IA will play a trump
         int value[8]={0,1,5,6,3,7,2,4};
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
