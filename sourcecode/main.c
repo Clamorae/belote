@@ -14,7 +14,7 @@
 #endif
 
 /*
-    trump in contract: x
+    trump in contract: V
     trump in count: x
     winner start: v
     comment: x

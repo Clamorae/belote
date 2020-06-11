@@ -74,18 +74,23 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
     IAgetplayablecards(cards,cardsOfRound,playableCards,atoutMode,atout,player);//call the fonction which will define whiwh card the IA can play
 
     if (turn==0){//this part of the fonction will only be active if the IA is the first to play
-        cardsOfRound[turn] = playableCards[0];
-        for(int k=((player-1)*8);k<(player*8);k++){
+        cardsOfRound[turn] = playableCards[0];//The IA will play the first card she can use
+        for(int k=((player-1)*8);k<(player*8);k++){//In this for loop it will search in the card array wich card has been played and remove it from the plyers hand
+                                                   //The research will only be effective in the IA's hand
             if (cards[0][k] == cardsOfRound[turn]){
                 cards[1][k] = 0;
             }
         }
     }
-
     else if (atoutMode==2){
         int value[8]={0,1,5,6,3,7,2,4};
+    }
+
+
+    else if (atout==5){// In this case the IA know she will play in a Full trump round
+        int value[8]={0,1,5,6,3,7,2,4}; //all the "value" array in IA.c is a classification of the card by card value for the current contract
         for (int i = 0; i < turn; i++){
-            for (int j = 0; j < 8; j++){
+            for (int j = 0; j < 8; j++){//the double for loop will check if the IA's hand has the
                 if (value[j]==cardsOfRound[turn]%10){
                     if (j>higher){
                         higher=j;
@@ -126,7 +131,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
             }
         }
     }
-    else if (atoutMode==3){
+    else if (atout==4){
         int value[8]={0,1,2,4,5,6,3,7};
         if (cardsOfRound[0]==playableCards[0]){
            for (int i = 0; i < turn; i++){
@@ -354,7 +359,7 @@ void IAgetplayablecards(int** cards,int* cardsOfRound, int* playableCards, int a
             }
         }
     }
-    else if (atoutMode==2){
+    else if (atout==5){
         for(int i=((player-1)*8);i<(player*8);i++){
             if (cards[1][i]!=0){
                 playableCards[NofPCards]=cards[0][i];
@@ -362,7 +367,7 @@ void IAgetplayablecards(int** cards,int* cardsOfRound, int* playableCards, int a
             }
         }
     }
-    else if (atoutMode==3){
+    else if (atout==4){
         for(int i=((player-1)*8);i<(player*8);i++){
             if (cards[0][i]/10==cardsOfRound[0]/10 && cards[1][i]!=0){
                 playableCards[NofPCards]=cards[0][i];
@@ -419,4 +424,4 @@ void IAgetplayablecards(int** cards,int* cardsOfRound, int* playableCards, int a
             }
         }
     }
-}
+}//Nice
