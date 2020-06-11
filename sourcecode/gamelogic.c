@@ -34,9 +34,7 @@ int belote(int **card, profile* profileArray, int profileNumber){
             printf("Turn n%d\n\n",i+1);
             printf("Team 1 have %d points\nTeam 2 have %d points\nPress Enter to begin the round\n\n",roundT1,roundT2);
             waitForEnter();
-            play(card,first,gameContract.color, &roundT1, &roundT2,&belote,i,&scoreT1,&scoreT2);
-            first++;
-            if (first>4){first = 1;}
+            first = play(card,first,gameContract.color, &roundT1, &roundT2,&belote,i,&scoreT1,&scoreT2);
         }
         clear();
         printf("Round Results:\n\n");
@@ -46,17 +44,20 @@ int belote(int **card, profile* profileArray, int profileNumber){
             printf("Contract was not succesfull !\n");
         }
         printf("The score is:\n-%d for team 1\n-%d for team 2\n",scoreT1, scoreT2);
-        printf("Press ENTER to start a new round\n");
+        printf("Press ENTER to continue");
         waitForEnter();
     }while(scoreT1 < 701 && scoreT2 < 701);
     clear();
     if(scoreT1  > scoreT2){
-        printf("TEAM 1 WINS YOUHOU\n");
+        printf("FINAL RESULTS\\___________________________________________________________\n\n");
+        printf("The final score is :\nT1:%d-%d:T2\n\n",scoreT1,scoreT2);
+        printf("Team 1 wins\n");
         updateProfile(profileArray, profileNumber, 1, scoreT1);
     }else{
         printf("TEAM 2 WINS SO SAD\n");
         updateProfile(profileArray, profileNumber, 0, scoreT1);
     }
+    waitForEnter();
 
 
 }
@@ -93,7 +94,7 @@ void defineContract(int player, contract* pContract,int **card){
             }
         }
         else{
-            BotContract(card,player,&passes,&pContract->value,&pContract->team,&pContract->color);
+            BotContract(card,player,&passes,&pContract->value,&pContract->team,&pContract->color,&pContract->isCoinched);
         }
         player ++;
         if(player>4){player = 1;}
@@ -170,7 +171,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     case 2||4:
                         T2+=200;
                         break;
-                    
+
                     default:
                         T1+=200;
                         break;
@@ -182,7 +183,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     case 2||4:
                         T2+=150;
                         break;
-                    
+
                     default:
                         T1+=150;
                         break;
@@ -194,7 +195,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     case 2||4:
                         T2+=20;
                         break;
-                    
+
                     default:
                         T1+=20;
                         break;
@@ -206,7 +207,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     case 2||4:
                         T2+=500;
                         break;
-                    
+
                     default:
                         T1+=500;
                         break;
@@ -218,7 +219,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     case 2||4:
                         T2+=100;
                         break;
-                    
+
                     default:
                         T1+=100;
                         break;
@@ -231,7 +232,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     case 2||4:
                         T2+=100;
                         break;
-                    
+
                     default:
                         T1+=100;
                         break;
@@ -243,7 +244,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     case 2||4:
                         T2+=100;
                         break;
-                    
+
                     default:
                         T1+=100;
                         break;
@@ -255,7 +256,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     case 2||4:
                         T2+=100;
                         break;
-                    
+
                     default:
                         T1+=100;
                         break;
@@ -267,7 +268,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     case 2||4:
                         T2+=100;
                         break;
-                    
+
                     default:
                         T1+=100;
                         break;
@@ -299,8 +300,8 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
         }
     }
     int winTeam, score;
-    CalculateScore(&winTeam, &score, cardsOfRound, player,atout, atoutMode);
-    printf("Team %d win this play with %d points\n",winTeam,score);
+    player = CalculateScore(&winTeam, &score, cardsOfRound, player,atout, atoutMode);
+    printf("Player %d from team %d win this play with %d points\n",player,winTeam,score);
     while(getchar()!='\n');
     getchar();
     if (winTeam == 1){
@@ -309,7 +310,7 @@ int play(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
         (*roundT2) += score;
     }
 
-    return 0;
+    return player;
 }
 
 int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn,int* belote){
@@ -368,18 +369,21 @@ int playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn,
 int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atoutMode, int atout){
     int NofPCards = 0;
     int colorToMatch;
-    
+
     if ( atout==5){
         for (int i = 0; i < 8; i++){
             if (cards[1][i]!=0){
                 playableCards[NofPCards]==cards[0][i];
                 NofPCards++;
             }
-            
+
         }
-        
     }
-    
+    /*else if (No Trump){
+
+
+    }
+
     else if (atout==4){
         for(int i=0;i<8;i++){
             if (cards[0][i]/10==cardsOfRound[0]/10 && cards[1][i]!=0){
@@ -392,19 +396,17 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
                 if (cards[1][i]!=0){
                     playableCards[NofPCards]=cards[0][i];
                     NofPCards++;
-                }    
+                }
             }
         }
+    }*/
     }
-
     else if(atoutMode == 1){
         colorToMatch = atout;
     }
     else{
         colorToMatch = cardsOfRound[0]/10;
     }
-    
-
     if(cardsOfRound[0] == -1){
         printf("no first cards\n");
         compareAndAdd(cards,playableCards,&NofPCards,-1);
@@ -511,7 +513,7 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
             }
         }
     }
-    return 0;
+    return player;
 }
 
 int computeTotalScore(contract contract, int roundT1, int roundT2, int* scoreT1, int* scoreT2){
