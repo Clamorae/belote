@@ -82,10 +82,6 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
             }
         }
     }
-    else if (atoutMode==2){
-        int value[8]={0,1,5,6,3,7,2,4};
-    }
-
 
     else if (atout==5){// In this case the IA know she will play in a Full trump round
         int value[8]={0,1,5,6,3,7,2,4}; //all the "value" array in IA.c is a classification of the card by card value for the current contract
@@ -213,7 +209,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
         }
     }
 
-    else if (atoutMode==0 && cardsOfRound[0]/10==playableCards[0]/10){// In this case the IA
+    else if (atoutMode==0 && cardsOfRound[0]/10==playableCards[0]/10){// In this case the IA know there is no trump in game and she can play card from the same color as the leader
         int value[8]={0,1,2,4,5,6,3,7};
         for (int i = 0; i < turn; i++){
             if (cardsOfRound[i]/10==cardsOfRound[0]/10){
@@ -308,7 +304,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                 }
             }
         }
-        else{
+        else{// in this case 
             int value[8]={0,1,5,6,3,7,2,4};
             for (int i = 0; i <8; i++){
                 for (int j = 0; j < 8; j++){
@@ -326,6 +322,8 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
             }
         }
     }
+    //the code below will check if the IA is playing a Trump king or a TrumpQueen and will check if it's the bot as a elote,rebelote
+    //if it's true it will display belote and rebelote and then add the point ot the right team
     if ((cardsOfRound[turn]/10==atout)&&((cardsOfRound[turn]%10==5)||(cardsOfRound[turn]%10==6))){
         for (int i = 0; i < 8; i++){
             if ((cards[0][i]/10==atout)&&((cards[0][i]%10==5)||(cards[0][i]%10==6))){
@@ -424,4 +422,4 @@ void IAgetplayablecards(int** cards,int* cardsOfRound, int* playableCards, int a
             }
         }
     }
-}//Nice
+}
