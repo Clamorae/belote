@@ -20,14 +20,12 @@ profile* getProfiles(int*NumberOfProfiles){
     if(*NumberOfProfiles != 0){
         profileArray = malloc(sizeof(profile)* *NumberOfProfiles);
         for(int i = 0; i<*NumberOfProfiles; i++){
-            if(fscanf(profilFile,"%s",profileArray[i].name) == 0){emergencyExit();}
+            if(fscanf(profilFile,"%s",profileArray[i].name) == 0){emergencyExit();}    fprintf(profilFile,"%d\n",NumberOfProfiles);
             if(fscanf(profilFile,"%d",&profileArray[i].numberOfGames) == 0){emergencyExit();};
             if(fscanf(profilFile,"%d",&profileArray[i].numberOfWins) == 0){emergencyExit();}
             if(fscanf(profilFile,"%d",&profileArray[i].maxScore) == 0){emergencyExit();};
         }
     }
-    printf("Highscore loaded succesfully ! %d profiles were loaded.\n",*NumberOfProfiles);
-    waitForEnter();
     fclose(profilFile);
     return profileArray;
 }
@@ -68,7 +66,6 @@ profile* addNewProfile(profile* profileArray, int* NumberOfProfiles){
     scanf("%s", name);
     waitForEnter();
     (*NumberOfProfiles)++;
-    printf("%d\n",*NumberOfProfiles);
     profileArray = realloc(profileArray, sizeof(profile) * *NumberOfProfiles);
     strcpy(profileArray[*NumberOfProfiles-1].name,name);
     profileArray[*NumberOfProfiles-1].numberOfGames = 0;
@@ -81,6 +78,7 @@ profile* addNewProfile(profile* profileArray, int* NumberOfProfiles){
 profile* selectProfile(profile* profileArray, int* numberOfProfiles, int* profileNumber){
     int intInput;
     clear();
+    printf("PROFILE SELECTION\\______________________________________________________\n");
     printf("Please select a profile\n\n");
     printf("1 - Create a new profile\n");
     for(int i = 0; i< *numberOfProfiles;i++){
@@ -111,13 +109,12 @@ void updateProfile(profile* profileArray, int profileNumber, int win, int score)
         printf("New high score! Congrats!\n");
         profileArray[profileNumber].maxScore = score;
     }
-    printf("Your profile has been updated:\nname:%s\nWin/Lose:%d-%d\nhigh score:%d\n",profileArray[profileNumber].name,\
+    printf("Your profile has been updated:\n-name: %s\n-Win/Lose: %d-%d\n-high score: %d\n",profileArray[profileNumber].name,\
     profileArray[profileNumber].numberOfWins,profileArray[profileNumber].numberOfGames - profileArray[profileNumber].numberOfWins,profileArray[profileNumber].maxScore);
 }
 
 void saveProfiles(profile* profileArray, int NumberOfProfiles){
     FILE* profilFile = fopen("profiles.sav","w");
-    fprintf(profilFile,"%d\n",NumberOfProfiles);
     for(int i=0;i<NumberOfProfiles;i++){
         fprintf(profilFile,"%s\n",profileArray[i].name);
         fprintf(profilFile,"%d\n",profileArray[i].numberOfGames);

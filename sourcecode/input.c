@@ -2,6 +2,11 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#ifdef _WIN32
+#define CLS "cls"
+#else //In any other OS
+#define CLS "clear"
+#endif
 
 char getcharB(){//A fucntion that actually return what you fucking want instead of doing stupid bullshit
     char out;
@@ -84,6 +89,8 @@ char* getColorString(int color){
         case 1:return "Spades";
         case 2:return "Diamonds";
         case 3:return "Clover";
+        case 4:return "No Trump";
+        case 5:return "Full Trump";
         default:return"None";
     }
     //if(color == 0){return "Hearts";}
@@ -118,5 +125,5 @@ void printP1Cards(int** cards){
 }
 
 void clear(){
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    system(CLS);
 }

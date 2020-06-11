@@ -7,22 +7,28 @@
 #include"menu.h"
 #include"gamelogic.h"
 #include"input.h"
+#if defined POSIX
+    #define CLS ("clear")
+#elif defined MSDOS || defined WIN32
+    #define CLS ("cls")
+#endif
 
 /*
     trump in contract: x
     trump in count: x
-    winner start: x
+    winner start: v
     comment: x
     see card before anoucing contracts: V
-    dé-coinche when a new contracts is anounced:x
-    display results screen at the end of the game: x
-    remove debug prints: x
+    dé-coinche when a new contracts is anounced: ?
+    display results screen at the end of the game: v
+    remove debug prints: v
     make a good clear function (NOT print \n\n\n\n\n\n\n...): x
-    add some waitForEnter(); where it needs to: x
+    add some waitForEnter(); where it needs to: v
     prevent people from creating profiles with the same names: x
 */
 
 int main(){
+    printf("\a\n");
     int **card=create(2,32);
     int exit = 0;
     srand(time(0));
