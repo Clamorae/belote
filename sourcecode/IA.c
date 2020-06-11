@@ -324,14 +324,14 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
     }
     //the code below will check if the IA is playing a Trump king or a TrumpQueen and will check if it's the bot as a elote,rebelote
     //if it's true it will display belote and rebelote and then add the point ot the right team
-    if ((cardsOfRound[turn]/10==atout)&&((cardsOfRound[turn]%10==5)||(cardsOfRound[turn]%10==6))){
-        for (int i = 0; i < 8; i++){
+    if ((cardsOfRound[turn]/10==atout)&&((cardsOfRound[turn]%10==5)||(cardsOfRound[turn]%10==6))){//this line check if the card played is a TrumpKing or a trumpQueen
+        for (int i = 0; i < 8; i++){//in this loop it will check if the other major Trump is in the players hand
             if ((cards[0][i]/10==atout)&&((cards[0][i]%10==5)||(cards[0][i]%10==6))){
                 count++;
             }
         }
-        if (count==2){
-            if (player==3){
+        if (count==2){//in this case the player can make a belote/rebelote
+            if (player==3){//this will assignate which team has a belote for a later point distribution
                 *belote=1;
                 }
             else{
@@ -348,8 +348,8 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
 }
 
 void IAgetplayablecards(int** cards,int* cardsOfRound, int* playableCards, int atoutMode, int atout,int player){
-    int NofPCards=0;
-    if (cardsOfRound[0]==-1){
+    int NofPCards=0;// this variable indicate the Number Of Playble cards in the array
+    if (cardsOfRound[0]==-1){//if it's the first turn the playable cards array will get filled with all the IA'hands because it can play anything
         for(int i=((player-1)*8);i<(player*8);i++){
             if (cards[1][i]!=0){
                 playableCards[NofPCards]=cards[0][i];
@@ -357,7 +357,7 @@ void IAgetplayablecards(int** cards,int* cardsOfRound, int* playableCards, int a
             }
         }
     }
-    else if (atout==5){
+    else if (atout==5){//IF the Full-Trump mode is active the playable cards array will get filled with all the IA'hands because it can play anything
         for(int i=((player-1)*8);i<(player*8);i++){
             if (cards[1][i]!=0){
                 playableCards[NofPCards]=cards[0][i];
@@ -365,14 +365,14 @@ void IAgetplayablecards(int** cards,int* cardsOfRound, int* playableCards, int a
             }
         }
     }
-    else if (atout==4){
+    else if (atout==4){//If the No-Trump mode is active the playable cards array will get filled with the correspounding color
         for(int i=((player-1)*8);i<(player*8);i++){
             if (cards[0][i]/10==cardsOfRound[0]/10 && cards[1][i]!=0){
                 playableCards[NofPCards]=cards[0][i];
                 NofPCards++;
             }
         }
-        if (NofPCards==0){
+        if (NofPCards==0){//if the IA has not the corresponding colors the array will fill with all the cards in IA hands
             for(int i=((player-1)*8);i<(player*8);i++){
                 if (cards[1][i]!=0){
                     playableCards[NofPCards]=cards[0][i];
@@ -382,14 +382,14 @@ void IAgetplayablecards(int** cards,int* cardsOfRound, int* playableCards, int a
         }
 
     }
-    else if (atoutMode==1){
+    else if (atoutMode==1){//If the card played was an Trump the array will fill wwith all the trump in IA's hands
         for(int i=((player-1)*8);i<(player*8);i++){
             if (cards[0][i]/10==atout && cards[1][i]!=0){
                 playableCards[NofPCards]=cards[0][i];
                 NofPCards++;
             }
         }
-        if (NofPCards==0){
+        if (NofPCards==0){//If there is no Trumps in hand the array will fill with all the cards in IA hands
             for(int i=((player-1)*8);i<(player*8);i++){
                 if (cards[1][i]!=0){
                     playableCards[NofPCards]=cards[0][i];
@@ -398,22 +398,22 @@ void IAgetplayablecards(int** cards,int* cardsOfRound, int* playableCards, int a
             }
         }
     }
-    else{
+    else{//If enter in this loop the array will fill with card of the same color as the first card played this round
         for(int i=((player-1)*8);i<(player*8);i++){
-            if(cardsOfRound[0]/10==cards[0][i]/10 && cards[1][i]!=0){
+            if(cardsOfRound[0]/10==cards[0][i]/10 && cards[1][i]!=0){//Here is the color check
                 playableCards[NofPCards]=cards[0][i];
                 NofPCards++;
             }
         }
-        if (NofPCards==0){
+        if (NofPCards==0){//If there is no card of the corresponding color the only card the IA can play is the Trump so it will fill the array with Trumps in his hands
             for(int i=((player-1)*8);i<(player*8);i++){
-                if(atout==cards[0][i]/10 && cards[1][i]!=0){
+                if(atout==cards[0][i]/10 && cards[1][i]!=0){//here is the trump check
                     playableCards[NofPCards]=cards[0][i];
                     NofPCards++;
                 }
             }
         }
-        if (NofPCards==0){
+        if (NofPCards==0){//If there is no trump left then the array will fill wit all the card in IA's hand
             for(int i=((player-1)*8);i<(player*8);i++){
                 if (cards[1][i]!=0){
                     playableCards[NofPCards]=cards[0][i];
