@@ -5,7 +5,7 @@
 #include"input.h"
 #include "IA.h"
 
-void BotContract(int** card,int player, int* passes,int* value,int* contractOwner,int* color, int* coinche){
+void BotContract(int** cards,int player, int* passes,int* value,int* contractOwner,int* color, int* coinche){
     int count=0,higher[2]={0,0},team=0;
     if (player==1||player==3){
         team=1;
@@ -18,7 +18,7 @@ void BotContract(int** card,int player, int* passes,int* value,int* contractOwne
     for (int i = 0; i <= 3; i++){
         count=0;
         for (int j = 0; j < 8; j++){
-            if ((card[0][((player-1)*8)+j])/10==i &&((card[0][((player-1)*8)+j]/10==7)||(card[0][((player-1)*8)+j]/10==2)||(card[0][((player-1)*8)+j]/10==4))){
+            if ((cards[0][((player-1)*8)+j])/10==i &&((cards[0][((player-1)*8)+j]/10==7)||(cards[0][((player-1)*8)+j]/10==2)||(cards[0][((player-1)*8)+j]/10==4))){
                 count++;
             }
         }
