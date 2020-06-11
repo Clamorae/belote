@@ -107,8 +107,9 @@ void defineContract(int player, contract* pContract,int **card){
     }while(check==false);
 }
 
+
 int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote,int turn,int* T1,int* T2){
-    int atoutMode = 0;
+
     int cardsOfRound[4] = {-1,-1,-1,-1};
     int tsequence=0, fosequence=0, fisequence=0,asquare=0,nsquare=0,jsquare=0;
     for(int i = 0;i<4;i++){
@@ -373,10 +374,7 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
 
         }
     }
-    /*else if (No Trump){
-
-
-    }
+    /*
 
     else if (atout==4){
         for(int i=0;i<8;i++){
@@ -393,15 +391,15 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
                 }
             }
         }
+
     }*/
-    else if(atoutMode == 1){
+    if(atoutMode == 1){
         colorToMatch = atout;
     }
     else{
         colorToMatch = cardsOfRound[0]/10;
     }
     if(cardsOfRound[0] == -1){
-        printf("no first cards\n");
         compareAndAdd(cards,playableCards,&NofPCards,-1);
     }
     else{
@@ -410,12 +408,10 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
             if(atoutMode != 1){
                 compareAndAdd(cards,playableCards,&NofPCards,atout);
                 if (NofPCards == 0){
-                    printf("No playable card, atout mode off\n");
                     compareAndAdd(cards,playableCards,&NofPCards,-1);
                 }
             }
             else{
-                printf("No playable card, atout mode on\n");
                 compareAndAdd(cards,playableCards,&NofPCards,-1);
             }
         }
