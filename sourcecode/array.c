@@ -55,14 +55,10 @@ void randomize(int **array){
 int ** create(int lineNumber, int columnNumber){
 	if (lineNumber > 0 && columnNumber > 0){//check if the user doesn't try to create an impossible array//
 		int** matrix= (int**) malloc(lineNumber * sizeof(int*));// start the dinamyc allocation for each line of the array//
-		if (matrix != NULL){// check again if the array is not null//
-			for (int i=0;i<lineNumber;i++){//repeat for each line//
-				matrix[i] = (int*) malloc(columnNumber * sizeof(int));// start the dynamic allocation for each column of the array//
-				if (matrix[i] != NULL){
-					for (int j=0;j<columnNumber;j++){//repeat for each line//
-						matrix[i][j]=0;//initialize all the values of the array at 0//
-					}
-				}
+		for (int i=0;i<lineNumber;i++){//repeat for each line//
+			matrix[i] = (int*) malloc(columnNumber * sizeof(int));// start the dynamic allocation for each column of the array//
+			for (int j=0;j<columnNumber;j++){//repeat for each line//
+				matrix[i][j]=0;//initialize all the values of the array at 0//
 			}
 		}
 		return matrix;
