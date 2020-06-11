@@ -55,25 +55,49 @@ int getContract(int *value, int *color, int minValue, int maxValue, int teamWith
             intInput = getInt();
         }
         *value = intInput;
-        printf("On Which color do you want to bet ? [H]eart, [S]pade, [D]iamond or [C]lover ?\n");
+        printf("On Which color do you want to bet ? [H]eart, [S]pade, [D]iamond [C]lover, [F]ull Trump, [N]o Trump ?\n");
         while(1){
             do{
                 chInput = getcharB();
             }while(chInput == '\n');
             if(chInput == 'h' || chInput == 'H'){
                 *color = 0;
+                printf("You anounced a contract\n");
                 return 1;
             }
             else if(chInput == 's' || chInput == 'S'){
                 *color = 1;
+                printf("You anounced a contract\n");
                 return 1;
             }
             else if(chInput == 'd' || chInput == 'D'){
                 *color = 2;
+                printf("You anounced a contract\n");
                 return 1;
             }
             else if(chInput == 'c' || chInput == 'C'){
                 *color = 3;
+                printf("You anounced a contract\n");
+                return 1;
+            }
+            else if(chInput == 'c' || chInput == 'C'){
+                *color = 3;
+                printf("You anounced a contract\n");
+                return 1;
+            }
+            else if(chInput == 'c' || chInput == 'C'){
+                *color = 3;
+                printf("You anounced a contract\n");
+                return 1;
+            }
+            else if(chInput == 'f' || chInput == 'F'){
+                *color = 5;
+                printf("You anounced a contract\n");
+                return 1;
+            }
+            else if(chInput == 'n' || chInput == 'N'){
+                *color = 4;
+                printf("You anounced a contract\n");
                 return 1;
             }
             else{
@@ -93,11 +117,6 @@ char* getColorString(int color){
         case 5:return "Full Trump";
         default:return"None";
     }
-    //if(color == 0){return "Hearts";}
-    //else if(color == 1){return "Spades";}
-    //else if(color == 2){return "Diamonds";}
-    //else if(color == 3) {return "Clover";}
-    //else{return "None";}
 }
 
 char* getValueString(int value){

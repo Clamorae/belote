@@ -36,10 +36,9 @@ void emergencyExit(){
     exit(0);
 }
 
-int printProfiles(profile* profileArray, int NumberOfProfiles){
+void printProfiles(profile* profileArray, int NumberOfProfiles){
     if (NumberOfProfiles == 0){
         printf("No saved profiles :(\n");
-        return 0;
     }
     float pourcentage;
     printf("PROFILES\\_______________________________________________________\n");
@@ -56,7 +55,6 @@ int printProfiles(profile* profileArray, int NumberOfProfiles){
         printf("%s | %d | %d/%d (%.1f%) | %d\n",profileArray[i].name,profileArray[i].numberOfGames,profileArray[i].numberOfWins,(profileArray[i].numberOfGames - profileArray[i].numberOfWins),pourcentage,profileArray[i].maxScore);
         printf("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n");
     }
-    return 0;
 }
 
 
