@@ -651,6 +651,4 @@ void announcement(int** cards,int player ,int* tsequence,int* fosequence,int* fi
     else if (higher[0]>4){
         *fisequence=1;
     }
-
-
 }
