@@ -364,29 +364,12 @@ void playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn
 int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atoutMode, int atout){
     int NofPCards = 0;
     int colorToMatch;
-
-    //if ( atout==5){
-    //    compareAndAdd(cards,playableCards,&NofPCards,-1);
-    //}
-    //else if (atout==4){
-    //    for(int i=0;i<8;i++){
-    //        if (cards[0][i]/10==cardsOfRound[0]/10 && cards[1][i]!=0){
-    //            playableCards[NofPCards]=cards[0][i];
-    //            NofPCards++;
-    //        }
-    //    }
-    //    if (NofPCards==0){
-    //        for(int i=0;i<8;i++){
-    //            if (cards[1][i]!=0){
-    //                playableCards[NofPCards]=cards[0][i];
-    //                NofPCards++;
-    //            }
-    //        }
-    //    }
-
-    //}
-    if(atout == 4 || atout == 5){
-        printf("MODE NO TRUMP FULL TRUM ACTIVE\n");
+    if(atout == 5){
+        printf("FULL TRUMP\n");
+        compareAndAdd(cards,playableCards,&NofPCards,-1);//Override the atout value to follow a simple continue if you can, play whatever if you cant
+        return NofPCards;
+    }else if(atout == 4){
+        printf("NO TRUMP\n");
         atoutMode = 1;//Override the atout value to follow a simple continue if you can, play whatever if you cant
         colorToMatch = cardsOfRound[0]/10;
     }else{
@@ -441,17 +424,34 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
     int atoutArray[8] = {4,2,7,3,6,5,1,0};
     int notAtoutArray[8] = {7,3,6,5,4,2,1,0};
     int comparaisonArray[8];
+    int fullTrump = 0, noTrump=0;
     *score = 0;
 
-    if(atoutMode == 1){
-        colorToMatch = atout;
+    if(atout == 4){
+        atoutMode = 0;
+        for(int i = 0; i<8; i++){
+            comparaisonArray[i] = notAtoutArray[i];
+        }
+        colorToMatch = cardsOfRound[0]/10;
+        noTrump = 1;
+    }else if (atout == 5){
+        atoutMode = 1;
         for(int i = 0; i<8; i++){
             comparaisonArray[i] = atoutArray[i];
         }
-    }else{
         colorToMatch = cardsOfRound[0]/10;
-        for(int i = 0; i<8; i++){
-            comparaisonArray[i] = notAtoutArray[i];
+        fullTrump = 5;
+    }else{
+        if(atoutMode == 1){
+            colorToMatch = atout;
+            for(int i = 0; i<8; i++){
+                comparaisonArray[i] = atoutArray[i];
+            }
+        }else{
+            colorToMatch = cardsOfRound[0]/10;
+            for(int i = 0; i<8; i++){
+                comparaisonArray[i] = notAtoutArray[i];
+            }
         }
     }
 
@@ -475,28 +475,66 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
         *winTeam = 2;
     }
 
-    for(int i = 0; i<4;i++){
-        if(cardsOfRound[i]/10 == atout){
-            switch (cardsOfRound[i]%10) {
-                case 0: *score+=0;break;
-                case 1: *score+=0;break;
-                case 2: *score+=14;break;
-                case 3: *score+=10;break;
-                case 4: *score+=20;break;
-                case 5: *score+=3;break;
-                case 6: *score+=4;break;
-                case 7: *score+=11;break;
+    if(noTrump == 0 && fullTrump == 0){
+        if(atoutMode == 1){
+            for(int i = 0; i<4;i++){
+                if(cardsOfRound[i]/10 == colorToMatch){ //will always be false if atout = 4 since colors is max 3
+                    switch (cardsOfRound[i]%10) {
+                        case 0: *score+=0;break;
+                        case 1: *score+=0;break;
+                        case 2: *score+=14;break;
+                        case 3: *score+=10;break;
+                        case 4: *score+=20;break;
+                        case 5: *score+=3;break;
+                        case 6: *score+=4;break;
+                        case 7: *score+=11;break;
+                    }
+                }
             }
         }else{
-            switch (cardsOfRound[i]%10) {
-                case 0: *score+=0;break;
-                case 1: *score+=0;break;
-                case 2: *score+=0;break;
-                case 3: *score+=10;break;
-                case 4: *score+=2;break;
-                case 5: *score+=3;break;
-                case 6: *score+=4;break;
-                case 7: *score+=11;break;
+            for(int i = 0; i<4;i++){
+                if(cardsOfRound[i]/10 == colorToMatch){ //will always be false if atout = 4 since colors is max 3
+                    switch (cardsOfRound[i]%10) {
+                        case 0: *score+=0;break;
+                        case 1: *score+=0;break;
+                        case 2: *score+=0;break;
+                        case 3: *score+=10;break;
+                        case 4: *score+=2;break;
+                        case 5: *score+=3;break;
+                        case 6: *score+=4;break;
+                        case 7: *score+=11;break;
+                    }
+                }
+            }
+        }
+    }else{
+        if(fullTrump == 1){
+            for(int i = 0; i<4;i++){
+                switch (cardsOfRound[i]%10) {
+                    case 0: *score+=0;break;
+                    case 1: *score+=0;break;
+                    case 2: *score+=9;break;
+                    case 3: *score+=5;break;
+                    case 4: *score+=14;break;
+                    case 5: *score+=1;break;
+                    case 6: *score+=3;break;
+                    case 7: *score+=6;break;
+                }
+            }
+        }else{
+            for(int i = 0; i<4;i++){
+                if(cardsOfRound[i]/10 == colorToMatch){ //will always be false if atout = 4 since colors is max 3
+                    switch (cardsOfRound[i]%10) {
+                        case 0: *score+=0;break;
+                        case 1: *score+=0;break;
+                        case 2: *score+=0;break;
+                        case 3: *score+=10;break;
+                        case 4: *score+=2;break;
+                        case 5: *score+=3;break;
+                        case 6: *score+=4;break;
+                        case 7: *score+=19;break;
+                    }
+                }
             }
         }
     }
