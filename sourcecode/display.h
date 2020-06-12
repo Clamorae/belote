@@ -6,3 +6,5 @@ void mtrxPrintCard(int x, int y, int cardValue, char** displayMatrix);
 void mtrxPrintRoundCard(int player, int cardValue, char** displayMatrix);
 void mtrxPrintP1Cards(char** displayMatrix, int** cards);
 void clearMatrix(char** displayMatrix);
+void mtrxPrintInt(int x, int y, int number, char** displayMatrix);
+void mtrxFillInt(int id, int number, char** displayMatrix);

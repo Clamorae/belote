@@ -12,7 +12,7 @@ char** initializeDisplayMatrix(){//could've make it into a file and copy from th
     strcpy(displayMatrix[0],"+Game-------------------------------------+Profile--------------------------------+");
     strcpy(displayMatrix[1],"|              P3+-------+                |                                       |");
     strcpy(displayMatrix[2],"|                |       |                |name:                                  |");
-    strcpy(displayMatrix[3],"|                |       |                |games/win/lost:                        |");
+    strcpy(displayMatrix[3],"|                |       |                |games played :                         |");
     strcpy(displayMatrix[4],"|                |       |                |high score :                           |");
     strcpy(displayMatrix[5],"|                |       |                |                                       |");
     strcpy(displayMatrix[6],"|                |       |                |Game-----------------------------------+");
@@ -62,8 +62,8 @@ void mtrxFillText(int id, char*string, char** displayMatrix){
             mtrxPrintText(49,2,string,displayMatrix);
             break;
         case 1:
-            mtrxPrintText(59,3,"                    ",displayMatrix);
-            mtrxPrintText(59,3,string,displayMatrix);
+            mtrxPrintText(57,3,"         ",displayMatrix);
+            mtrxPrintText(57,3,string,displayMatrix);
             break;
         case 2:
             mtrxPrintText(56,4,"         ",displayMatrix);
@@ -94,7 +94,7 @@ void mtrxFillText(int id, char*string, char** displayMatrix){
             mtrxPrintText(63,15,string,displayMatrix);
             break;
         case 9:
-            mtrxPrintText(50,19,"         ",displayMatrix);
+            mtrxPrintText(50,19,"                        ",displayMatrix);
             mtrxPrintText(50,19,string,displayMatrix);
             break;
         case 10:
@@ -158,5 +158,70 @@ void clearMatrix(char** displayMatrix){
     }
     for(int i=0; i<8; i++){
         mtrxPrintCard((i*10)+2,23,-1, displayMatrix);
+    }
+}
+
+void mtrxPrintInt(int x, int y, int number, char** displayMatrix){
+    char string[9];
+    sprintf(string,"%d",number);
+    int length = (int) strlen(string);
+    strncpy(&displayMatrix[y][x], string, length);
+}
+
+void mtrxFillInt(int id, int number, char** displayMatrix){
+    switch (id) {
+        case 0:
+            mtrxPrintText(49,2,"          ",displayMatrix);
+            mtrxPrintInt(49,2,number,displayMatrix);
+            break;
+        case 1:
+            mtrxPrintText(58,3,"         ",displayMatrix);
+            mtrxPrintInt(58,3,number,displayMatrix);
+            break;
+        case 2:
+            mtrxPrintText(56,4,"         ",displayMatrix);
+            mtrxPrintInt(56,4,number,displayMatrix);
+            break;
+        case 3:
+            mtrxPrintText(57,8,"         ",displayMatrix);
+            mtrxPrintInt(57,8,number,displayMatrix);
+            break;
+        case 4:
+            mtrxPrintText(57,9,"         ",displayMatrix);
+            mtrxPrintInt(57,9,number,displayMatrix);
+            break;
+        case 5:
+            mtrxPrintText(73,9,"         ",displayMatrix);
+            mtrxPrintInt(73,9,number,displayMatrix);
+            break;
+        case 6:
+            mtrxPrintText(49,13,"        ",displayMatrix);
+            mtrxPrintInt(49,13,number,displayMatrix);
+            break;
+        case 7:
+            mtrxPrintText(63,14,"        ",displayMatrix);
+            mtrxPrintInt(63,14,number,displayMatrix);
+            break;
+        case 8:
+            mtrxPrintText(63,15,"        ",displayMatrix);
+            mtrxPrintInt(63,15,number,displayMatrix);
+            break;
+        case 9:
+            mtrxPrintText(50,19,"                        ",displayMatrix);
+            mtrxPrintInt(50,19,number,displayMatrix);
+            break;
+        case 10:
+            mtrxPrintText(50,20,"         ",displayMatrix);
+            mtrxPrintInt(50,20,number,displayMatrix);
+            break;
+        case 11:
+            mtrxPrintText(49,21,"         ",displayMatrix);
+            mtrxPrintInt(49,21,number,displayMatrix);
+            break;
+        case 12:
+            mtrxPrintText(69,21,"         ",displayMatrix);
+            mtrxPrintInt(69,21,number,displayMatrix);
+            break;
+
     }
 }

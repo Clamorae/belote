@@ -76,8 +76,7 @@ profile* addNewProfile(profile* profileArray, int* NumberOfProfiles){
 profile* selectProfile(profile* profileArray, int* numberOfProfiles, int* profileNumber){
     int intInput;
     clear();
-    printf("PROFILE SELECTION\\______________________________________________________\n");
-    printf("Please select a profile\n\n");
+    printf("PROFILE SELECTION\\______________________________________________________\n\n");
     printf("1 - Create a new profile\n");
     for(int i = 0; i< *numberOfProfiles;i++){
         printf("%d - %s\n",i+2,profileArray[i].name);
@@ -93,8 +92,9 @@ profile* selectProfile(profile* profileArray, int* numberOfProfiles, int* profil
     }else{
         *profileNumber = intInput - 2;
     }
-    printf("profile %s sélectionner\n",profileArray[*profileNumber].name);
-    waitForEnter();
+    clear();
+    printf("OPEN THE GAME\\________________________________________________________\n\n");
+    printf("%s profile selected\n",profileArray[*profileNumber].name);
     return profileArray;
 }
 
