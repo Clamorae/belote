@@ -23,44 +23,17 @@
     dé-coinche when a new contracts is anounced: ?
     display results screen at the end of the game: v
     remove debug prints: v
-    make a good clear function (NOT print \n\n\n\n\n\n\n...): V
+    make a good clear function (NOT print \n\n\n\n\n\n\n...): v
     add some waitForEnter(); where it needs to: v
     prevent people from creating profiles with the same names: x
 */
 
 int main(){
-    char** matrix = initializeDisplayMatrix();
-    for(int i=0;i<13;i++){
-        mtrxFillText(i,"bite",matrix);
-    }
-    printMatrix(matrix);
-    waitForEnter();
-    mtrxPrintRoundCard(1,0,matrix);
-    printMatrix(matrix);
-    waitForEnter();
-    mtrxPrintRoundCard(2,10,matrix);
-    printMatrix(matrix);
-    waitForEnter();
-    mtrxPrintRoundCard(3,20,matrix);
-    printMatrix(matrix);
-    waitForEnter();
-    mtrxPrintRoundCard(4,30,matrix);
-    printMatrix(matrix);
-    waitForEnter();
+    char** displayMatrix = initializeDisplayMatrix();
     int **card=create(2,32);
     int exit = 0;
     srand(time(0));
     randomize(card);
-    mtrxPrintP1Cards(matrix,card);
-    printMatrix(matrix);
-    waitForEnter();
-    clearMatrix(matrix);
-    printMatrix(matrix);
-    waitForEnter();
-
-
-
-
     int numberOfProfiles, profileNumber;
     profile* profileArray = getProfiles(&numberOfProfiles);
     int input;
@@ -69,7 +42,7 @@ int main(){
         switch (input) {
             case 1:
                 profileArray = selectProfile(profileArray, &numberOfProfiles, &profileNumber);
-                belote(card, profileArray, profileNumber);
+                belote(card, profileArray, profileNumber,displayMatrix);
                 break;
             case 2:
                 clear();

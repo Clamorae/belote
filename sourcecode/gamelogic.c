@@ -11,32 +11,49 @@
 
 
 
-void belote(int **cards, profile* profileArray, int profileNumber){
-    clear();
+void belote(int **cards, profile* profileArray, int profileNumber,char** displayMatrix){
     int scoreT1 = 0, scoreT2 = 0,roundT1, roundT2, first, belote;
+    int round = 0;
     contract gameContract;//create a contract type variable for the game
+    clearMatrix(displayMatrix);
+    mtrxFillText(0,profileArray[profileNumber].name,displayMatrix);
+    mtrxFillInt(1,profileArray[profileNumber].numberOfGames,displayMatrix);
+    mtrxFillInt(2,profileArray[profileNumber].maxScore,displayMatrix);
     printf("The game is about to begin...Be ready\n");
+    waitForEnter();
     do{
+        round ++;
+        mtrxFillInt(3,scoreT1,displayMatrix);
+        mtrxFillInt(4,scoreT2,displayMatrix);
+        mtrxFillInt(5,round,displayMatrix);
+        mtrxFillInt(6,0,displayMatrix);
+        randomize(cards);
+        mtrxPrintP1Cards(displayMatrix,cards);
         roundT1 = 0;roundT2=0;
+        mtrxFillInt(7,roundT1,displayMatrix);
+        mtrxFillInt(8,roundT2,displayMatrix);
+        printMatrix(displayMatrix);
         first = rand()%4+1;
+        printf("ROUND NUMBER %d\n",round);
         printf("The first to submit a contract for this round will be player %d\n",first);
         waitForEnter();
-        randomize(cards);//shuffle the cards and sort them (Player 1 cards from index 0 to 7, P2 from 8 to 15, ect...)
-        defineContract(first,&gameContract,cards);
+        defineContract(first,&gameContract,cards,displayMatrix);
         first++;
         if (first>4){first = 1;}
         roundT1 = 0;
         roundT2 = 0;
         belote = getBeloteRebelotte(cards, gameContract.color);//get wich player has the belote rebelote
         for(int i =0;i<8;i++){
-            clear();
-            printf("Contract is:\n-team: %d\n-value: %d\n-color: %s\n-coinched: %d\n\n",gameContract.team, gameContract.value, getColorString(gameContract.color), gameContract.isCoinched);
-            printf("Turn n%d\n\n",i+1);
-            printf("Team 1 have %d points\nTeam 2 have %d points\nPress Enter to begin the turn...\n\n",roundT1,roundT2);
-            waitForEnter();
-            first = turn(cards,first,gameContract.color, &roundT1, &roundT2,&belote,i,&scoreT1,&scoreT2);
+            mtrxFillInt(6,i+1,displayMatrix);
+            mtrxFillInt(7,roundT1,displayMatrix);
+            mtrxFillInt(8,roundT2,displayMatrix);
+            printMatrix(displayMatrix);
+            printf("Press Enter to begin the turn...\n");
+            first = turn(cards,first,gameContract.color, &roundT1, &roundT2,&belote,i,&scoreT1,&scoreT2,displayMatrix);
         }
-        clear();
+        mtrxFillInt(7,roundT1,displayMatrix);
+        mtrxFillInt(8,roundT2,displayMatrix);
+        printMatrix(displayMatrix);
         printf("Round Results:\n\n");
         if(computeTotalScore(gameContract,roundT1,roundT2,&scoreT1,&scoreT2)){
             printf("Contract was succesfull !\n");
@@ -51,31 +68,33 @@ void belote(int **cards, profile* profileArray, int profileNumber){
     if(scoreT1  > scoreT2){
         printf("FINAL RESULTS\\___________________________________________________________\n\n");
         printf("The final score is :\nT1:%d-%d:T2\n\n",scoreT1,scoreT2);
-        printf("Team 1 wins\n");
+        printf("CONGRATULATION! YOU'RE THE WINNER!\n");
         updateProfile(profileArray, profileNumber, 1, scoreT1);
     }else{
-        printf("TEAM 2 WINS SO SAD\n");
+        printf("You lost. Maybe next time :(\n");
         updateProfile(profileArray, profileNumber, 0, scoreT1);
     }
     waitForEnter();
 }
 
-void defineContract(int player, contract* pContract,int **card){
+void defineContract(int player, contract* pContract,int **card, char** displayMatrix){
     int passes,temp;
     passes = 0;
     (*pContract).team = 0, (*pContract).value = 60, (*pContract).color = 0, (*pContract).isCoinched = 0;
     bool check=false;
     srand(time(0));
     do{
-        clear();
         if((*pContract).team == 0){
-            printf("There is currently no contract\n");
+            mtrxFillText(9,"No contract anounced",displayMatrix);
         }else{
-            printf("The following contract was announced:\nteam:%d\nvalue:%d\ncolor:%s\ncoinche:%d\n\n", (*pContract).team, (*pContract).value, getColorString((*pContract).color),(*pContract).isCoinched);
+            mtrxFillText(9,getColorString((*pContract).color),displayMatrix);
+            mtrxFillInt(10,(*pContract).value,displayMatrix);
+            mtrxFillInt(11,(*pContract).team,displayMatrix);
+            mtrxFillInt(12,(*pContract).isCoinched,displayMatrix);
         }
+        printMatrix(displayMatrix);
         printf("It's player %d turn\n",player);
         if (player == 1){
-            printP1Cards(card);
             temp = getContract(&pContract->value, &pContract->color, (*pContract).value, 680, (*pContract).team);
             switch(temp) {
                 case 1:
@@ -97,22 +116,26 @@ void defineContract(int player, contract* pContract,int **card){
         player ++;
         if(player>4){player = 1;}
         if (passes==3 && (*pContract).team!=0){
+            printf("The contract was established\n");
             check=true;
         }
         else if (passes==4){
             passes = 0;
             printf("No contract was established, the cards has been reshuffled\n");
             randomize(card);
+            mtrxPrintP1Cards(displayMatrix,card);
         }
         waitForEnter();
     }while(check==false);
 }
 
-int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote,int turn,int* T1,int* T2){
+int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote,int turn,int* T1,int* T2, char** displayMatrix){
     int cardsOfRound[4] = {-1,-1,-1,-1};
     int atoutMode = 0;
     int tsequence=0, fosequence=0, fisequence=0,asquare=0,nsquare=0,jsquare=0;
     for(int i = 0;i<4;i++){
+        waitForEnter();
+        printMatrix(displayMatrix);
         if(player == 1){
             if (turn==1) {
                 announcement(cards ,player ,&tsequence ,&fosequence ,&fisequence ,&asquare ,&nsquare ,&jsquare );
@@ -276,32 +299,27 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     break;
                 }
             }
-            printf("Player %d is currently playing\n",player);
             IAplayCard(cards,cardsOfRound,atoutMode,atout,player,i,belote);
-            waitForEnter();
 
         }
+        mtrxPrintRoundCard(player,cardsOfRound[i],displayMatrix);
+        mtrxPrintP1Cards(displayMatrix,cards);
+        printMatrix(displayMatrix);
+        printf("Player %d plays\n",player);
         player++;
         if(player>4){player = 1;}
         if((cardsOfRound[i]/10 == atout && cardsOfRound[i] != -1 && atout != 4)|| atout == 5){
-            atoutMode = 1;
+            atoutMode = i+1;
         }
-        clear();
-        printf("Currently, the game is:\n");
-        for(int j=0;j<4;j++){
-            if(cardsOfRound[j] == -1){
-                printf("-No Card\n");
-            }
-            else{
-                printf("-%s of %s\n",getValueString(cardsOfRound[j]%10),getColorString(cardsOfRound[j]/10));
-            }
-        }
+
     }
     int winTeam, score;
     player = CalculateScore(&winTeam, &score, cardsOfRound, player,atout, atoutMode);
     printf("Player %d from team %d win this turn with %d points\n",player,winTeam,score);
-    while(getchar()!='\n');
-    getchar();
+    waitForEnter();
+    for(int i=0;i<4;i++){
+        mtrxPrintRoundCard(i+1,-1,displayMatrix);
+    }
     if (winTeam == 1){
         (*roundT1) += score;
     }else{
@@ -314,22 +332,8 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
 void playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn,int* belote){
     int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};
     int numberOfPCards = 0, count=0;
-    clear();
-    printf("Currently, the game is:\n");
-    for(int i=0;i<4;i++){
-        if(cardsOfRound[i] == -1){
-            printf("-No cards\n");
-        }
-        else{
-            printf("-%s of %s\n",getValueString(cardsOfRound[i]%10),getColorString(cardsOfRound[i]/10));
-        }
-    }
-    printf("\n");
-    printP1Cards(cards);
     numberOfPCards = getplayablecards(cards,cardsOfRound,playableCards,*atoutMode,atout);
-
-
-    printf("\nYour playable cards are:\n");
+    printf("Your playable cards are:\n");
     for(int i=0; i<numberOfPCards; i++){
         printf("%d - %s of %s\n",i+1,getValueString(playableCards[i]%10),getColorString(playableCards[i]/10));
     }
@@ -366,15 +370,13 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
     int NofPCards = 0;
     int colorToMatch;
     if(atout == 5){
-        printf("FULL TRUMP\n");
         compareAndAdd(cards,playableCards,&NofPCards,-1);//Override the atout value to follow a simple continue if you can, play whatever if you cant
         return NofPCards;
     }else if(atout == 4){
-        printf("NO TRUMP\n");
         atoutMode = 1;//Override the atout value to follow a simple continue if you can, play whatever if you cant
         colorToMatch = cardsOfRound[0]/10;
     }else{
-        if(atoutMode == 1){
+        if(atoutMode != 0){
             colorToMatch = atout;
         }
         else{
@@ -387,7 +389,7 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
     else{
         compareAndAdd(cards,playableCards,&NofPCards,colorToMatch);
         if (NofPCards == 0){
-            if(atoutMode != 1){
+            if(atoutMode == 0){
                 compareAndAdd(cards,playableCards,&NofPCards,atout);
                 if (NofPCards == 0){
                     compareAndAdd(cards,playableCards,&NofPCards,-1);
@@ -443,7 +445,7 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
         colorToMatch = cardsOfRound[0]/10;
         fullTrump = 5;
     }else{
-        if(atoutMode == 1){
+        if(atoutMode != 0){
             colorToMatch = atout;
             for(int i = 0; i<8; i++){
                 comparaisonArray[i] = atoutArray[i];
@@ -477,34 +479,28 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
     }
 
     if(noTrump == 0 && fullTrump == 0){
-        if(atoutMode == 1){
-            for(int i = 0; i<4;i++){
-                if(cardsOfRound[i]/10 == colorToMatch){ //will always be false if atout = 4 since colors is max 3
-                    switch (cardsOfRound[i]%10) {
-                        case 0: *score+=0;break;
-                        case 1: *score+=0;break;
-                        case 2: *score+=14;break;
-                        case 3: *score+=10;break;
-                        case 4: *score+=20;break;
-                        case 5: *score+=3;break;
-                        case 6: *score+=4;break;
-                        case 7: *score+=11;break;
-                    }
+        for(int i = 0; i<4;i++){
+            if(i+1 < atoutMode){
+                switch (cardsOfRound[i]%10) {
+                    case 0: *score+=0;break;
+                    case 1: *score+=0;break;
+                    case 2: *score+=14;break;
+                    case 3: *score+=10;break;
+                    case 4: *score+=20;break;
+                    case 5: *score+=3;break;
+                    case 6: *score+=4;break;
+                    case 7: *score+=11;break;
                 }
-            }
-        }else{
-            for(int i = 0; i<4;i++){
-                if(cardsOfRound[i]/10 == colorToMatch){ //will always be false if atout = 4 since colors is max 3
-                    switch (cardsOfRound[i]%10) {
-                        case 0: *score+=0;break;
-                        case 1: *score+=0;break;
-                        case 2: *score+=0;break;
-                        case 3: *score+=10;break;
-                        case 4: *score+=2;break;
-                        case 5: *score+=3;break;
-                        case 6: *score+=4;break;
-                        case 7: *score+=11;break;
-                    }
+            }else{
+                switch (cardsOfRound[i]%10) {
+                    case 0: *score+=0;break;
+                    case 1: *score+=0;break;
+                    case 2: *score+=0;break;
+                    case 3: *score+=10;break;
+                    case 4: *score+=2;break;
+                    case 5: *score+=3;break;
+                    case 6: *score+=4;break;
+                    case 7: *score+=11;break;
                 }
             }
         }
@@ -524,17 +520,15 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
             }
         }else{
             for(int i = 0; i<4;i++){
-                if(cardsOfRound[i]/10 == colorToMatch){ //will always be false if atout = 4 since colors is max 3
-                    switch (cardsOfRound[i]%10) {
-                        case 0: *score+=0;break;
-                        case 1: *score+=0;break;
-                        case 2: *score+=0;break;
-                        case 3: *score+=10;break;
-                        case 4: *score+=2;break;
-                        case 5: *score+=3;break;
-                        case 6: *score+=4;break;
-                        case 7: *score+=19;break;
-                    }
+                switch (cardsOfRound[i]%10) {
+                    case 0: *score+=0;break;
+                    case 1: *score+=0;break;
+                    case 2: *score+=0;break;
+                    case 3: *score+=10;break;
+                    case 4: *score+=2;break;
+                    case 5: *score+=3;break;
+                    case 6: *score+=4;break;
+                    case 7: *score+=19;break;
                 }
             }
         }

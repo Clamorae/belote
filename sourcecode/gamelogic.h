@@ -11,14 +11,14 @@ typedef struct contract {
     int isCoinched;//0= none, 1=coinche
 } contract;
 
-void belote(int **cards, profile* profileArray, int profileNumber);
+void belote(int **cards, profile* profileArray, int profileNumber, char** displayMatrix);
 /*This is the main function of the game. It starts after the player choose his profile and end at the end of the game. It calls most other functions in this file.
 the parameters are :
 -The cards array(explained in array.h) because, well, it's going to be difficult to play without cards
 -The profileArray and the profileNumber, used to save the results after the game in the profilArray.
 It doesn't return anything
 */
-void defineContract(int player,contract* pContract, int** cards);
+void defineContract(int player,contract* pContract, int** cards,char** displayMatrix);
 /*This function is run at the begining of every round, and will define the contract for it.It ask a contract for both the player and the bots.
 The parameters are :
 -the player integer, wich is the first player to anounce a contracts
@@ -26,7 +26,7 @@ The parameters are :
 -the cards array is only used to print the cards of the player before he has to submit a contract
 It doesn't return anything
 */
-int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote,int turn,int* T1,int* T2);
+int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote,int turn,int* T1,int* T2, char** displayMatrix);
 /*This function is called once each turn. Every player plays they card. The score and the winner of said turn are then computed
 the parameters are:
 -the cards array
