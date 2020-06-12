@@ -130,7 +130,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
     else if (atout==4){// In this case the IA know she will play in a No-trump round
         int value[8]={0,1,2,4,5,6,3,7}; //all the "value" array in IA.c is a classification of the card by card value for the current contract
         if (cardsOfRound[0]==playableCards[0]){ //In this case the Ia's knows it's allowed to played card of the same color as the first card
-           for (int i = 0; i < turn; i++){//The code below is pretty similar to the one upwars
+           for (int i = 0; i < turn; i++){//The code below is pretty similar to the one upwards
                 if (cardsOfRound[turn]/10==cardsOfRound[0]/10){
                     for (int j = 0; j < 8; j++){
                         if (value[j]==cardsOfRound[turn]%10){
@@ -191,6 +191,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
             }
         }
     }
+
     else if(atoutMode==0 && atout==playableCards[0]/10){//In this case the IA doest have the color which is played by the leader so IA will play a trump
         int value[8]={0,1,5,6,3,7,2,4};
         for (int i = 0; i < 8; i++){
@@ -208,7 +209,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
             }
         }
     }
-
+    
     else if (atoutMode==0 && cardsOfRound[0]/10==playableCards[0]/10){// In this case the IA know there is no trump in game and she can play card from the same color as the leader
         int value[8]={0,1,2,4,5,6,3,7};
         for (int i = 0; i < turn; i++){
@@ -256,9 +257,8 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
         }
     }
 
-
-    else{
-        if(playableCards[0]/10==atout){
+    else{//In This case the cars which has been played before are trump
+        if(playableCards[0]/10==atout){//This case the IA will play a trump in a game where a trump has already been played
             int value[8]={0,1,5,6,3,7,2,4};
             for (int i = 0; i < turn; i++){
                 if (cardsOfRound[turn]/10==atout){
@@ -304,7 +304,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                 }
             }
         }
-        else{// in this case 
+        else{// In this case the IA has no trump in hand so it will play his lowest cards 
             int value[8]={0,1,5,6,3,7,2,4};
             for (int i = 0; i <8; i++){
                 for (int j = 0; j < 8; j++){
