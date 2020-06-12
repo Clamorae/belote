@@ -115,7 +115,7 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
     for(int i = 0;i<4;i++){
         if(player == 1){
             if (turn==1) {
-                    announcement(cards ,player ,&tsequence ,&fosequence ,&fisequence ,&asquare ,&nsquare ,&jsquare );
+                announcement(cards ,player ,&tsequence ,&fosequence ,&fisequence ,&asquare ,&nsquare ,&jsquare );
                 if (jsquare==1){
                     printf("You're announcing a square of Jack, for a 200 points value");
                     *T1+=200;
