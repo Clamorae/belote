@@ -113,6 +113,7 @@ void updateProfile(profile* profileArray, int profileNumber, int win, int score)
 
 void saveProfiles(profile* profileArray, int NumberOfProfiles){
     FILE* profilFile = fopen("profiles.sav","w");
+    fprintf(profilFile,"%d\n",NumberOfProfiles);
     for(int i=0;i<NumberOfProfiles;i++){
         fprintf(profilFile,"%s\n",profileArray[i].name);
         fprintf(profilFile,"%d\n",profileArray[i].numberOfGames);

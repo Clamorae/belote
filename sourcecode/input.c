@@ -111,7 +111,7 @@ char* getColorString(int color){
     switch (color) {
         case 0:return "Hearts";
         case 1:return "Spades";
-        case 2:return "Diamonds";
+        case 2:return "Diamond";
         case 3:return "Clover";
         case 4:return "No Trump";
         case 5:return "Full Trump";

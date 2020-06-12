@@ -3,6 +3,7 @@
 #include"input.h"
 #include"array.h"
 #include"IA.h"
+#include"display.h"
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
@@ -14,7 +15,7 @@ void belote(int **cards, profile* profileArray, int profileNumber){
     clear();
     int scoreT1 = 0, scoreT2 = 0,roundT1, roundT2, first, belote;
     contract gameContract;//create a contract type variable for the game
-    printf("OPEN THE GAME\n");
+    printf("The game is about to begin...Be ready\n");
     do{
         roundT1 = 0;roundT2=0;
         first = rand()%4+1;

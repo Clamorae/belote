@@ -1,12 +1,13 @@
 #include<stdio.h> // kono stDIO da !
 #include<stdlib.h>
 #include<string.h>
-#include <time.h>
+#include<time.h>
 #include"highscore.h"
 #include"array.h"
 #include"menu.h"
 #include"gamelogic.h"
 #include"input.h"
+#include"display.h"
 #if defined POSIX
     #define CLS ("clear")
 #elif defined MSDOS || defined WIN32
@@ -28,15 +29,40 @@
 */
 
 int main(){
-    printf("\a\n");
+    char** matrix = initializeDisplayMatrix();
+    for(int i=0;i<13;i++){
+        mtrxFillText(i,"bite",matrix);
+    }
+    printMatrix(matrix);
+    waitForEnter();
+    mtrxPrintRoundCard(1,0,matrix);
+    printMatrix(matrix);
+    waitForEnter();
+    mtrxPrintRoundCard(2,10,matrix);
+    printMatrix(matrix);
+    waitForEnter();
+    mtrxPrintRoundCard(3,20,matrix);
+    printMatrix(matrix);
+    waitForEnter();
+    mtrxPrintRoundCard(4,30,matrix);
+    printMatrix(matrix);
+    waitForEnter();
     int **card=create(2,32);
     int exit = 0;
     srand(time(0));
     randomize(card);
-    //highscore *HSarray = getHighScore();
+    mtrxPrintP1Cards(matrix,card);
+    printMatrix(matrix);
+    waitForEnter();
+    clearMatrix(matrix);
+    printMatrix(matrix);
+    waitForEnter();
+
+
+
+
     int numberOfProfiles, profileNumber;
     profile* profileArray = getProfiles(&numberOfProfiles);
-    //profileArray = addNewProfile(profileArray,&NumberOfProfiles);
     int input;
     do{
         input = menu();
