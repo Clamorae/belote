@@ -69,4 +69,4 @@ int ** create(int lineNumber, int columnNumber){
 }
 
 
-//gcc -o main.exe main.c highscore.c array.c menu.c gamelogic.c IA.c input.c//
+//gcc -o main.exe main.c highscore.c array.c menu.c gamelogic.c IA.c input.c display.c//
