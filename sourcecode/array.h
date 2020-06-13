@@ -10,12 +10,13 @@ int randomize(int **array);//a function which takes a two dimensional array as p
 
   The card distribution is a bit special because we distribute the player
   each card will get a random value between 1 and 4
-  if 8 card as already the will it will attribue another value
+  if 8 card as already the same player it will attribute another value
   Then the array will be bubble sorted the height first card will be the players 1 card,the next 8 for the second players, etc
-  at every moment we can acces the players hand by starting at cards[0][player*8]
+  at every moment we can access the players hand by starting at cards[0][player*8]
 
   When a cards has been used the player number will become 0
-  a this moment the cards stay at the same place in the array
+  at this moment the cards stay at the same place in the array
   but in our check it will not be added in the playablecard array 
-  and no one wille be able to replay a card wich has been already played
+  and no one will be able to replay a card which has been already played
     */
+void freeCards(int **cards, int m);// this function will free the two dimensionnal array

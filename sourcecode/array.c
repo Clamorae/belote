@@ -52,20 +52,22 @@ void randomize(int **array){
 
 }
 
-int ** create(int lineNumber, int columnNumber){
-	if (lineNumber > 0 && columnNumber > 0){//check if the user doesn't try to create an impossible array//
-		int** matrix= (int**) malloc(lineNumber * sizeof(int*));// start the dinamyc allocation for each line of the array//
-		for (int i=0;i<lineNumber;i++){//repeat for each line//
-			matrix[i] = (int*) malloc(columnNumber * sizeof(int));// start the dynamic allocation for each column of the array//
-			for (int j=0;j<columnNumber;j++){//repeat for each line//
-				matrix[i][j]=0;//initialize all the values of the array at 0//
-			}
+int** create(int lineNumber, int columnNumber){
+	int** matrix= (int**) malloc(lineNumber * sizeof(int*));// start the dinamyc allocation for each line of the array
+	for (int i=0;i<lineNumber;i++){//repeat for each line
+		matrix[i] = (int*) malloc(columnNumber * sizeof(int));// start the dynamic allocation for each column of the array
+		for (int j=0;j<columnNumber;j++){//repeat for each column
+			matrix[i][j]=0;//initialize all the values of the array at 0
 		}
-		return matrix;
-	}else{
-		printf("there is a problem with the size of the matrice, make sure you entered a correct value");
-		return NULL;
 	}
+	return matrix;
+}
+
+void freeArray(int **cards, int m) {
+    for (int i = 0; i < m; ++i) {
+        free(cards[i]);
+    }
+    free(cards);
 }
 
 

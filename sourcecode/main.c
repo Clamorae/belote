@@ -12,7 +12,7 @@
     trump in contract: V
     trump in count: x
     winner start: v
-    comment: ...
+    comment: 1/2
     see card before anoucing contracts: V
     dé-coinche when a new contracts is anounced: ?
     display results screen at the end of the game: v
