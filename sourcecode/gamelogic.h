@@ -27,6 +27,13 @@ The parameters are :
 It doesn't return anything
 */
 int getContract(int *value, int *color, int minValue, int maxValue, int teamWithContract);
+/*This fuction is used to ask the user for a contrat/if he wants to coinche/to pass.
+The parameters are:
+-pointers to the value and color of the contract
+-the minimum and maximum that the player is able to bet
+-the team actually detaining the contract, used to check wether the player can coinche or not
+It returns several value from 0 to 2 depending of the actions of the player
+*/
 int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote,int turn,int* T1,int* T2, char** displayMatrix);
 /*This function is called once each turn. Every player plays they card. The score and the winner of said turn are then computed
 the parameters are:

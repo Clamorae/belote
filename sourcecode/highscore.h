@@ -6,6 +6,32 @@ typedef struct profile {
 } profile;
 /*This sturcture is used to store profiles.*/
 
+/*The saved data is stored as such in the save file:
+n is the number of profiles saved
+
+n
+name n
+played games 1
+won games 1
+high score 1
+...
+name n
+played games 1
+won games n
+high score n
+
+eg:
+2
+Jhonny
+8
+6
+1234
+Gyro
+420
+69
+1002
+*/
+
 profile* getProfiles(int*NumberOfProfiles);
 /*This function is used to retrieve profiles data from the profiles.sav file, and put them in an array
 it takes a pointer to an Int wich is modified to be the number of profiles that were loaded
@@ -14,11 +40,12 @@ it returns a pointer to an array of profiles
 void emergencyExit();
 /*This fuction is called when something goes wrong during the loading of the profiles. It just crash the programm after printing a warning */
 
-void printProfiles(profile* profileArray, int NumberOfProfiles);
+int printProfiles(profile* profileArray, int NumberOfProfiles);
 /*this fuction is used to print all the profiles and the stats linked to it
 the parameters are
 -the array of profile
 -the number of profiles
+It doesn't return anything
 */
 profile* addNewProfile(profile* profileArray, int* NumaberOfProfiles);
 /*this function is used  to add a new profile to the array

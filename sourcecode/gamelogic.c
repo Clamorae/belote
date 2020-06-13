@@ -76,7 +76,7 @@ void belote(int **cards, profile* profileArray, int profileNumber,char** display
         printf("You lost. Maybe next time :(\n");
         updateProfile(profileArray, profileNumber, 0, scoreT1);
     }
-    freeArray(cards,2);
+    freeCards(cards,2);
     waitForEnter();
 }
 
@@ -540,7 +540,7 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
             }
         }
     }
-
+    //this loop will determine the winner of the the round
     for(int i=0;i<8;i++){
         for(int j=0;j<4;j++){
             if(cardsOfRound[j]/10 == colorToMatch && cardsOfRound[j]%10 == comparaisonArray[i] && fullTrump==0){
@@ -557,7 +557,7 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
         }
     }
 
-    for(int i = 0; i<strongestCard; i++){
+    for(int i = 0; i<strongestCard; i++){//since we know who was the first player, we can use this information to determine to wich player belongs the winning card
         player++;
         if(player>4){player = 1;}
     }
@@ -566,7 +566,7 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
     }else{
         *winTeam = 2;
     }
-
+    //this will calculate the  wortj of all the played cards
     if(noTrump == 0 && fullTrump == 0){
         for(int i = 0; i<4;i++){
             if(i+1 < atoutMode){
