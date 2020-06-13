@@ -223,39 +223,48 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                 if (jsquare==1){
                     printf("You're announcing a square of Jack, for a 200 points value\n");
                     *T1+=200;
+                    mtrxFillInt(7,*T1,displayMatrix);
                 }
                 else if (nsquare==1){
                     printf("You're announcing a square of 9, for a 150 points value\n");
                     *T1+=150;
+                    mtrxFillInt(7,*T1,displayMatrix);
                 }
                 else if (tsequence==1){
                     printf("You're announcing a sequence of 3, for a 20 points value\n");
                     *T1+=20;
+                    mtrxFillInt(7,*T1,displayMatrix);
                 }
                 else if (fosequence==1){
                     printf("You're announcing a sequence of 4, for a 50 points value\n");
                     *T1+=50;
+                    mtrxFillInt(7,*T1,displayMatrix);
                 }
                 else if (nsquare==1){
                     printf("You're announcing a sequence of 5, for a 100 points value\n");
                     *T1+=100;
+                    mtrxFillInt(7,*T1,displayMatrix);
                 }
                 switch (asquare){
                 case 3:
                     printf("You're announcing a square of 10, for a 100 points value\n");
                     *T1+=100;
+                    mtrxFillInt(7,*T1,displayMatrix);
                     break;
                 case 5:
                     printf("You're announcing a square of Queen, for a 100 points value\n");
                     *T1+=100;
+                    mtrxFillInt(7,*T1,displayMatrix);
                     break;
                 case 6:
                     printf("You're announcing a square of King, for a 100 points value\n");
                     *T1+=100;
+                    mtrxFillInt(7,*T1,displayMatrix);
                     break;
                 case 7:
                     printf("You're announcing a square of Ace, for a 100 points value\n");
                     *T1+=100;
+                    mtrxFillInt(7,*T1,displayMatrix);
                     break;
                 default:
                     break;
@@ -271,10 +280,12 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     switch (player){
                     case 2||4:
                         *T2+=200;
+                        mtrxFillInt(8,*T2,displayMatrix);
                         break;
 
                     default:
                         *T1+=200;
+                        mtrxFillInt(7,*T1,displayMatrix);
                         break;
                     }
                 }
@@ -283,10 +294,12 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     switch (player){
                     case 2||4:
                         *T2+=150;
+                        mtrxFillInt(8,*T2,displayMatrix);
                         break;
 
                     default:
                         *T1+=150;
+                        mtrxFillInt(7,*T1,displayMatrix);
                         break;
                     }
                 }
@@ -295,10 +308,12 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     switch (player){
                     case 2||4:
                         *T2+=20;
+                        mtrxFillInt(8,*T2,displayMatrix);
                         break;
 
                     default:
                         *T1+=20;
+                        mtrxFillInt(7,*T1,displayMatrix);
                         break;
                     }
                 }
@@ -307,10 +322,12 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     switch (player){
                     case 2||4:
                         *T2+=500;
+                        mtrxFillInt(8,*T2,displayMatrix);
                         break;
 
                     default:
                         *T1+=500;
+                        mtrxFillInt(7,*T1,displayMatrix);
                         break;
                     }
                 }
@@ -319,10 +336,12 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     switch (player){
                     case 2||4:
                         *T2+=100;
+                        mtrxFillInt(8,*T2,displayMatrix);
                         break;
 
                     default:
                         *T1+=100;
+                        mtrxFillInt(7,*T1,displayMatrix);
                         break;
                     }
                 }
@@ -332,10 +351,12 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     switch (player){
                     case 2||4:
                         *T2+=100;
+                        mtrxFillInt(8,*T2,displayMatrix);
                         break;
 
                     default:
                         *T1+=100;
+                        mtrxFillInt(7,*T1,displayMatrix);
                         break;
                     }
                     break;
@@ -344,10 +365,12 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     switch (player){
                     case 2||4:
                         *T2+=100;
+                        mtrxFillInt(8,*T2,displayMatrix);
                         break;
 
                     default:
                         *T1+=100;
+                        mtrxFillInt(7,*T1,displayMatrix);
                         break;
                     }
                     break;
@@ -356,10 +379,12 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     switch (player){
                     case 2||4:
                         *T2+=100;
+                        mtrxFillInt(8,*T2,displayMatrix);
                         break;
 
                     default:
                         *T1+=100;
+                        mtrxFillInt(7,*T1,displayMatrix);
                         break;
                     }
                     break;
@@ -369,10 +394,12 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     switch (player){
                     case 2||4:
                         *T2+=100;
+                        mtrxFillInt(8,*T2,displayMatrix);
                         break;
 
                     default:
                         *T1+=100;
+                        mtrxFillInt(7,*T1,displayMatrix);
                         break;
                     }
                     break;
