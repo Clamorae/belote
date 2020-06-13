@@ -8,12 +8,6 @@
 #include"gamelogic.h"
 #include"input.h"
 #include"display.h"
-#if defined POSIX
-    #define CLS ("clear")
-#elif defined MSDOS || defined WIN32
-    #define CLS ("cls")
-#endif
-
 /*
     trump in contract: V
     trump in count: x

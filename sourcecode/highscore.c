@@ -65,7 +65,8 @@ profile* addNewProfile(profile* profileArray, int* NumberOfProfiles){
     waitForEnter();
     (*NumberOfProfiles)++;
     profileArray = realloc(profileArray, sizeof(profile) * *NumberOfProfiles);
-    strcpy(profileArray[*NumberOfProfiles-1].name,name);
+    strncpy(profileArray[*NumberOfProfiles-1].name,name,10);
+    strcpy(&(profileArray[*NumberOfProfiles-1].name[10]),"\0");
     profileArray[*NumberOfProfiles-1].numberOfGames = 0;
     profileArray[*NumberOfProfiles-1].numberOfWins = 0;
     profileArray[*NumberOfProfiles-1].maxScore = 0;

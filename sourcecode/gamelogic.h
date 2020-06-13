@@ -26,6 +26,7 @@ The parameters are :
 -the cards array is only used to print the cards of the player before he has to submit a contract
 It doesn't return anything
 */
+int getContract(int *value, int *color, int minValue, int maxValue, int teamWithContract);
 int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote,int turn,int* T1,int* T2, char** displayMatrix);
 /*This function is called once each turn. Every player plays they card. The score and the winner of said turn are then computed
 the parameters are:

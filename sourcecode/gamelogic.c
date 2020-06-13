@@ -56,18 +56,18 @@ void belote(int **cards, profile* profileArray, int profileNumber,char** display
         printMatrix(displayMatrix);
         printf("Round Results:\n\n");
         if(computeTotalScore(gameContract,roundT1,roundT2,&scoreT1,&scoreT2)){
-            printf("Contract was succesfull !\n");
+            printf("Contract was successsfull !\n");
         }else{
-            printf("Contract was not succesfull !\n");
+            printf("Contract was not successfull !\n");
         }
         printf("The score is:\n-%d for team 1\n-%d for team 2\n",scoreT1, scoreT2);
         printf("Press ENTER to continue");
         waitForEnter();
     }while(scoreT1 < 701 && scoreT2 < 701);
     clear();
+    printf("FINAL RESULTS\\___________________________________________________________\n\n");
+    printf("The final score is :\nT1:%d-%d:T2\n\n",scoreT1,scoreT2);
     if(scoreT1  > scoreT2){
-        printf("FINAL RESULTS\\___________________________________________________________\n\n");
-        printf("The final score is :\nT1:%d-%d:T2\n\n",scoreT1,scoreT2);
         printf("CONGRATULATION! YOU'RE THE WINNER!\n");
         updateProfile(profileArray, profileNumber, 1, scoreT1);
     }else{
@@ -128,6 +128,84 @@ void defineContract(int player, contract* pContract,int **card, char** displayMa
         waitForEnter();
     }while(check==false);
 }
+
+int getContract(int *value, int *color, int minValue, int maxValue, int teamWithContract){//return 1 if a contract was estabished, 0 if the player passed, 2 if the player coinched
+    int intInput;
+    char chInput, temp;
+    if(teamWithContract == 2){
+        printf("Do you want to coinche the opposing team contract ? [Y/n]\n");
+        chInput = getcharB();
+        if(chInput == 'y'||chInput == 'Y'){
+            printf("Contract was coinched\n");
+            return 2;
+        }
+    }
+    printf("Do you want to announce a contrat ? [Y/n]\n");
+    chInput = getcharB();//getchar works in a werid way and sometimes returns \n even with no keyboard inputs, this is used to fix it
+    if (chInput == 'N'||chInput == 'n'){
+        printf("You pass\n");
+        return 0;
+    }
+    else{
+        printf("How much do you want to bet ? (between %d and %d, multiples of 10 only)\n",minValue, maxValue);
+        intInput = getInt();
+        while(intInput <= minValue || intInput > maxValue || intInput%10 != 0){
+            printf("Invalid value, please retry.\n");
+            intInput = getInt();
+        }
+        *value = intInput;
+        printf("On Which color do you want to bet ? [H]eart, [S]pade, [D]iamond [C]lover, [F]ull Trump, [N]o Trump ?\n");
+        while(1){
+            do{
+                chInput = getcharB();
+            }while(chInput == '\n');
+            if(chInput == 'h' || chInput == 'H'){
+                *color = 0;
+                printf("You anounced a contract\n");
+                return 1;
+            }
+            else if(chInput == 's' || chInput == 'S'){
+                *color = 1;
+                printf("You anounced a contract\n");
+                return 1;
+            }
+            else if(chInput == 'd' || chInput == 'D'){
+                *color = 2;
+                printf("You anounced a contract\n");
+                return 1;
+            }
+            else if(chInput == 'c' || chInput == 'C'){
+                *color = 3;
+                printf("You anounced a contract\n");
+                return 1;
+            }
+            else if(chInput == 'c' || chInput == 'C'){
+                *color = 3;
+                printf("You anounced a contract\n");
+                return 1;
+            }
+            else if(chInput == 'c' || chInput == 'C'){
+                *color = 3;
+                printf("You anounced a contract\n");
+                return 1;
+            }
+            else if(chInput == 'f' || chInput == 'F'){
+                *color = 5;
+                printf("You anounced a contract\n");
+                return 1;
+            }
+            else if(chInput == 'n' || chInput == 'N'){
+                *color = 4;
+                printf("You anounced a contract\n");
+                return 1;
+            }
+            else{
+                printf("Invalid input, please retry.\n");
+            }
+        }
+    }
+}
+
 
 int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* belote,int turn,int* T1,int* T2, char** displayMatrix){
     int cardsOfRound[4] = {-1,-1,-1,-1};
@@ -484,9 +562,9 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
                 switch (cardsOfRound[i]%10) {
                     case 0: *score+=0;break;
                     case 1: *score+=0;break;
-                    case 2: *score+=14;break;
+                    case 2: *score+=0;break;
                     case 3: *score+=10;break;
-                    case 4: *score+=20;break;
+                    case 4: *score+=2;break;
                     case 5: *score+=3;break;
                     case 6: *score+=4;break;
                     case 7: *score+=11;break;
@@ -495,9 +573,9 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
                 switch (cardsOfRound[i]%10) {
                     case 0: *score+=0;break;
                     case 1: *score+=0;break;
-                    case 2: *score+=0;break;
+                    case 2: *score+=14;break;
                     case 3: *score+=10;break;
-                    case 4: *score+=2;break;
+                    case 4: *score+=20;break;
                     case 5: *score+=3;break;
                     case 6: *score+=4;break;
                     case 7: *score+=11;break;
