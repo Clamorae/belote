@@ -77,7 +77,7 @@ void belote(int **cards, profile* profileArray, int profileNumber,char** display
         updateProfile(profileArray, profileNumber, 0, scoreT1);
     }
     freeArray(cards,2);
-    //freeArray(displayMatrix,nbofline);
+    freeChar(displayMatrix,31);
     waitForEnter();
 }
 

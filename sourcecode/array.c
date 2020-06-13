@@ -63,12 +63,20 @@ int** create(int lineNumber, int columnNumber){
 	return matrix;
 }
 
-void freeArray(int **cards, int m) {
-    for (int i = 0; i < m; ++i) {
-        free(cards[i]);
+
+//the two function below will free the array but it will only accept char array or int array so we were obliged to make two 
+void freeChar(char** array, int m) {
+    for (int i = 0; i < m; ++i) {//the function will free each line of the array
+        free(array[i]);
     }
-    free(cards);
+    free(array);//then it will free the entire array
 }
 
+void freeArray(int** array, int m) {
+    for (int i = 0; i < m; ++i) {
+        free(array[i]);
+    }
+    free(array);
+}
 
 //gcc -o main.exe main.c highscore.c array.c menu.c gamelogic.c IA.c input.c display.c//
