@@ -76,7 +76,6 @@ void belote(int **cards, profile* profileArray, int profileNumber,char** display
         printf("You lost. Maybe next time :(\n");
         updateProfile(profileArray, profileNumber, 0, scoreT1);
     }
-    freeArray(cards,2);
     waitForEnter();
 }
 
@@ -219,7 +218,8 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
         printMatrix(displayMatrix);
         if(player == 1){
             if (turn==1) {
-                announcement(cards ,player ,&tsequence ,&fosequence ,&fisequence ,&asquare ,&nsquare ,&jsquare );//check if the player has an anouncement, could've been optimzed more by making a sing function for all of the players
+                int colour;
+                announcement(cards ,player ,&tsequence ,&fosequence ,&fisequence ,&asquare ,&nsquare ,&jsquare);//check if the player has an anouncement, could've been optimzed more by making a single function for all of the players
                 if (jsquare==1){
                     printf("You're announcing a square of Jack, for a 200 points value");
                     *T1+=200;
@@ -265,7 +265,7 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
         }
         else{
             if (turn==1) {
-                    announcement(cards ,player ,&tsequence ,&fosequence ,&fisequence ,&asquare ,&nsquare ,&jsquare );
+                    announcement(cards ,player ,&tsequence ,&fosequence ,&fisequence ,&asquare ,&nsquare ,&jsquare);
                 if (jsquare==1){
                     printf("The %d player is announcing a square of Jack, for a 200 points value",player);
                     switch (player){
@@ -525,7 +525,7 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
             comparaisonArray[i] = atoutArray[i];
         }
         colorToMatch = cardsOfRound[0]/10;
-        fullTrump == 1 ;
+        fullTrump = 1 ;
     }else{
         if(atoutMode != 0){
             colorToMatch = atout;
@@ -542,11 +542,17 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
     //this loop will determine the winner of the the round
     for(int i=0;i<8;i++){
         for(int j=0;j<4;j++){
-            if(cardsOfRound[j]/10 == colorToMatch && cardsOfRound[j]%10 == comparaisonArray[i]){
+            if(cardsOfRound[j]/10 == colorToMatch && cardsOfRound[j]%10 == comparaisonArray[i] && fullTrump==0){
                 strongestCard = j;
                 j = 4;
                 i = 8;
             }
+            else if (cardsOfRound[j]%10 == comparaisonArray[i]){
+                strongestCard = j;
+                j = 4;
+                i = 8;
+            }
+
         }
     }
 
@@ -621,7 +627,7 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
 int computeTotalScore(contract contract, int roundT1, int roundT2, int* scoreT1, int* scoreT2){
     int AttackingTeam, ATeamScore, DTeamScore, ATeamFinalScore, DTeamFinalScore,isSucessFull;
 
-    if(contract.team == 1){
+    if(contract.team == 1){//define the "attacking team" and the "defending" one
         AttackingTeam = 1;
         ATeamScore = roundT1;
         DTeamScore = roundT2;
@@ -651,7 +657,7 @@ int computeTotalScore(contract contract, int roundT1, int roundT2, int* scoreT1,
         }
     }
     if(AttackingTeam == 1){
-        (*scoreT1) += ATeamFinalScore;
+        (*scoreT1) += ATeamFinalScore;//add the points to the teams
         (*scoreT2) += DTeamFinalScore;
     }else{
         (*scoreT2) += ATeamFinalScore;
@@ -677,78 +683,66 @@ int getBeloteRebelotte(int** cards, int atout){//return 0 if no belote rebelote,
 }
 
 void announcement(int** cards,int player ,int* tsequence,int* fosequence,int* fisequence,int* asquare,int* nsquare,int* jsquare){
-    int count=0,higher[2]={0,0};
-    for (int i = 8*(player-1); i < 8*player; i++){
-        if (cards[0][i]%10==4){
-            count++;
-        }
-    }
+    int count=0,higher=0;//count is for the square and higher for the sequences because for sequences I need to find the colour of the bid
+    count=squarebid(cards,player,4);//call to the count function which will count the number of jack in the player's hand
     if (count==4){
         *jsquare=1;
     }
-    count=0;
-    for (int i = 8*(player-1); i < 8*player; i++){
-        if (cards[0][i]%10==2){
-            count++;
-        }
-    }
+    count=0;//the count variable is reset between each bid check
+    count=squarebid(cards,player,2);
     if (count==4){
         *nsquare=1;
     }
     count=0;
-    for (int i = 8*(player-1); i < 8*player; i++){
-        if (cards[0][i]%10==7){
-            count++;
-        }
-    }
+    count=squarebid(cards,player,7);
     if (count==4){
         *asquare=7;
     }
     count=0;
-    for (int i = 8*(player-1); i < 8*player; i++){
-        if (cards[0][i]%10==6){
-            count++;
-        }
-    }
+    count=squarebid(cards,player,7);
     if (count==4){
         *asquare=6;
     }
     count=0;
-    for (int i = 8*(player-1); i < 8*player; i++){
-        if (cards[0][i]%10==5){
-            count++;
-        }
-    }
+    count=squarebid(cards,player,5);
     if (count==4){
         *asquare=5;
     }
     count=0;
-    for (int i = 8*(player-1); i < 8*player; i++){
-        if (cards[0][i]%10==3){
-            count++;
-        }
-    }
+    count=squarebid(cards,player,3);
     if (count==4){
         *asquare=3;
     }
     count=0;
+    //the part below is the sequence bid check
     for (int i = 8*(player-1); i < 8*player; i++){
-        if ((cards[0][i]%10==(cards[0][i-1]%10)+1)&&(cards[0][i]/10==(cards[0][i-1]/10))){
+        if ((cards[0][i]%10==(cards[0][i-1]%10)+1)&&(cards[0][i]/10==(cards[0][i-1]/10))){//the programme will check if there is a sequence of two and incrment the count variable for eeach of them
             count++;
         }
         else{
-            higher[0]=count;
-            higher[1]=cards[0][i]/10;
-            count=0;
+            if (higher<count){
+                higher=count;//If the sequence is break and the sequences count is superior as previuosly the new higher sequence will be stocked here
+            }
+            count=0; //The count variable will be reset
+        }
+        if (higher==2){//each type of sequence has a variable which is changed if the sequences exist
+            *tsequence=1;
+        }
+        else if (higher==3){
+            *fosequence=1;
+        }
+        else if (higher>3){
+            *fisequence=1;
         }
     }
-    if (higher[0]==3){
-        *tsequence=1;
+}
+
+int squarebid(int** cards,int player,int search){
+    int count=0;
+    for (int i = 8*(player-1); i < 8*player; i++){// this function will increment count each time their is a cards of the "search" value in the player's hand
+        if (cards[0][i]%10==search){
+            count++;
+        }
     }
-    else if (higher[0]==4){
-        *fosequence=1;
-    }
-    else if (higher[0]>4){
-        *fisequence=1;
-    }
+    return count;
 }
