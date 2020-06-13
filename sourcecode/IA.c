@@ -100,13 +100,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                 if (playableCards[j]%10==value[i]){
                     winnable=true;//this boolean indicate the played carte is able to win the round
                     cardsOfRound[turn] = playableCards[j];//the IA will play the lowest card with which it can win
-                    for(int k=((player-1)*8);k<(player*8);k++){
-                        if (cards[0][k] == playableCards[j]){
-                            cards[1][k] = 0;
-                        }
-                    }
-                    j=8;
-                    i=8; //when the card is played the loop will break for preventing the IA to play multiple cards
+                    removeCard(cards,player,cardsOfRound,turn,&i,&j);
                 }
             }
         }
@@ -115,13 +109,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                 for (int j = 0; j < 8; j++){
                     if (playableCards[j]%10==value[i]){
                         cardsOfRound[turn] = playableCards[j];
-                        for(int k=((player-1)*8);k<(player*8);k++){
-                            if (cards[0][k] == playableCards[j]){
-                                cards[1][k] = 0;
-                            }
-                        }
-                        j=8;
-                        i=8;
+                        removeCard(cards,player,cardsOfRound,turn,&i,&j);
                     }
                 }
             }
@@ -147,11 +135,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                     if (playableCards[j]%10==value[i]){
                         winnable=true;
                         cardsOfRound[turn] = playableCards[j];
-                        for(int k=((player-1)*8);k<(player*8);k++){
-                            if (cards[0][k] == playableCards[j]){
-                                cards[1][k] = 0;
-                            }
-                        }
+                        removeCard(cards,player,cardsOfRound,turn,&i,&j);
                         j=8;
                         i=8;
                     }
@@ -162,13 +146,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                     for (int j = 0; j < 8; j++){
                         if (playableCards[j]%10==value[i]){
                             cardsOfRound[turn] = playableCards[j];
-                            for(int k=((player-1)*8);k<(player*8);k++){
-                                if (cards[0][k] == playableCards[j]){
-                                    cards[1][k] = 0;
-                                }
-                            }
-                            j=8;
-                            i=8;
+                            removeCard(cards,player,cardsOfRound,turn,&i,&j);
                         }
                     }
                 }
@@ -179,13 +157,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                 for (int j = 0; j < 8; j++){
                     if (playableCards[j]%10==value[i]){//this double loop will check which one is the lowest in the playablecard array and play it
                         cardsOfRound[turn] = playableCards[j];
-                        for(int k=((player-1)*8);k<(player*8);k++){
-                            if (cards[0][k] == playableCards[j]){
-                                cards[1][k] = 0;
-                            }
-                        }
-                        j=8;
-                        i=8;
+                        removeCard(cards,player,cardsOfRound,turn,&i,&j);
                     }
                 }
             }
@@ -198,13 +170,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
             for (int j = 0; j < 8; j++){
                 if (playableCards[j]%10==value[i]){
                     cardsOfRound[turn] = playableCards[j];
-                    for(int k=((player-1)*8);k<(player*8);k++){
-                        if (cards[0][k] == cardsOfRound[turn]){
-                            cards[1][k] = 0;
-                        }
-                    }
-                    j=8;
-                    i=8;
+                    removeCard(cards,player,cardsOfRound,turn,&i,&j);
                 }
             }
         }
@@ -229,13 +195,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                 if (playableCards[j]%10==value[i]){
                     winnable=true;
                     cardsOfRound[turn] = playableCards[j];
-                    for(int k=((player-1)*8);k<(player*8);k++){
-                        if (cards[0][k] == playableCards[j]){
-                            cards[1][k] = 0;
-                        }
-                    }
-                    j=8;
-                    i=8;
+                    removeCard(cards,player,cardsOfRound,turn,&i,&j);
                 }
             }
         }
@@ -244,13 +204,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                 for (int j = 0; j < 8; j++){
                     if (playableCards[j]%10==value[i]){
                         cardsOfRound[turn] = playableCards[j];
-                        for(int k=((player-1)*8);k<(player*8);k++){
-                            if (cards[0][k] == playableCards[j]){
-                                cards[1][k] = 0;
-                            }
-                        }
-                        j=8;
-                        i=8;
+                        removeCard(cards,player,cardsOfRound,turn,&i,&j);
                     }
                 }
             }
@@ -277,13 +231,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                     if (playableCards[j]%10==value[i]){
                         winnable=true;
                         cardsOfRound[turn] = playableCards[j];
-                        for(int k=((player-1)*8);k<(player*8);k++){
-                            if (cards[0][k] == playableCards[j]){
-                                cards[1][k] = 0;
-                            }
-                        }
-                        j=8;
-                        i=8;
+                        removeCard(cards,player,cardsOfRound,turn,&i,&j);
                     }
                 }
             }
@@ -292,13 +240,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                     for (int j = 0; j < 8; j++){
                         if (playableCards[j]%10==value[i]){
                             cardsOfRound[turn] = playableCards[j];
-                            for(int k=((player-1)*8);k<(player*8);k++){
-                                if (cards[0][k] == playableCards[j]){
-                                    cards[1][k] = 0;
-                                }
-                            }
-                            j=8;
-                            i=8;
+                            removeCard(cards,player,cardsOfRound,turn,&i,&j);
                         }
                     }
                 }
@@ -310,13 +252,7 @@ void IAplayCard(int** cards, int* cardsOfRound, int atoutMode, int atout,int pla
                 for (int j = 0; j < 8; j++){
                     if (playableCards[j]%10==value[i]){
                         cardsOfRound[turn] = playableCards[j];
-                        for(int k=((player-1)*8);k<(player*8);k++){
-                            if (cards[0][k] == playableCards[j]){
-                                cards[1][k] = 0;
-                            }
-                        }
-                        j=8;
-                        i=8;
+                        removeCard(cards,player,cardsOfRound,turn,&i,&j);
                     }
                 }
             }
@@ -422,4 +358,14 @@ void IAgetplayablecards(int** cards,int* cardsOfRound, int* playableCards, int a
             }
         }
     }
+}
+
+void removeCard(int** cards,int player,int* cardsOfround, int turn, int* i, int* j){
+    for(int k=((player-1)*8);k<(player*8);k++){
+        if (cards[0][k] == cardsOfround[turn]){
+            cards[1][k] = 0;
+        }
+    }
+    *i=8;
+    *j=8;
 }
