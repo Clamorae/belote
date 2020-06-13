@@ -12,7 +12,7 @@
     trump in contract: V
     trump in count: x
     winner start: v
-    comment: 1/2
+    comment display/menu/main : x
     see card before anoucing contracts: V
     dé-coinche when a new contracts is anounced: ?
     display results screen at the end of the game: v
@@ -20,6 +20,9 @@
     make a good clear function (NOT print \n\n\n\n\n\n\n...): v
     add some waitForEnter(); where it needs to: v
     prevent people from creating profiles with the same names: x
+    display/input in the report: x
+    verify the report : x
+    return colours: x
 */
 
 int main(){

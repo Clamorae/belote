@@ -99,7 +99,18 @@ it ruturns the player who has the belotte/rebelotte, 0 if no one does
 */
 void announcement(int** cards,int player ,int* tsequence,int* fosequence,int* fisequence,int* asquare,int* nsquare,int* jsquare);
 /*
-    Kant1 comment la
+    This function check if any player can make a bid
+    the parameters are:
+    -the cards array
+    -the player who is currently paying
+    -the tsequence pointer which indiquate if the player has a sequence of three
+    -the fosequence pointer which indiquate if the player has a sequence of four
+    -the fisequence pointer which indiquate if the player has a sequence of five
+    -the asquare pointer which indiquate if the player has a square of Ace or a square of Queen or a square of King or a square Ten
+    -the nsquare pointer which indiquate if the player has a square of nine
+    -the jsquare pointer which indiquate if the player has a square of Jack
+    all the ponter will be incremented if the corresponding bid is on the players hand
 */
-
+int squarebid(int** cards,int player,int search);
+/*this function will check if there is a square of value"search in the player hand*/
 //Copyright (c) 2018 Copyright Holder All Rights Reserved.
