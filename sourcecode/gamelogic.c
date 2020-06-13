@@ -76,7 +76,7 @@ void belote(int **cards, profile* profileArray, int profileNumber,char** display
         printf("You lost. Maybe next time :(\n");
         updateProfile(profileArray, profileNumber, 0, scoreT1);
     }
-    freeCards(cards,2);
+    freeArray(cards,2);
     waitForEnter();
 }
 
@@ -542,7 +542,7 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
     //this loop will determine the winner of the the round
     for(int i=0;i<8;i++){
         for(int j=0;j<4;j++){
-            if((cardsOfRound[j]/10 == colorToMatch && cardsOfRound[j]%10 == comparaisonArray[i] && )||){
+            if(cardsOfRound[j]/10 == colorToMatch && cardsOfRound[j]%10 == comparaisonArray[i]){
                 strongestCard = j;
                 j = 4;
                 i = 8;

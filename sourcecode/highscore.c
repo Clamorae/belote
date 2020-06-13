@@ -68,9 +68,9 @@ profile* addNewProfile(profile* profileArray, int* NumberOfProfiles){
     scanf("%s", name);
     waitForEnter();//scanf add a \n to the buffer, this is used to remove it
     (*NumberOfProfiles)++;
-    profileArray = realloc(profileArray, sizeof(profile) * *NumberOfProfiles);//reallocat the memory to be able to fit the new player in
+    profileArray = realloc(profileArray, sizeof(profile) * *NumberOfProfiles);//reallocate the memory to be able to fit the new player in
     strncpy(profileArray[*NumberOfProfiles-1].name,name,10);
-    strcpy(&(profileArray[*NumberOfProfiles-1].name[10]),"\0");
+    strcpy(&(profileArray[*NumberOfProfiles-1].name[10]),"\0");//only copy to the tenth chracater then add \0
     profileArray[*NumberOfProfiles-1].numberOfGames = 0;//initilize the new data
     profileArray[*NumberOfProfiles-1].numberOfWins = 0;
     profileArray[*NumberOfProfiles-1].maxScore = 0;
