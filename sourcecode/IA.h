@@ -12,3 +12,4 @@ void IAgetplayablecards(int** cards, int* cardsOfRound,int* playableCards, int a
   this will analyze the current round thanks to the carsOfRound array and depend of wich type of game it is(Fulltrump/noTRump/normal/normal with trump in play...)
   it will check if the card respect the rule and if it's true add the card in the array playablecard */
 
+void removeCard(int** cards,int player,int* cardsOfround, int turn);
