@@ -19,4 +19,4 @@ int randomize(int **array);//a function which takes a two dimensional array as p
   but in our check it will not be added in the playablecard array 
   and no one will be able to replay a card which has been already played
     */
-void freeCards(int **cards);// this function will free the two dimensionnal array
+void freeCards(int **cards, int m);// this function will free the two dimensionnal array

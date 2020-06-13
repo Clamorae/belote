@@ -74,7 +74,7 @@ void belote(int **cards, profile* profileArray, int profileNumber,char** display
         printf("You lost. Maybe next time :(\n");
         updateProfile(profileArray, profileNumber, 0, scoreT1);
     }
-    freeCards(cards);
+    freeCards(cards,2);
     waitForEnter();
 }
 

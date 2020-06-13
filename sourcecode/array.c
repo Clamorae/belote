@@ -63,8 +63,8 @@ int** create(int lineNumber, int columnNumber){
 	return matrix;
 }
 
-void freeCards(int **cards) {
-    for (int i = 0; i < 2; ++i) {
+void freeArray(int **cards, int m) {
+    for (int i = 0; i < m; ++i) {
         free(cards[i]);
     }
     free(cards);
