@@ -15,25 +15,26 @@ void belote(int **cards, profile* profileArray, int profileNumber,char** display
     int scoreT1 = 0, scoreT2 = 0,roundT1, roundT2, first, belote;
     int round = 0;
     contract gameContract;//create a contract type variable for the game
-    clearMatrix(displayMatrix);
-    mtrxFillText(0,profileArray[profileNumber].name,displayMatrix);
+    clearMatrix(displayMatrix);//Clear the display matric before the game
+    mtrxFillText(0,profileArray[profileNumber].name,displayMatrix);//fill it with information
     mtrxFillInt(1,profileArray[profileNumber].numberOfGames,displayMatrix);
     mtrxFillInt(2,profileArray[profileNumber].maxScore,displayMatrix);
     printf("The game is about to begin...Be ready\n");
     waitForEnter();
     do{
+        //this loop won't exit until the game has been won by a team
         round ++;
         mtrxFillInt(3,scoreT1,displayMatrix);
         mtrxFillInt(4,scoreT2,displayMatrix);
         mtrxFillInt(5,round,displayMatrix);
         mtrxFillInt(6,0,displayMatrix);
-        randomize(cards);
+        randomize(cards);//cards are beeing shuffled and redistributed;
         mtrxPrintP1Cards(displayMatrix,cards);
-        roundT1 = 0;roundT2=0;
+        roundT1 = 0;roundT2=0;//score of the round of the game
         mtrxFillInt(7,roundT1,displayMatrix);
         mtrxFillInt(8,roundT2,displayMatrix);
         printMatrix(displayMatrix);
-        first = rand()%4+1;
+        first = rand()%4+1;//the first player is choosen randomly
         printf("ROUND NUMBER %d\n",round);
         printf("The first to submit a contract for this round will be player %d\n",first);
         waitForEnter();
@@ -44,6 +45,7 @@ void belote(int **cards, profile* profileArray, int profileNumber,char** display
         roundT2 = 0;
         belote = getBeloteRebelotte(cards, gameContract.color);//get wich player has the belote rebelote
         for(int i =0;i<8;i++){
+            //the loop will be ran once for each turn (8 turns)
             mtrxFillInt(6,i+1,displayMatrix);
             mtrxFillInt(7,roundT1,displayMatrix);
             mtrxFillInt(8,roundT2,displayMatrix);
@@ -81,11 +83,11 @@ void belote(int **cards, profile* profileArray, int profileNumber,char** display
 void defineContract(int player, contract* pContract,int **card, char** displayMatrix){
     int passes,temp;
     passes = 0;
-    (*pContract).team = 0, (*pContract).value = 60, (*pContract).color = 0, (*pContract).isCoinched = 0;
-    bool check=false;
+    (*pContract).team = 0, (*pContract).value = 60, (*pContract).color = 0, (*pContract).isCoinched = 0;// the previous contract is cleared
+    bool check=false;// this bool will turn to true whenever the contract is established
     srand(time(0));
     do{
-        if((*pContract).team == 0){
+        if((*pContract).team == 0){// if team == 0, thats mean there's no contract
             mtrxFillText(9,"No contract anounced",displayMatrix);
         }else{
             mtrxFillText(9,getColorString((*pContract).color),displayMatrix);
@@ -96,23 +98,23 @@ void defineContract(int player, contract* pContract,int **card, char** displayMa
         printMatrix(displayMatrix);
         printf("It's player %d turn\n",player);
         if (player == 1){
-            temp = getContract(&pContract->value, &pContract->color, (*pContract).value, 680, (*pContract).team);
+            temp = getContract(&pContract->value, &pContract->color, (*pContract).value, 680, (*pContract).team);//atout == 4 and 5 are for no trump and full trump
             switch(temp) {
-                case 1:
+                case 1://a contract was anounced
                     (*pContract).team = 1;
                     passes = 0;
                     break;
-                case 2:
+                case 2://the prvious contract was coinched
                     (*pContract).isCoinched = 1;
                     passes = 0;
                     break;
-                default:
+                default://the player passed
                     passes++;
                     break;
             }
         }
         else{
-            BotContract(card,player,&passes,&pContract->value,&pContract->team,&pContract->color,&pContract->isCoinched);
+            BotContract(card,player,&passes,&pContract->value,&pContract->team,&pContract->color,&pContract->isCoinched);//get a contract from the bot
         }
         player ++;
         if(player>4){player = 1;}
@@ -133,7 +135,7 @@ void defineContract(int player, contract* pContract,int **card, char** displayMa
 int getContract(int *value, int *color, int minValue, int maxValue, int teamWithContract){//return 1 if a contract was estabished, 0 if the player passed, 2 if the player coinched
     int intInput;
     char chInput, temp;
-    if(teamWithContract == 2){
+    if(teamWithContract == 2){//if the team has a contrat, it gives you the poddibility to coinche
         printf("Do you want to coinche the opposing team contract ? [Y/n]\n");
         chInput = getcharB();
         if(chInput == 'y'||chInput == 'Y'){
@@ -217,7 +219,7 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
         printMatrix(displayMatrix);
         if(player == 1){
             if (turn==1) {
-                announcement(cards ,player ,&tsequence ,&fosequence ,&fisequence ,&asquare ,&nsquare ,&jsquare );
+                announcement(cards ,player ,&tsequence ,&fosequence ,&fisequence ,&asquare ,&nsquare ,&jsquare );//check if the player has an anouncement, could've been optimzed more by making a sing function for all of the players
                 if (jsquare==1){
                     printf("You're announcing a square of Jack, for a 200 points value");
                     *T1+=200;
@@ -389,7 +391,7 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
         if(player>4){player = 1;}
         if((cardsOfRound[i]/10 == atout && cardsOfRound[i] != -1 && atout != 4)|| atout == 5){
             atoutMode = i+1;
-        }
+        }//If one of the player plays an atout, this variable will change to the turn when it was played. It used for the computation of the score later on
 
     }
     int winTeam, score;
@@ -409,7 +411,7 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
 }
 
 void playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn,int* belote){
-    int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};
+    int playableCards[8] = {-1,-1,-1,-1,-1,-1,-1,-1};//create an array where all the playable crads will be stored
     int numberOfPCards = 0, count=0;
     numberOfPCards = getplayablecards(cards,cardsOfRound,playableCards,*atoutMode,atout);
     printf("Your playable cards are:\n");
@@ -421,7 +423,7 @@ void playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn
     do{
         UserInput = getInt();
     }while(UserInput < 1 || UserInput > numberOfPCards);
-    cardsOfRound[turn] = playableCards[UserInput - 1];
+    cardsOfRound[turn] = playableCards[UserInput - 1];//copy the playable cards into the array of the game
     if ((playableCards[UserInput - 1]/10==atout)&&((playableCards[UserInput - 1]%10==5)||(playableCards[UserInput - 1]%10==6))){
         for (int i = 0; i < 8; i++){
             if ((cards[0][i]/10==atout)&&((cards[0][i]%10==5)||(cards[0][i]%10==6))){
@@ -438,7 +440,7 @@ void playCard(int** cards, int* cardsOfRound, int* atoutMode, int atout,int turn
             }
         }
     }
-    for(int i=0; i<8; i++){
+    for(int i=0; i<8; i++){// clear the played card from the "cards" array
         if (cards[0][i] == playableCards[UserInput - 1]){
             cards[1][i] = 0;
         }
@@ -449,10 +451,10 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
     int NofPCards = 0;
     int colorToMatch;
     if(atout == 5){
-        compareAndAdd(cards,playableCards,&NofPCards,-1);//Override the atout value to follow a simple continue if you can, play whatever if you cant
+        compareAndAdd(cards,playableCards,&NofPCards,-1);//Allows you to play what you want in the case of a full trump
         return NofPCards;
     }else if(atout == 4){
-        atoutMode = 1;//Override the atout value to follow a simple continue if you can, play whatever if you cant
+        atoutMode = 1;//Override the atout value to force you to continue or to play something else if you cant
         colorToMatch = cardsOfRound[0]/10;
     }else{
         if(atoutMode != 0){
@@ -462,6 +464,7 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
             colorToMatch = cardsOfRound[0]/10;
         }
     }
+    //if you're first, you can play whatever you want. If you're not fist, depending on atoutMode, you can play an atout or what you want. If you don't have any atout, you can just play what you want
     if(cardsOfRound[0] == -1){
         compareAndAdd(cards,playableCards,&NofPCards,-1);
     }
@@ -483,7 +486,7 @@ int getplayablecards(int** cards, int* cardsOfRound,int* playableCards, int atou
 }
 
 void compareAndAdd(int** cards, int* playableCards,int* NofPCards, int colorToCompare){
-    if(colorToCompare == -1){
+    if(colorToCompare == -1){//if equals to -1, all cards will be playable
         for(int i=0;i<8;i++){
             if(cards[1][i] != 0){
                 playableCards[*NofPCards] = cards[0][i];
@@ -503,7 +506,7 @@ void compareAndAdd(int** cards, int* playableCards,int* NofPCards, int colorToCo
 
 int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int atout, int atoutMode){
     int strongestCard, colorToMatch;
-    int atoutArray[8] = {4,2,7,3,6,5,1,0};
+    int atoutArray[8] = {4,2,7,3,6,5,1,0};// arrays of cards, from the strongest to the weakest, depending if an atout has been played or not
     int notAtoutArray[8] = {7,3,6,5,4,2,1,0};
     int comparaisonArray[8];
     int fullTrump = 0, noTrump=0;
@@ -522,7 +525,7 @@ int CalculateScore(int* winTeam, int* score, int* cardsOfRound, int player, int 
             comparaisonArray[i] = atoutArray[i];
         }
         colorToMatch = cardsOfRound[0]/10;
-        fullTrump = 5;
+        fullTrump == 1 ;
     }else{
         if(atoutMode != 0){
             colorToMatch = atout;
