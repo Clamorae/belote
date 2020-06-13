@@ -221,40 +221,40 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                 int colour;
                 announcement(cards ,player ,&tsequence ,&fosequence ,&fisequence ,&asquare ,&nsquare ,&jsquare);//check if the player has an anouncement, could've been optimzed more by making a single function for all of the players
                 if (jsquare==1){
-                    printf("You're announcing a square of Jack, for a 200 points value");
+                    printf("You're announcing a square of Jack, for a 200 points value\n");
                     *T1+=200;
                 }
                 else if (nsquare==1){
-                    printf("You're announcing a square of 9, for a 150 points value");
+                    printf("You're announcing a square of 9, for a 150 points value\n");
                     *T1+=150;
                 }
                 else if (tsequence==1){
-                    printf("You're announcing a sequence of 3, for a 20 points value");
+                    printf("You're announcing a sequence of 3, for a 20 points value\n");
                     *T1+=20;
                 }
                 else if (fosequence==1){
-                    printf("You're announcing a sequence of 4, for a 50 points value");
+                    printf("You're announcing a sequence of 4, for a 50 points value\n");
                     *T1+=50;
                 }
                 else if (nsquare==1){
-                    printf("You're announcing a sequence of 5, for a 100 points value");
+                    printf("You're announcing a sequence of 5, for a 100 points value\n");
                     *T1+=100;
                 }
                 switch (asquare){
                 case 3:
-                    printf("You're announcing a square of 10, for a 100 points value");
+                    printf("You're announcing a square of 10, for a 100 points value\n");
                     *T1+=100;
                     break;
                 case 5:
-                    printf("You're announcing a square of Queen, for a 100 points value");
+                    printf("You're announcing a square of Queen, for a 100 points value\n");
                     *T1+=100;
                     break;
                 case 6:
-                    printf("You're announcing a square of King, for a 100 points value");
+                    printf("You're announcing a square of King, for a 100 points value\n");
                     *T1+=100;
                     break;
                 case 7:
-                    printf("You're announcing a square of Ace, for a 100 points value");
+                    printf("You're announcing a square of Ace, for a 100 points value\n");
                     *T1+=100;
                     break;
                 default:
@@ -267,7 +267,7 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
             if (turn==1) {
                     announcement(cards ,player ,&tsequence ,&fosequence ,&fisequence ,&asquare ,&nsquare ,&jsquare);
                 if (jsquare==1){
-                    printf("The %d player is announcing a square of Jack, for a 200 points value",player);
+                    printf("The %d player is announcing a square of Jack, for a 200 points value\n",player);
                     switch (player){
                     case 2||4:
                         *T2+=200;
@@ -279,7 +279,7 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     }
                 }
                 else if (nsquare==1){
-                    printf("The %d player is announcing a square of 9, for a 150 points value",player);
+                    printf("The %d player is announcing a square of 9, for a 150 points value\n",player);
                     switch (player){
                     case 2||4:
                         *T2+=150;
@@ -291,7 +291,7 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     }
                 }
                 else if (tsequence==1){
-                    printf("The %d player is announcing a sequence of 3, for a 20 points value",player);
+                    printf("The %d player is announcing a sequence of 3, for a 20 points value\n",player);
                     switch (player){
                     case 2||4:
                         *T2+=20;
@@ -303,7 +303,7 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     }
                 }
                 else if (fosequence==1){
-                    printf("The %d player is announcing a sequence of 4, for a 50 points value",player);
+                    printf("The %d player is announcing a sequence of 4, for a 50 points value\n",player);
                     switch (player){
                     case 2||4:
                         *T2+=500;
@@ -315,7 +315,7 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     }
                 }
                 else if (nsquare==1){
-                    printf("The %d player is announcing a sequence of 5, for a 100 points value",player);
+                    printf("The %d player is announcing a sequence of 5, for a 100 points value\n",player);
                     switch (player){
                     case 2||4:
                         *T2+=100;
@@ -328,7 +328,7 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                 }
                 switch (asquare){
                 case 3:
-                    printf("The %d player is announcing a square of 10, for a 100 points value",player);
+                    printf("The %d player is announcing a square of 10, for a 100 points value\n",player);
                     switch (player){
                     case 2||4:
                         *T2+=100;
@@ -340,7 +340,7 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     }
                     break;
                 case 5:
-                    printf("The %d player is announcing a square of Queen, for a 100 points value",player);
+                    printf("The %d player is announcing a square of Queen, for a 100 points value\n",player);
                     switch (player){
                     case 2||4:
                         *T2+=100;
@@ -352,7 +352,7 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     }
                     break;
                 case 6:
-                    printf("The %d player is announcing a square of King, for a 100 points value",player);
+                    printf("The %d player is announcing a square of King, for a 100 points value\n",player);
                     switch (player){
                     case 2||4:
                         *T2+=100;
@@ -365,7 +365,7 @@ int turn(int** cards,int player, int atout, int* roundT1, int* roundT2, int* bel
                     break;
         atoutMode = 1;
                 case 7:
-                    printf("The %d player is announcing a square of Ace, for a 100 points value",player);
+                    printf("The %d player is announcing a square of Ace, for a 100 points value\n",player);
                     switch (player){
                     case 2||4:
                         *T2+=100;
