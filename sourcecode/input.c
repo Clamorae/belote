@@ -7,26 +7,27 @@
 #else
     #define CLS "clear"
 #endif
+//command to clear the screen respectively on windows or Unix based system such as Linux/MacOS
 
 char getcharB(){//A fucntion that actually return what you fucking want instead of doing stupid bullshit
     char out;
-    while((out = getchar())=='\n');
-    while(getchar() != '\n');
+    while((out = getchar())=='\n');//clear all previous \n in the buffer and wait for an actual char stored in out
+    while(getchar() != '\n');//clear the last \n
     return out;
 }
 
 int getInt(){
     int out;
     while((scanf("%d",&out))==0){
-        printf("Invalid Value, please press enter and retry\n");
+        printf("Invalid Value, please press enter and retry\n");//make sure bad/empty data isn't parsed
         while(getchar() != '\n');
     }
-    while(getchar() != '\n');
+    while(getchar() != '\n');//clear the last input//
     return out;
 }
 
 void waitForEnter(){
-    while(getchar() != '\n');
+    while(getchar() != '\n');//clear all the previos data that was stored in the buffer
 }
 
 
@@ -58,5 +59,5 @@ char* getValueString(int value){
 
 
 void clear(){
-    system(CLS);
+    system(CLS);//CLS is replaced by the good command depending of the system
 }
