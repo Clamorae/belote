@@ -29,7 +29,7 @@ void belote(int **cards, profile* profileArray, int profileNumber,char** display
         mtrxFillInt(5,round,displayMatrix);
         mtrxFillInt(6,0,displayMatrix);
         randomize(cards);//cards are beeing shuffled and redistributed;
-        mtrxPrintP1Cards(displayMatrix,cards);
+        mtrxPrintP1Cards(displayMatrix,cards);//The matrix is displayed for the first time
         roundT1 = 0;roundT2=0;//score of the round of the game
         mtrxFillInt(7,roundT1,displayMatrix);
         mtrxFillInt(8,roundT2,displayMatrix);
@@ -38,7 +38,7 @@ void belote(int **cards, profile* profileArray, int profileNumber,char** display
         printf("ROUND NUMBER %d\n",round);
         printf("The first to submit a contract for this round will be player %d\n",first);
         waitForEnter();
-        defineContract(first,&gameContract,cards,displayMatrix);
+        defineContract(first,&gameContract,cards,displayMatrix);//contract is defined here
         first++;
         if (first>4){first = 1;}
         roundT1 = 0;
@@ -68,7 +68,7 @@ void belote(int **cards, profile* profileArray, int profileNumber,char** display
     }while(scoreT1 < 701 && scoreT2 < 701);
     clear();
     printf("FINAL RESULTS\\___________________________________________________________\n\n");
-    printf("The final score is :\nT1:%d-%d:T2\n\n",scoreT1,scoreT2);
+    printf("The final score is :\nT1:%d\nT2:%d\n\n",scoreT1,scoreT2);
     if(scoreT1  > scoreT2){
         printf("CONGRATULATION! YOU'RE THE WINNER!\n");
         updateProfile(profileArray, profileNumber, 1, scoreT1);
@@ -156,7 +156,7 @@ int getContract(int *value, int *color, int minValue, int maxValue, int teamWith
             intInput = getInt();
         }
         *value = intInput;
-        printf("On Which color do you want to bet ? [H]eart, [S]pade, [D]iamond [C]lover, [F]ull Trump, [N]o Trump ?\n");
+        printf("On Which color do you want to bet ? [H]eart, [S]pade, [D]iamond, [C]lub, [F]ull Trump, [N]o Trump ?\n");
         while(1){
             do{
                 chInput = getcharB();

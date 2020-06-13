@@ -120,4 +120,3 @@ void announcement(int** cards,int player ,int* tsequence,int* fosequence,int* fi
 */
 int squarebid(int** cards,int player,int search);
 /*this function will check if there is a square of value"search in the player hand*/
-//Copyright (c) 2018 Copyright Holder All Rights Reserved.

@@ -10,13 +10,13 @@ typedef struct profile {
 n is the number of profiles saved
 
 n
-name n
+name 1
 played games 1
 won games 1
 high score 1
 ...
 name n
-played games 1
+played games n
 won games n
 high score n
 
@@ -24,9 +24,9 @@ eg:
 2
 Jhonny
 8
-6
-1234
-Gyro
+6                                 ---->Jhonny, 8 games, won 6 times, has a best of 1234
+1234     -------------> 2 profiles
+Gyro                              ---->Gyro, 420 games, won 69 times, has a best of 1002
 420
 69
 1002
