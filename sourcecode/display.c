@@ -132,7 +132,7 @@ void mtrxPrintCard(int x, int y, int cardValue, char** displayMatrix){
     }
 }
 
-void mtrxPrintRoundCard(int pleayer, int cardValue, char** displayMatrix){
+void mtrxPrintRoundCard(int player, int cardValue, char** displayMatrix){
     switch (player) {//every player is linked to x and y coordinates
         case 1:
             mtrxPrintCard(17,15 ,cardValue,displayMatrix);
